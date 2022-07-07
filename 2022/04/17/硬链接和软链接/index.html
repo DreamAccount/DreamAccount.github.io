@@ -16,15 +16,15 @@
   <meta name="author" content="404NotFound">
   <meta name="keywords" content="">
   
-    <meta name="description" content="硬链接和软链接1.inode的概念文件存储在磁盘上,磁盘在格式化文件系统后,分为两个部分,一个是inode存储区,一个是数据存储区,每个inode存储了这个文件详细信息,这些信息一般有:  1.文件的所属者  2.文件的所属组  3.文件的权限  4.文件的创建时间  5.文件最近修改的时间  6.文件的最近访问时间  7.链接数,(有多少个链接指向这个文件)  8.文件的大小 用户可以使用sta">
+    <meta name="description" content="硬链接和软链接1.inode的概念文件存储在磁盘上,磁盘在格式化文件系统后,分为两个部分,一个是inode存储区,一个是数据存储区,每个inode存储了这个文件详细信息,这些信息一般有:  1.文件的所属者  2.文件的所属组  3.文件的权限  4.文件的创建时间  5.文件最近修改的时间  6.文件的最近访问时间  7.链接数,(有多少个链接指向这个文件)  8.文件的大小   用户可以使用s">
 <meta property="og:type" content="article">
 <meta property="og:title" content="硬链接和软链接">
-<meta property="og:url" content="http://dreamaccount.github.io/2022/04/17/%E7%A1%AC%E9%93%BE%E6%8E%A5%E5%92%8C%E8%BD%AF%E9%93%BE%E6%8E%A5/index.html">
+<meta property="og:url" content="https://dreamaccount.github.io/2022/04/17/%E7%A1%AC%E9%93%BE%E6%8E%A5%E5%92%8C%E8%BD%AF%E9%93%BE%E6%8E%A5/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="硬链接和软链接1.inode的概念文件存储在磁盘上,磁盘在格式化文件系统后,分为两个部分,一个是inode存储区,一个是数据存储区,每个inode存储了这个文件详细信息,这些信息一般有:  1.文件的所属者  2.文件的所属组  3.文件的权限  4.文件的创建时间  5.文件最近修改的时间  6.文件的最近访问时间  7.链接数,(有多少个链接指向这个文件)  8.文件的大小 用户可以使用sta">
+<meta property="og:description" content="硬链接和软链接1.inode的概念文件存储在磁盘上,磁盘在格式化文件系统后,分为两个部分,一个是inode存储区,一个是数据存储区,每个inode存储了这个文件详细信息,这些信息一般有:  1.文件的所属者  2.文件的所属组  3.文件的权限  4.文件的创建时间  5.文件最近修改的时间  6.文件的最近访问时间  7.链接数,(有多少个链接指向这个文件)  8.文件的大小   用户可以使用s">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-17T13:47:52.000Z">
-<meta property="article:modified_time" content="2022-06-23T14:03:47.840Z">
+<meta property="article:modified_time" content="2022-07-07T12:21:26.370Z">
 <meta property="article:author" content="404NotFound">
 <meta property="article:tag" content="计算机基础">
 <meta name="twitter:card" content="summary_large_image">
@@ -307,6 +307,8 @@
 <li><p>7.链接数,(有多少个链接指向这个文件)</p>
 </li>
 <li><p>8.文件的大小</p>
+</li>
+</ul>
 <p>用户可以使用stat命令查看这些信息</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">stat</span> filename<br></code></pre></td></tr></table></figure>
 
@@ -315,12 +317,10 @@
 <p>在linux平台上,</p>
 <p>linux并不使用文件名识别文件,而使用inode识别文件,因此linux下每个文件名都指向了一个inode,在用户访问文件时,linux内部首先会获取要访问文件的inode号码,从inode里面获取真正的数据存储区。获取文件数据,在删除文件的时候,文件的links减1,当links减到0时,inode会被删除  </p>
 <p>用户可以使用stat命令查看这些信息</p>
-</li>
-</ul>
-<h3 id="2-硬链接"><a href="#2-硬链接" class="headerlink" title="2.硬链接"></a>2.硬链接</h3><p>  硬链接和源文件拥有相同的inode,<br>  linux使用ln 源文件名 目标文件名创建硬链接,</p>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ln</span> /path/to/sourcefile /path/to/destnaionfile<br></code></pre></td></tr></table></figure>
+<h3 id="2-硬链接"><a href="#2-硬链接" class="headerlink" title="2.硬链接"></a>2.硬链接</h3><p>硬链接和源文件拥有相同的inode,<br>linux使用ln 源文件名 目标文件名创建硬链接,</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">ln</span> /path/to/sourcefile /path/to/destnaionfile<br></code></pre></td></tr></table></figure>
 
-<h3 id="3-软链接"><a href="#3-软链接" class="headerlink" title="3.软链接"></a>3.软链接</h3><p>  ​	软连接是一个存在的文件,但是文件里面存储的内容时目标文件的路径</p>
+<h3 id="3-软链接"><a href="#3-软链接" class="headerlink" title="3.软链接"></a>3.软链接</h3><p>​	软连接是一个存在的文件,但是文件里面存储的内容时目标文件的路径</p>
 
                 
               </div>
@@ -367,7 +367,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>硬链接和软链接</div>
-      <div>http://dreamaccount.github.io/2022/04/17/硬链接和软链接/</div>
+      <div>https://dreamaccount.github.io/2022/04/17/硬链接和软链接/</div>
     </div>
     <div class="license-meta">
       

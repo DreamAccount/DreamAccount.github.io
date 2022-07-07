@@ -16,15 +16,15 @@
   <meta name="author" content="404NotFound">
   <meta name="keywords" content="">
   
-    <meta name="description" content="curl基本使用1.什么是curl?curl是一个命令行工具,用于向指定的url发送请求,支持http,mqtt,ftp,rtmp,pop2,scp等各种协议 2.基本使用123456789101112131415161718192021curl --verbose www.baidu.com#verbose 用于打开verbose,使用这个模式可以查看到发送的数据包信息curl -A &amp;quot">
+    <meta name="description" content="curl基本使用1.什么是curl?curl是一个命令行工具,用于向指定的url发送请求,支持http,mqtt,ftp,rtmp,pop2,scp等各种协议 2.基本使用12345678910111213141516171819curl --verbose www.baidu.com#verbose 用于打开verbose,使用这个模式可以查看到发送的数据包信息curl -A &quot;cur">
 <meta property="og:type" content="article">
 <meta property="og:title" content="curl基本使用">
-<meta property="og:url" content="http://dreamaccount.github.io/2022/05/26/curl%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:url" content="https://dreamaccount.github.io/2022/05/26/curl%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="curl基本使用1.什么是curl?curl是一个命令行工具,用于向指定的url发送请求,支持http,mqtt,ftp,rtmp,pop2,scp等各种协议 2.基本使用123456789101112131415161718192021curl --verbose www.baidu.com#verbose 用于打开verbose,使用这个模式可以查看到发送的数据包信息curl -A &amp;quot">
+<meta property="og:description" content="curl基本使用1.什么是curl?curl是一个命令行工具,用于向指定的url发送请求,支持http,mqtt,ftp,rtmp,pop2,scp等各种协议 2.基本使用12345678910111213141516171819curl --verbose www.baidu.com#verbose 用于打开verbose,使用这个模式可以查看到发送的数据包信息curl -A &quot;cur">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-05-26T08:48:39.000Z">
-<meta property="article:modified_time" content="2022-06-23T15:47:13.917Z">
+<meta property="article:modified_time" content="2022-06-23T16:26:59.161Z">
 <meta property="article:author" content="404NotFound">
 <meta property="article:tag" content="软件基本使用">
 <meta name="twitter:card" content="summary_large_image">
@@ -291,7 +291,7 @@
               <div class="markdown-body">
                 
                 <h1 id="curl基本使用"><a href="#curl基本使用" class="headerlink" title="curl基本使用"></a>curl基本使用</h1><h3 id="1-什么是curl"><a href="#1-什么是curl" class="headerlink" title="1.什么是curl?"></a>1.什么是curl?</h3><p>curl是一个命令行工具,用于向指定的url发送请求,支持http,mqtt,ftp,rtmp,pop2,scp等各种协议</p>
-<h3 id="2-基本使用"><a href="#2-基本使用" class="headerlink" title="2.基本使用"></a>2.基本使用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl --verbose www.baidu.com<br><span class="hljs-comment">#verbose 用于打开verbose,使用这个模式可以查看到发送的数据包信息</span><br>curl -A <span class="hljs-string">&quot;curl&quot;</span> www.baidu.com<br><span class="hljs-comment">#-A参数指定特定的User-Agent</span><br>curl -A <span class="hljs-string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:101.0) Gecko/20100101 Firefox/101.0&quot;</span> https://www.baidu.com/index.html<br><span class="hljs-comment">#-b参数用于向服务器传输cookie,也可以指定cookie文件</span><br>curl -b <span class="hljs-string">&quot;x_key=asjdflkdjaslfdjklasjlkf&quot;</span> http://www.google.com/index.html<br><span class="hljs-comment">#-c参数用于将服务器设置的cookie写入一个文件</span><br>curl -c coookie.txt -v http://www.baidu.com/index.html<br><span class="hljs-comment">#-d,--data-urlencode参数用于发送post请求的数据</span><br>curl -d <span class="hljs-string">&quot;name=admin&amp;password=password&quot;</span> -X POST https://www.baidu.com/index.html<br><span class="hljs-comment">#-X参数用与指定发送的请求方式如Get Post</span><br><span class="hljs-comment">#-e参数用于指定refer头</span><br>curl -e <span class="hljs-string">&quot;http://www.baidu.com/index.html&quot;</span> https://www.google.com<br><span class="hljs-comment">#-F参数用于上传二进制文件</span><br>curl -F <span class="hljs-string">&#x27;file=@photo.png&#x27;</span> https://baidu.com/profile<br><span class="hljs-comment">#-F参数可以指定上传的文件的MIME类型</span><br>curl -F <span class="hljs-string">&quot;file=@photo.png;image/png&quot;</span> -X POST https://www.baidu.com/profile<br>curl -F <span class="hljs-string">&quot;file=@photo.png;filename=me.png&quot;</span> -X POST https://www.baidu.com/profile<br><br><br></code></pre></td></tr></table></figure>
+<h3 id="2-基本使用"><a href="#2-基本使用" class="headerlink" title="2.基本使用"></a>2.基本使用</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash">curl --verbose www.baidu.com<br><span class="hljs-comment">#verbose 用于打开verbose,使用这个模式可以查看到发送的数据包信息</span><br>curl -A <span class="hljs-string">&quot;curl&quot;</span> www.baidu.com<br><span class="hljs-comment">#-A参数指定特定的User-Agent</span><br>curl -A <span class="hljs-string">&quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:101.0) Gecko/20100101 Firefox/101.0&quot;</span> https://www.baidu.com/index.html<br><span class="hljs-comment">#-b参数用于向服务器传输cookie,也可以指定cookie文件</span><br>curl -b <span class="hljs-string">&quot;x_key=asjdflkdjaslfdjklasjlkf&quot;</span> http://www.google.com/index.html<br><span class="hljs-comment">#-c参数用于将服务器设置的cookie写入一个文件</span><br>curl -c coookie.txt -v http://www.baidu.com/index.html<br><span class="hljs-comment">#-d,--data-urlencode参数用于发送post请求的数据</span><br>curl -d <span class="hljs-string">&quot;name=admin&amp;password=password&quot;</span> -X POST https://www.baidu.com/index.html<br><span class="hljs-comment">#-X参数用与指定发送的请求方式如Get Post</span><br><span class="hljs-comment">#-e参数用于指定refer头</span><br>curl -e <span class="hljs-string">&quot;http://www.baidu.com/index.html&quot;</span> https://www.google.com<br><span class="hljs-comment">#-F参数用于上传二进制文件</span><br>curl -F <span class="hljs-string">&#x27;file=@photo.png&#x27;</span> https://baidu.com/profile<br><span class="hljs-comment">#-F参数可以指定上传的文件的MIME类型</span><br>curl -F <span class="hljs-string">&quot;file=@photo.png;image/png&quot;</span> -X POST https://www.baidu.com/profile<br>curl -F <span class="hljs-string">&quot;file=@photo.png;filename=me.png&quot;</span> -X POST https://www.baidu.com/profile<br></code></pre></td></tr></table></figure>
 
 
                 
@@ -339,7 +339,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>curl基本使用</div>
-      <div>http://dreamaccount.github.io/2022/05/26/curl基本使用/</div>
+      <div>https://dreamaccount.github.io/2022/05/26/curl基本使用/</div>
     </div>
     <div class="license-meta">
       

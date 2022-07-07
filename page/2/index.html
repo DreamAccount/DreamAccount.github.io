@@ -19,7 +19,7 @@
     <meta name="description" content="my blog">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://dreamaccount.github.io/page/2/index.html">
+<meta property="og:url" content="https://dreamaccount.github.io/page/2/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="my blog">
 <meta property="og:locale" content="zh_CN">
@@ -242,6 +242,189 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2022/04/18/markdown%E7%94%BB%E6%B5%81%E7%A8%8B%E5%9B%BE/" target="_self">
+          markdown画流程图
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/04/18/markdown%E7%94%BB%E6%B5%81%E7%A8%8B%E5%9B%BE/" target="_self">
+        <div>
+          markdown画流程图1.mermaidmermaid是一种类似于markdown的脚本语言,通过javascript语言将文本转化为图片 1.流程图1234graph TD;    A--&gt;B;    A--&gt;C;    B--&gt;D;  实际效果 graph TD;     A--&gt;B;     A--&gt;C;     B--&gt;D;   2.时序图123seq
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-18 00:08" pubdate>
+              2022-04-18
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/" class="category-chain-item">软件配置和使用</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E5%9F%BA%E6%9C%AC%E8%BD%AF%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/">#基本软件的使用</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/17/libevent%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
+          reactor与libevent
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/04/17/libevent%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
+        <div>
+          reactor模型与libevent1.什么是reactor模型?1.1.传统的同步阻塞式io模型1.采用阻塞型io来处理事件,每个连接都需要相应的线程来完成工作. 存在问题: 当并发数变大时,会引起cpu上下文经常切换,并且要经常创建和销毁线程,系统资源占用较大 1.2.reactor模型解决高并发 1.基于io多路复用,多个连接共用一个阻塞对象,一个阻塞对象可以同时管理多个连接请求,  2.基
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-17 21:54" pubdate>
+              2022-04-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/" class="category-chain-item">软件开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">#网络编程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/04/17/libev%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
+          libev学习笔记
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/04/17/libev%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
+        <div>
+          libev学习笔记1.什么是libev?libev是一个强大的网络reactor,支持多种事件(信号,I&#x2F;O,定时器…..) 12345678910111213141516171819202122&#x2F;&#x2F;基本数据类型的宏定义# define EV_A  loop # define EV_A_ EV_A,# define EV_P  struct ev_loop *loop # define
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-17 21:53" pubdate>
+              2022-04-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/" class="category-chain-item">软件开发</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">#网络编程</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/04/17/I-O%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" target="_self">
           I/O多路复用
         </a>
@@ -289,7 +472,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E7%BC%96%E7%A8%8B/">#编程</a>
+              <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">#网络编程</a>
             
           </div>
         
@@ -425,46 +608,6 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
-        <a href="/2022/04/17/shell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/" target="_self">
-          shell脚本编程
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/04/17/shell%E8%84%9A%E6%9C%AC%E7%BC%96%E7%A8%8B/" target="_self">
-        <div>
-          shell脚本编程1.第一个shell程序1echo &quot;hello,world&quot;
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-04-17 21:50" pubdate>
-              2022-04-17
-            </time>
-          </div>
-        
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E7%BC%96%E7%A8%8B/">#编程</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
         <a href="/2022/04/17/Linux%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8/" target="_self">
           Linux设备驱动开发入门
         </a>
@@ -497,7 +640,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/" class="category-chain-item">嵌入式开发</a>
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/" class="category-chain-item">软件开发</a>
   
   
 
@@ -512,7 +655,7 @@
           <div class="post-meta">
             <i class="iconfont icon-tags"></i>
             
-              <a href="/tags/%E7%BC%96%E7%A8%8B/">#编程</a>
+              <a href="/tags/linux%E5%86%85%E6%A0%B8%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E7%BC%96%E7%A8%8B/">#linux内核驱动开发编程</a>
             
           </div>
         
@@ -656,7 +799,7 @@
       
       <a class="index-excerpt index-excerpt__noimg" href="/2022/04/17/%E7%A1%AC%E9%93%BE%E6%8E%A5%E5%92%8C%E8%BD%AF%E9%93%BE%E6%8E%A5/" target="_self">
         <div>
-          硬链接和软链接1.inode的概念文件存储在磁盘上,磁盘在格式化文件系统后,分为两个部分,一个是inode存储区,一个是数据存储区,每个inode存储了这个文件详细信息,这些信息一般有:  1.文件的所属者  2.文件的所属组  3.文件的权限  4.文件的创建时间  5.文件最近修改的时间  6.文件的最近访问时间  7.链接数,(有多少个链接指向这个文件)  8.文件的大小 用户可以使用sta
+          硬链接和软链接1.inode的概念文件存储在磁盘上,磁盘在格式化文件系统后,分为两个部分,一个是inode存储区,一个是数据存储区,每个inode存储了这个文件详细信息,这些信息一般有:  1.文件的所属者  2.文件的所属组  3.文件的权限  4.文件的创建时间  5.文件最近修改的时间  6.文件的最近访问时间  7.链接数,(有多少个链接指向这个文件)  8.文件的大小   用户可以使用s
         </div>
       </a>
 
@@ -696,128 +839,6 @@
             <i class="iconfont icon-tags"></i>
             
               <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">#计算机基础</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/04/17/%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/" target="_self">
-          线程同步
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/04/17/%E7%BA%BF%E7%A8%8B%E5%90%8C%E6%AD%A5/" target="_self">
-        <div>
-          线程同步1.使用信号量实现线程同步使用的api123int sem_init(sem_t *sem,int shared,int value);&#x2F;&#x2F;初始化无名信号灯int sem_wait(sem_t *sem);&#x2F;&#x2F;p操作,如果信号量大于0,则信号量-1,函数立即返回,否则函数进入阻塞状态直到信号量大于0int sem_post(sem_t *sem);&#x2F;&#x2F;v操作,如果信号量等于0,则信号量+1
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-04-17 21:46" pubdate>
-              2022-04-17
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/" class="category-chain-item">嵌入式开发</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E7%BC%96%E7%A8%8B%E5%BC%80%E5%8F%91/">#编程开发</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/04/11/uboot%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" target="_self">
-          uboot基本命令
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/04/11/uboot%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" target="_self">
-        <div>
-          uboot基本命令什么是uboot？uboot一个嵌入式领域常用的一种bootloader,支持多种计算机架构,如ARM,PPC,MIPS, 为什么用uboot? 1.开放源码 2.支持多种嵌入式操作系统内核，如Linux、NetBSD, VxWorks, QNX, RTEMS, ARTOS, LynxOS, android 3.支持多个处理器系列，如PowerPC、ARM、x86、MIPS 4.
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-04-11 18:57" pubdate>
-              2022-04-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/" class="category-chain-item">嵌入式开发</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE%E5%92%8C%E4%BD%BF%E7%94%A8/">#软件配置和使用</a>
             
           </div>
         
