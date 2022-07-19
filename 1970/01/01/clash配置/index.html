@@ -24,7 +24,7 @@
 <meta property="og:description" content="title: clash配置date: 2022-05-18 19:19:57tags: 软件配置categories: 软件配置 clash配置1.clash配置透明代理123456iptables -t nat -N CLASH_TCP_RULE#创建新的规则链iptables -t nat -A PREROUTING -p tcp -j CLASH_TCP_RULEiptables -t n">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="1970-01-01T00:00:00.000Z">
-<meta property="article:modified_time" content="2022-06-26T23:31:29.058Z">
+<meta property="article:modified_time" content="2022-07-18T06:38:58.088Z">
 <meta property="article:author" content="404NotFound">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -235,7 +235,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          777 字
+          854 字
         
       </span>
     
@@ -246,7 +246,7 @@
         
         
         
-          7 分钟
+          8 分钟
         
       </span>
     
@@ -294,7 +294,7 @@
 
 <h2 id="2-clash配置dns加密代理"><a href="#2-clash配置dns加密代理" class="headerlink" title="2.clash配置dns加密代理"></a>2.clash配置dns加密代理</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">dns:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">listen:</span> <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span><span class="hljs-string">:55</span><br>  <span class="hljs-attr">default-nameserver:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-number">119.29</span><span class="hljs-number">.29</span><span class="hljs-number">.29</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-number">223.5</span><span class="hljs-number">.5</span><span class="hljs-number">.5</span><br>  <span class="hljs-attr">nameserver:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">https://doh.pub/dns-query</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">https://dns.alidns.com/dns-query</span><br>  <span class="hljs-attr">fallback:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">https://1.1.1.1/dns-query</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">https://dns.google.com/dns-query</span><br>  <span class="hljs-attr">fallback-filter:</span><br>    <span class="hljs-attr">geoip:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">geoip-code:</span> <span class="hljs-string">CN</span><br>    <span class="hljs-attr">ipcidr:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-number">240.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span><span class="hljs-string">/4</span><br></code></pre></td></tr></table></figure>
 
-<h2 id="3-配置dns广告过滤以及dns加密"><a href="#3-配置dns广告过滤以及dns加密" class="headerlink" title="3.配置dns广告过滤以及dns加密"></a>3.配置dns广告过滤以及dns加密</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#54端口自行配置AdGuard_Home</span><br>iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 54<br>iptables -t nat -A OUTPUT -p udp --dport 53 -j REDIRECT --to-ports 55<br></code></pre></td></tr></table></figure>
+<h2 id="3-配置dns广告过滤以及dns加密"><a href="#3-配置dns广告过滤以及dns加密" class="headerlink" title="3.配置dns广告过滤以及dns加密"></a>3.配置dns广告过滤以及dns加密</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#54端口自行配置AdGuard_Home</span><br>iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 54 <span class="hljs-comment">#将目标端口为53的流量重定向到本机54端口,54端口为AdGuard_Home</span><br>iptables -t nat -A OUTPUT -p udp --dport 53 -j REDIRECT --to-ports 55 <span class="hljs-comment">#将目标端口为53的流量重定向到本机的55端口,55端口为clash dns</span><br></code></pre></td></tr></table></figure>
 
 
 

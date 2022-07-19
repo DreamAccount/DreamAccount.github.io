@@ -16,15 +16,15 @@
   <meta name="author" content="404NotFound">
   <meta name="keywords" content="">
   
-    <meta name="description" content="openssl自签证书自签证书一般有三个步骤  1.生成私钥  2.生成证书的请求信息,用于提交给ca进行签名(自己作为ca为自己签名)  3.使用私钥对证书请求信息自行签名   1.生成私钥12openssl genrsa -des3 -out server.key 2048#生成rsa私钥，des3算法，2048位强度，server.key是秘钥文件名。  2.生成证书请求信息1openssl">
+    <meta name="description" content="记录一次dnsmasq配置过程1.安装dnsmasq1sudo apt install dnsmasq  2.修改dnsmasq配置文件1vim &#x2F;etc&#x2F;dnsmasq.conf  1234cache-size&#x3D;10240#dns缓存记录大小listen-address&#x3D;192.168.0.5#绑定的ip地址addn-hosts&#x3D;&#x2F;etc&#x2F;dnsmasq.hosts#导入外部的dns解析数据re">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TCP&#x2F;IP协议">
-<meta property="og:url" content="https://dreamaccount.github.io/2022/06/06/openssl%E8%87%AA%E7%AD%BE%E8%AF%81%E4%B9%A6/index.html">
+<meta property="og:title" content="dnsmasq配置教程">
+<meta property="og:url" content="https://dreamaccount.github.io/2022/07/08/dnsmasq%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="openssl自签证书自签证书一般有三个步骤  1.生成私钥  2.生成证书的请求信息,用于提交给ca进行签名(自己作为ca为自己签名)  3.使用私钥对证书请求信息自行签名   1.生成私钥12openssl genrsa -des3 -out server.key 2048#生成rsa私钥，des3算法，2048位强度，server.key是秘钥文件名。  2.生成证书请求信息1openssl">
+<meta property="og:description" content="记录一次dnsmasq配置过程1.安装dnsmasq1sudo apt install dnsmasq  2.修改dnsmasq配置文件1vim &#x2F;etc&#x2F;dnsmasq.conf  1234cache-size&#x3D;10240#dns缓存记录大小listen-address&#x3D;192.168.0.5#绑定的ip地址addn-hosts&#x3D;&#x2F;etc&#x2F;dnsmasq.hosts#导入外部的dns解析数据re">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-06-06T09:28:29.000Z">
-<meta property="article:modified_time" content="2022-07-18T05:32:37.155Z">
+<meta property="article:published_time" content="2022-07-08T01:51:58.000Z">
+<meta property="article:modified_time" content="2022-07-08T02:00:13.199Z">
 <meta property="article:author" content="404NotFound">
 <meta property="article:tag" content="软件配置">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,7 +33,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>TCP/IP协议 - Hexo</title>
+  <title>dnsmasq配置教程 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +213,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="TCP/IP协议"></span>
+            <span id="subtitle" data-typed-text="dnsmasq配置教程"></span>
           
         </div>
 
@@ -224,8 +224,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-06-06 17:28" pubdate>
-          2022年6月6日 下午
+        <time datetime="2022-07-08 09:51" pubdate>
+          2022年7月8日 上午
         </time>
       </span>
     
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          341 字
+          408 字
         
       </span>
     
@@ -247,7 +247,7 @@
         
         
         
-          3 分钟
+          4 分钟
         
       </span>
     
@@ -285,27 +285,22 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">TCP/IP协议</h1>
+            <h1 style="display: none">dnsmasq配置教程</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="openssl自签证书"><a href="#openssl自签证书" class="headerlink" title="openssl自签证书"></a>openssl自签证书</h1><p>自签证书一般有三个步骤</p>
-<ul>
-<li><p>1.生成私钥</p>
-</li>
-<li><p>2.生成证书的请求信息,用于提交给ca进行签名(自己作为ca为自己签名)</p>
-</li>
-<li><p>3.使用私钥对证书请求信息自行签名</p>
-</li>
-</ul>
-<h4 id="1-生成私钥"><a href="#1-生成私钥" class="headerlink" title="1.生成私钥"></a>1.生成私钥</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl genrsa -des3 -out server.key 2048<br><span class="hljs-comment">#生成rsa私钥，des3算法，2048位强度，server.key是秘钥文件名。</span><br></code></pre></td></tr></table></figure>
+                <h1 id="记录一次dnsmasq配置过程"><a href="#记录一次dnsmasq配置过程" class="headerlink" title="记录一次dnsmasq配置过程"></a>记录一次dnsmasq配置过程</h1><h3 id="1-安装dnsmasq"><a href="#1-安装dnsmasq" class="headerlink" title="1.安装dnsmasq"></a>1.安装dnsmasq</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install dnsmasq<br></code></pre></td></tr></table></figure>
 
-<h4 id="2-生成证书请求信息"><a href="#2-生成证书请求信息" class="headerlink" title="2.生成证书请求信息"></a>2.生成证书请求信息</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl req -new -key server.key -out server.csr<br></code></pre></td></tr></table></figure>
+<h3 id="2-修改dnsmasq配置文件"><a href="#2-修改dnsmasq配置文件" class="headerlink" title="2.修改dnsmasq配置文件"></a>2.修改dnsmasq配置文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vim /etc/dnsmasq.conf<br></code></pre></td></tr></table></figure>
 
-<h4 id="3-删除私钥的密码"><a href="#3-删除私钥的密码" class="headerlink" title="3.删除私钥的密码"></a>3.删除私钥的密码</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl rsa -<span class="hljs-keyword">in</span> server.key -out server.key<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">cache-size=10240<span class="hljs-comment">#dns缓存记录大小</span><br>listen-address=192.168.0.5<span class="hljs-comment">#绑定的ip地址</span><br>addn-hosts=/etc/dnsmasq.hosts<span class="hljs-comment">#导入外部的dns解析数据</span><br>resolv-conf=/etc/dnsmasq.dnsmasq.conf<span class="hljs-comment">#指定上游dns服务器的文件</span><br></code></pre></td></tr></table></figure>
 
-<h4 id="4-生成证书"><a href="#4-生成证书" class="headerlink" title="4.生成证书"></a>4.生成证书</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">openssl x509 -req -days 365 -<span class="hljs-keyword">in</span> server.csr -signkey server.key -out server.crt<br></code></pre></td></tr></table></figure>
+<h3 id="3-resolv-conf指定上游dns服务器可能不成功-未知原因"><a href="#3-resolv-conf指定上游dns服务器可能不成功-未知原因" class="headerlink" title="3.resolv-conf指定上游dns服务器可能不成功(未知原因)"></a>3.resolv-conf指定上游dns服务器可能不成功(未知原因)</h3><p>可以尝试修改&#x2F;etc&#x2F;init.d&#x2F;dnsmasq脚本</p>
+<p>RESOLV-CONF&#x3D;&#x2F;etc&#x2F;resolv-dnsmasq.conf</p>
+<h3 id="4-启动dns服务器"><a href="#4-启动dns服务器" class="headerlink" title="4.启动dns服务器"></a>4.启动dns服务器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl start dnsmasq.service<br></code></pre></td></tr></table></figure>
+
+
 
 
                 
@@ -314,27 +309,6 @@
             <hr/>
             <div>
               <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%92%8C%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" class="category-chain-item">软件和系统配置</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
   
   
     <div class="post-meta">
@@ -352,8 +326,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>TCP/IP协议</div>
-      <div>https://dreamaccount.github.io/2022/06/06/openssl自签证书/</div>
+      <div>dnsmasq配置教程</div>
+      <div>https://dreamaccount.github.io/2022/07/08/dnsmasq配置教程/</div>
     </div>
     <div class="license-meta">
       
@@ -365,7 +339,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年6月6日</div>
+          <div>2022年7月8日</div>
         </div>
       
       
@@ -395,9 +369,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/06/24/linux%E5%AD%97%E7%AC%A6%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8/" title="linux字符设备驱动开发入门">
+                      <a href="/2022/07/08/libpcap%E7%9A%84%E4%BD%BF%E7%94%A8/" title="libpcap的使用">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">linux字符设备驱动开发入门</span>
+                        <span class="hidden-mobile">libpcap的使用</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -405,8 +379,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/05/26/curl%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" title="curl基本使用">
-                        <span class="hidden-mobile">curl基本使用</span>
+                      <a href="/2022/07/06/nginx%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B/" title="nginx使用教程">
+                        <span class="hidden-mobile">nginx使用教程</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
