@@ -16,24 +16,24 @@
   <meta name="author" content="404NotFound">
   <meta name="keywords" content="">
   
-    <meta name="description" content="centos更换内核123rpm --import https:&#x2F;&#x2F;www.elrepo.org&#x2F;RPM-GPG-KEY-elrepo.org#导入新版本的仓库密钥 rpm -Uvh http:&#x2F;&#x2F;www.elrepo.org&#x2F;elrepo-release-7.0-2.el7.elrepo.noarch.rpm#下载最新版的仓库索引  1yum --disablerepo&#x3D;&quot;*&amp;quot">
+    <meta name="description" content="Git使用入门1.git是什么?git是一个强大的分布式版本控制工具,可以处理项目的版本管理,最初为了方便管理linux的内核版本控制而开发 2.git的三个工作区1.工作区(workspace) 当前所在的工作区域,编辑过的文件如果没有通过git add加入到暂存区,这些文件都存储在工作区 2.暂存区(Index&#x2F;Stage) 通过git add 可将文件从工作去加入到暂存区 3.版本">
 <meta property="og:type" content="article">
-<meta property="og:title" content="centos更换内核">
-<meta property="og:url" content="https://dreamaccount.github.io/2022/07/12/centos%E6%9B%B4%E6%8D%A2%E5%86%85%E6%A0%B8/index.html">
+<meta property="og:title" content="git使用入门">
+<meta property="og:url" content="https://dreamaccount.github.io/2022/07/20/git%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="centos更换内核123rpm --import https:&#x2F;&#x2F;www.elrepo.org&#x2F;RPM-GPG-KEY-elrepo.org#导入新版本的仓库密钥 rpm -Uvh http:&#x2F;&#x2F;www.elrepo.org&#x2F;elrepo-release-7.0-2.el7.elrepo.noarch.rpm#下载最新版的仓库索引  1yum --disablerepo&#x3D;&quot;*&amp;quot">
+<meta property="og:description" content="Git使用入门1.git是什么?git是一个强大的分布式版本控制工具,可以处理项目的版本管理,最初为了方便管理linux的内核版本控制而开发 2.git的三个工作区1.工作区(workspace) 当前所在的工作区域,编辑过的文件如果没有通过git add加入到暂存区,这些文件都存储在工作区 2.暂存区(Index&#x2F;Stage) 通过git add 可将文件从工作去加入到暂存区 3.版本">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-07-12T06:27:30.000Z">
-<meta property="article:modified_time" content="2022-07-27T08:41:02.807Z">
+<meta property="article:published_time" content="2022-07-20T02:33:41.000Z">
+<meta property="article:modified_time" content="2022-07-27T08:43:41.365Z">
 <meta property="article:author" content="404NotFound">
-<meta property="article:tag" content="软件配置">
+<meta property="article:tag" content="常用的开发工具使用">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>centos更换内核 - Hexo</title>
+  <title>git使用入门 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +213,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="centos更换内核"></span>
+            <span id="subtitle" data-typed-text="git使用入门"></span>
           
         </div>
 
@@ -224,8 +224,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-07-12 14:27" pubdate>
-          2022年7月12日 下午
+        <time datetime="2022-07-20 10:33" pubdate>
+          2022年7月20日 上午
         </time>
       </span>
     
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          562 字
+          1.7k 字
         
       </span>
     
@@ -247,7 +247,7 @@
         
         
         
-          5 分钟
+          15 分钟
         
       </span>
     
@@ -285,22 +285,34 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">centos更换内核</h1>
+            <h1 style="display: none">git使用入门</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="centos更换内核"><a href="#centos更换内核" class="headerlink" title="centos更换内核"></a>centos更换内核</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org<span class="hljs-comment">#导入新版本的仓库密钥</span><br> <br>rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm<span class="hljs-comment">#下载最新版的仓库索引</span><br></code></pre></td></tr></table></figure>
+                <h1 id="Git使用入门"><a href="#Git使用入门" class="headerlink" title="Git使用入门"></a>Git使用入门</h1><h3 id="1-git是什么"><a href="#1-git是什么" class="headerlink" title="1.git是什么?"></a>1.git是什么?</h3><p>git是一个强大的分布式版本控制工具,可以处理项目的版本管理,最初为了方便管理linux的内核版本控制而开发</p>
+<h3 id="2-git的三个工作区"><a href="#2-git的三个工作区" class="headerlink" title="2.git的三个工作区"></a>2.git的三个工作区</h3><p>1.工作区(workspace)</p>
+<p>当前所在的工作区域,编辑过的文件如果没有通过git add加入到暂存区,这些文件都存储在工作区</p>
+<p>2.暂存区(Index&#x2F;Stage)</p>
+<p>通过git add 可将文件从工作去加入到暂存区</p>
+<p>3.版本库(Repository)</p>
+<p>通过git commit 可以将暂存区的代码从暂存区加入到版本库</p>
+<h3 id="3-git分支"><a href="#3-git分支" class="headerlink" title="3.git分支"></a>3.git分支</h3><p>git分支支持从一个当前分支创建一个新的分支,以便于开发不影响主线代码</p>
+<h3 id="4-git常用命令"><a href="#4-git常用命令" class="headerlink" title="4.git常用命令"></a>4.git常用命令</h3><h5 id="4-1-git初始化操作"><a href="#4-1-git初始化操作" class="headerlink" title="4.1.git初始化操作"></a>4.1.git初始化操作</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git config --global user.name <span class="hljs-variable">$&#123;USERNAME&#125;</span>		<span class="hljs-comment">#配置用户名</span><br>git config --global user.email <span class="hljs-variable">$&#123;email&#125;</span>			<span class="hljs-comment">#配置用户的邮件地址</span><br><span class="hljs-comment">#--global 表示全局配置</span><br></code></pre></td></tr></table></figure>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">yum --disablerepo=<span class="hljs-string">&quot;*&quot;</span> --enablerepo=<span class="hljs-string">&quot;elrepo-kernel&quot;</span> list available<span class="hljs-comment">#查找可用的内核</span><br></code></pre></td></tr></table></figure>
+<h5 id="4-2-git代码提交命令"><a href="#4-2-git代码提交命令" class="headerlink" title="4.2.git代码提交命令"></a>4.2.git代码提交命令</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#将代码从工作区加入暂存区</span><br>git add .<br><br><span class="hljs-comment">#提交代码到版本库</span><br>git commit -m <span class="hljs-string">&quot;update code&quot;</span><br><br><br><span class="hljs-comment">#查看提交历史</span><br>git <span class="hljs-built_in">log</span><br><br></code></pre></td></tr></table></figure>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">yum --enablerepo=elrepo-kernel install kernel-ml<span class="hljs-comment">#安装最新版的主线内核</span><br></code></pre></td></tr></table></figure>
+<h5 id="4-3-git版本回退"><a href="#4-3-git版本回退" class="headerlink" title="4.3.git版本回退"></a>4.3.git版本回退</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">git reset --hard <span class="hljs-built_in">id</span>				<span class="hljs-comment">#舍弃当前版本,回退到之前的版本,</span><br>git reset --soft <span class="hljs-built_in">id</span>				<span class="hljs-comment">#撤销当前版本提交,回退到之前版本,之前版本到现在版本的代码会被重新放到暂存区</span><br>git reset --mixed <span class="hljs-built_in">id</span>			<span class="hljs-comment">#撤销当前版本提交,之前版本到现在版本变化的代码会被重新放到工作区</span><br></code></pre></td></tr></table></figure>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grub2-mkconfig -o /boot/grub2/grub.cfg<span class="hljs-comment">#重新生成grub配置文件</span><br></code></pre></td></tr></table></figure>
+<h5 id="4-4-git分支操作"><a href="#4-4-git分支操作" class="headerlink" title="4.4.git分支操作"></a>4.4.git分支操作</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">git branch <span class="hljs-variable">$&#123;BARNCH_NAME&#125;</span>		<span class="hljs-comment">#创建分支</span><br>git branch -d <span class="hljs-variable">$&#123;BRANCH_NAME&#125;</span> 	<span class="hljs-comment">#删除分支</span><br>git checkout <span class="hljs-variable">$&#123;BRANCH_NAME&#125;</span>		<span class="hljs-comment">#切换分支</span><br>git checkout -b <span class="hljs-variable">$&#123;BRANCH_NAME&#125;</span> 	<span class="hljs-comment">#创建并切换分支</span><br>git merge <span class="hljs-variable">$&#123;BRANCH_NAME&#125;</span> 		<span class="hljs-comment">#合并分支到当前分支</span><br></code></pre></td></tr></table></figure>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> /boot/grub2/grub.cfg |grep menuentry<span class="hljs-comment">#查找可用的grub配置菜单参数</span><br>grub2-set-default <span class="hljs-string">&#x27;CentOS Linux (4.17.4-1.el7.elrepo.x86_64) 7 (Core)&#x27;</span><span class="hljs-comment">#设置默认的启动内核版本</span><br></code></pre></td></tr></table></figure>
+<h5 id="5-git远程分支操作"><a href="#5-git远程分支操作" class="headerlink" title="5.git远程分支操作"></a>5.git远程分支操作</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> <span class="hljs-variable">$&#123;URL&#125;</span>						<span class="hljs-comment">#克隆一个远程仓库</span><br>git remote -v 							<span class="hljs-comment">#查看当前远程信息</span><br>git pull origin master:master 			<span class="hljs-comment">#同步本地仓库,相当于克隆远程分支,将远程分支合并到本地分支，第一个为远程分支,第二个为本地分支</span><br>git push -u origin master:master 		<span class="hljs-comment">#将本地版本库推送至远程仓库origin的master分支,第一个为本地分支,第二个为远程分支</span><br>git push origin master:master			<span class="hljs-comment">#将本地分支master推送至远程分支master</span><br>git push origin --delete <span class="hljs-variable">$&#123;BRANCH_NAME&#125;</span>	<span class="hljs-comment">#删除一个远程分支</span><br>git remote add origin <span class="hljs-variable">$&#123;URL&#125;</span>			<span class="hljs-comment">#添加一个远程仓库地址</span><br>git remote --set-url origin <span class="hljs-variable">$&#123;URL&#125;</span>		<span class="hljs-comment">#修改远程仓库地址</span><br></code></pre></td></tr></table></figure>
 
-<p>参考:<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38591756/article/details/82829398">https://blog.csdn.net/qq_38591756/article/details/82829398</a></p>
+<h5 id="6-git标签"><a href="#6-git标签" class="headerlink" title="6.git标签"></a>6.git标签</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 列出所有tag</span><br>$ git tag<br><br><span class="hljs-comment"># 新建一个tag在当前commit</span><br>$ git tag [tag]<br><br><span class="hljs-comment"># 新建一个tag在指定commit</span><br>$ git tag [tag] [commit]<br><br><span class="hljs-comment"># 删除本地tag</span><br>$ git tag -d [tag]<br><br><span class="hljs-comment"># 删除远程tag</span><br>$ git push origin :refs/tags/[tagName]<br><br><span class="hljs-comment"># 查看tag信息</span><br>$ git show [tag]<br><br><span class="hljs-comment"># 提交指定tag</span><br>$ git push [remote] [tag]<br><br><span class="hljs-comment"># 提交所有tag</span><br>$ git push [remote] --tags<br><br><span class="hljs-comment"># 新建一个分支，指向某个tag</span><br>$ git checkout -b [branch] [tag]<br></code></pre></td></tr></table></figure>
+
+<h5 id="7-git变基"><a href="#7-git变基" class="headerlink" title="7.git变基"></a>7.git变基</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">git rebase -i <span class="hljs-built_in">id</span> <span class="hljs-comment">#合并提交记录</span><br><br></code></pre></td></tr></table></figure>
+
+<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>git是一个开源的非常强大的分布式版本控制工具,常用于企业开发管理项目,对于团队协作开发项目十分的方便。</p>
 
                 
               </div>
@@ -313,7 +325,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/">#软件配置</a>
+        <a href="/tags/%E5%B8%B8%E7%94%A8%E7%9A%84%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/">#常用的开发工具使用</a>
       
     </div>
   
@@ -325,8 +337,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>centos更换内核</div>
-      <div>https://dreamaccount.github.io/2022/07/12/centos更换内核/</div>
+      <div>git使用入门</div>
+      <div>https://dreamaccount.github.io/2022/07/20/git使用入门/</div>
     </div>
     <div class="license-meta">
       
@@ -338,7 +350,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年7月12日</div>
+          <div>2022年7月20日</div>
         </div>
       
       
@@ -368,9 +380,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/07/20/git%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/" title="git使用入门">
+                      <a href="/2022/07/27/LVS%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8/" title="LVS简单入门">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">git使用入门</span>
+                        <span class="hidden-mobile">LVS简单入门</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -378,8 +390,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/07/12/docker%E9%85%8D%E7%BD%AE%E9%9D%9Eroot%E7%94%A8%E6%88%B7%E4%BD%BF%E7%94%A8/" title="docker配置非root用户使用">
-                        <span class="hidden-mobile">docker配置非root用户使用</span>
+                      <a href="/2022/07/12/centos%E6%9B%B4%E6%8D%A2%E5%86%85%E6%A0%B8/" title="centos更换内核">
+                        <span class="hidden-mobile">centos更换内核</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

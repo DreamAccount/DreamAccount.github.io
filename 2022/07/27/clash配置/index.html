@@ -16,15 +16,15 @@
   <meta name="author" content="404NotFound">
   <meta name="keywords" content="">
   
-    <meta name="description" content="centos更换内核123rpm --import https:&#x2F;&#x2F;www.elrepo.org&#x2F;RPM-GPG-KEY-elrepo.org#导入新版本的仓库密钥 rpm -Uvh http:&#x2F;&#x2F;www.elrepo.org&#x2F;elrepo-release-7.0-2.el7.elrepo.noarch.rpm#下载最新版的仓库索引  1yum --disablerepo&#x3D;&quot;*&amp;quot">
+    <meta name="description" content="clash配置1.clash配置透明代理123456iptables -t nat -N CLASH_TCP_RULE#创建新的规则链iptables -t nat -A PREROUTING -p tcp -j CLASH_TCP_RULEiptables -t nat -A CLASH -p tcp -d 192.168.0.0&#x2F;16 -j RETURN#不对局域网地址进行转发iptables">
 <meta property="og:type" content="article">
-<meta property="og:title" content="centos更换内核">
-<meta property="og:url" content="https://dreamaccount.github.io/2022/07/12/centos%E6%9B%B4%E6%8D%A2%E5%86%85%E6%A0%B8/index.html">
+<meta property="og:title" content="clash配置">
+<meta property="og:url" content="https://dreamaccount.github.io/2022/07/27/clash%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="centos更换内核123rpm --import https:&#x2F;&#x2F;www.elrepo.org&#x2F;RPM-GPG-KEY-elrepo.org#导入新版本的仓库密钥 rpm -Uvh http:&#x2F;&#x2F;www.elrepo.org&#x2F;elrepo-release-7.0-2.el7.elrepo.noarch.rpm#下载最新版的仓库索引  1yum --disablerepo&#x3D;&quot;*&amp;quot">
+<meta property="og:description" content="clash配置1.clash配置透明代理123456iptables -t nat -N CLASH_TCP_RULE#创建新的规则链iptables -t nat -A PREROUTING -p tcp -j CLASH_TCP_RULEiptables -t nat -A CLASH -p tcp -d 192.168.0.0&#x2F;16 -j RETURN#不对局域网地址进行转发iptables">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-07-12T06:27:30.000Z">
-<meta property="article:modified_time" content="2022-07-27T08:41:02.807Z">
+<meta property="article:published_time" content="2022-07-27T08:40:32.000Z">
+<meta property="article:modified_time" content="2022-07-27T08:40:53.740Z">
 <meta property="article:author" content="404NotFound">
 <meta property="article:tag" content="软件配置">
 <meta name="twitter:card" content="summary_large_image">
@@ -33,7 +33,7 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>centos更换内核 - Hexo</title>
+  <title>clash配置 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +213,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="centos更换内核"></span>
+            <span id="subtitle" data-typed-text="clash配置"></span>
           
         </div>
 
@@ -224,8 +224,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-07-12 14:27" pubdate>
-          2022年7月12日 下午
+        <time datetime="2022-07-27 16:40" pubdate>
+          2022年7月27日 下午
         </time>
       </span>
     
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          562 字
+          794 字
         
       </span>
     
@@ -247,7 +247,7 @@
         
         
         
-          5 分钟
+          7 分钟
         
       </span>
     
@@ -285,22 +285,17 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">centos更换内核</h1>
+            <h1 style="display: none">clash配置</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="centos更换内核"><a href="#centos更换内核" class="headerlink" title="centos更换内核"></a>centos更换内核</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org<span class="hljs-comment">#导入新版本的仓库密钥</span><br> <br>rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm<span class="hljs-comment">#下载最新版的仓库索引</span><br></code></pre></td></tr></table></figure>
+                <h1 id="clash配置"><a href="#clash配置" class="headerlink" title="clash配置"></a>clash配置</h1><h3 id="1-clash配置透明代理"><a href="#1-clash配置透明代理" class="headerlink" title="1.clash配置透明代理"></a>1.clash配置透明代理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">iptables -t nat -N CLASH_TCP_RULE<br><span class="hljs-comment">#创建新的规则链</span><br>iptables -t nat -A PREROUTING -p tcp -j CLASH_TCP_RULE<br>iptables -t nat -A CLASH -p tcp -d 192.168.0.0/16 -j RETURN<br><span class="hljs-comment">#不对局域网地址进行转发</span><br>iptables -t nat -A CLASH_TCP_RULE -p tcp -j REDIRECT --to-ports 1082(此为clash配置的透明代理端口)<br></code></pre></td></tr></table></figure>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">yum --disablerepo=<span class="hljs-string">&quot;*&quot;</span> --enablerepo=<span class="hljs-string">&quot;elrepo-kernel&quot;</span> list available<span class="hljs-comment">#查找可用的内核</span><br></code></pre></td></tr></table></figure>
+<h2 id="2-clash配置dns加密代理"><a href="#2-clash配置dns加密代理" class="headerlink" title="2.clash配置dns加密代理"></a>2.clash配置dns加密代理</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">dns:</span><br>  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span><br>  <span class="hljs-attr">listen:</span> <span class="hljs-number">0.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span><span class="hljs-string">:55</span><br>  <span class="hljs-attr">default-nameserver:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-number">119.29</span><span class="hljs-number">.29</span><span class="hljs-number">.29</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-number">223.5</span><span class="hljs-number">.5</span><span class="hljs-number">.5</span><br>  <span class="hljs-attr">nameserver:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">https://doh.pub/dns-query</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">https://dns.alidns.com/dns-query</span><br>  <span class="hljs-attr">fallback:</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">https://1.1.1.1/dns-query</span><br>    <span class="hljs-bullet">-</span> <span class="hljs-string">https://dns.google.com/dns-query</span><br>  <span class="hljs-attr">fallback-filter:</span><br>    <span class="hljs-attr">geoip:</span> <span class="hljs-literal">true</span><br>    <span class="hljs-attr">geoip-code:</span> <span class="hljs-string">CN</span><br>    <span class="hljs-attr">ipcidr:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-number">240.0</span><span class="hljs-number">.0</span><span class="hljs-number">.0</span><span class="hljs-string">/4</span><br></code></pre></td></tr></table></figure>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">yum --enablerepo=elrepo-kernel install kernel-ml<span class="hljs-comment">#安装最新版的主线内核</span><br></code></pre></td></tr></table></figure>
+<h2 id="3-配置dns广告过滤以及dns加密"><a href="#3-配置dns广告过滤以及dns加密" class="headerlink" title="3.配置dns广告过滤以及dns加密"></a>3.配置dns广告过滤以及dns加密</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#54端口自行配置AdGuard_Home</span><br>iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 54 <span class="hljs-comment">#将目标端口为53的流量重定向到本机54端口,54端口为AdGuard_Home</span><br>iptables -t nat -A OUTPUT -p udp --dport 53 -j REDIRECT --to-ports 55 <span class="hljs-comment">#将目标端口为53的流量重定向到本机的55端口,55端口为clash dns</span><br></code></pre></td></tr></table></figure>
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">grub2-mkconfig -o /boot/grub2/grub.cfg<span class="hljs-comment">#重新生成grub配置文件</span><br></code></pre></td></tr></table></figure>
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> /boot/grub2/grub.cfg |grep menuentry<span class="hljs-comment">#查找可用的grub配置菜单参数</span><br>grub2-set-default <span class="hljs-string">&#x27;CentOS Linux (4.17.4-1.el7.elrepo.x86_64) 7 (Core)&#x27;</span><span class="hljs-comment">#设置默认的启动内核版本</span><br></code></pre></td></tr></table></figure>
-
-<p>参考:<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38591756/article/details/82829398">https://blog.csdn.net/qq_38591756/article/details/82829398</a></p>
 
                 
               </div>
@@ -325,8 +320,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>centos更换内核</div>
-      <div>https://dreamaccount.github.io/2022/07/12/centos更换内核/</div>
+      <div>clash配置</div>
+      <div>https://dreamaccount.github.io/2022/07/27/clash配置/</div>
     </div>
     <div class="license-meta">
       
@@ -338,7 +333,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年7月12日</div>
+          <div>2022年7月27日</div>
         </div>
       
       
@@ -368,18 +363,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/07/20/git%E4%BD%BF%E7%94%A8%E5%85%A5%E9%97%A8/" title="git使用入门">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">git使用入门</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/07/12/docker%E9%85%8D%E7%BD%AE%E9%9D%9Eroot%E7%94%A8%E6%88%B7%E4%BD%BF%E7%94%A8/" title="docker配置非root用户使用">
-                        <span class="hidden-mobile">docker配置非root用户使用</span>
+                      <a href="/2022/07/27/LVS%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8/" title="LVS简单入门">
+                        <span class="hidden-mobile">LVS简单入门</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
