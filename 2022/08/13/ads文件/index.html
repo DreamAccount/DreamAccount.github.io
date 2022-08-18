@@ -16,24 +16,24 @@
   <meta name="author" content="404NotFound">
   <meta name="keywords" content="">
   
-    <meta name="description" content="libpcap的基本使用1.获取网络接口1234567891011121314151617181920212223242526char *pcap_lookupdev(char *error_buffer);&#x2F;&#x2F;获取本地网络接口(返回网络接口的名称)int pcap_findalldevs(pcap_if_t **alldevsp, char *errbuf);&#x2F;&#x2F;查找本地所有的网络接口typed">
+    <meta name="description" content="ads文件基本概念:NTFS交换数据流（Alternate Data Streams，简称ADS）是NTFS磁盘格式的一个特性。在NTFS文件系统下，每个文件都可以存在多个数据流，意思是除了主文件流之外还可以有许多非主文件流寄宿在主文件流中，这些利用NTFS数据流寄宿并隐藏在系统中的非主文件流我们称之为ADS流文件。虽然我们无法看到ADS流文件，但它们却是真实存在。下面通过一个实例来具体展现ADS">
 <meta property="og:type" content="article">
-<meta property="og:title" content="libpcap的使用">
-<meta property="og:url" content="https://dreamaccount.github.io/2022/07/08/libpcap%E7%9A%84%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:title" content="ads文件">
+<meta property="og:url" content="https://dreamaccount.github.io/2022/08/13/ads%E6%96%87%E4%BB%B6/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="libpcap的基本使用1.获取网络接口1234567891011121314151617181920212223242526char *pcap_lookupdev(char *error_buffer);&#x2F;&#x2F;获取本地网络接口(返回网络接口的名称)int pcap_findalldevs(pcap_if_t **alldevsp, char *errbuf);&#x2F;&#x2F;查找本地所有的网络接口typed">
+<meta property="og:description" content="ads文件基本概念:NTFS交换数据流（Alternate Data Streams，简称ADS）是NTFS磁盘格式的一个特性。在NTFS文件系统下，每个文件都可以存在多个数据流，意思是除了主文件流之外还可以有许多非主文件流寄宿在主文件流中，这些利用NTFS数据流寄宿并隐藏在系统中的非主文件流我们称之为ADS流文件。虽然我们无法看到ADS流文件，但它们却是真实存在。下面通过一个实例来具体展现ADS">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-07-08T11:24:02.000Z">
-<meta property="article:modified_time" content="2022-08-03T03:47:31.739Z">
+<meta property="article:published_time" content="2022-08-13T04:00:02.000Z">
+<meta property="article:modified_time" content="2022-08-14T13:38:40.333Z">
 <meta property="article:author" content="404NotFound">
-<meta property="article:tag" content="网络编程">
+<meta property="article:tag" content="计算机基础">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>libpcap的使用 - Hexo</title>
+  <title>ads文件 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +213,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="libpcap的使用"></span>
+            <span id="subtitle" data-typed-text="ads文件"></span>
           
         </div>
 
@@ -224,8 +224,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-07-08 19:24" pubdate>
-          2022年7月8日 晚上
+        <time datetime="2022-08-13 12:00" pubdate>
+          2022年8月13日 中午
         </time>
       </span>
     
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.7k 字
+          594 字
         
       </span>
     
@@ -247,7 +247,7 @@
         
         
         
-          14 分钟
+          5 分钟
         
       </span>
     
@@ -285,23 +285,20 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">libpcap的使用</h1>
+            <h1 style="display: none">ads文件</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="libpcap的基本使用"><a href="#libpcap的基本使用" class="headerlink" title="libpcap的基本使用"></a>libpcap的基本使用</h1><h4 id="1-获取网络接口"><a href="#1-获取网络接口" class="headerlink" title="1.获取网络接口"></a>1.获取网络接口</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">char</span> *<span class="hljs-title function_">pcap_lookupdev</span><span class="hljs-params">(<span class="hljs-type">char</span> *error_buffer)</span>;<span class="hljs-comment">//获取本地网络接口(返回网络接口的名称)</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">pcap_findalldevs</span><span class="hljs-params">(<span class="hljs-type">pcap_if_t</span> **alldevsp, <span class="hljs-type">char</span> *errbuf)</span>;<span class="hljs-comment">//查找本地所有的网络接口</span><br><span class="hljs-keyword">typedef</span> <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">pcap_if</span> <span class="hljs-title">pcap_if_t</span>;</span><br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">pcap_if</span> &#123;</span><br>	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">pcap_if</span> *<span class="hljs-title">next</span>;</span><br>	<span class="hljs-type">char</span> *name;		<span class="hljs-comment">/* name to hand to &quot;pcap_open_live()&quot; */</span><br>	<span class="hljs-type">char</span> *description;	<span class="hljs-comment">/* textual description of interface, or NULL */</span><br>	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">pcap_addr</span> *<span class="hljs-title">addresses</span>;</span><br>	bpf_u_int32 flags;	<span class="hljs-comment">/* PCAP_IF_ interface flags */</span><br>&#125;;<br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">pcap_addr</span> &#123;</span><br>	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">pcap_addr</span> *<span class="hljs-title">next</span>;</span><br>	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr</span> *<span class="hljs-title">addr</span>;</span>		<span class="hljs-comment">/* address */</span><br>	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr</span> *<span class="hljs-title">netmask</span>;</span>	<span class="hljs-comment">/* netmask for that address */</span><br>	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr</span> *<span class="hljs-title">broadaddr</span>;</span>	<span class="hljs-comment">/* broadcast address for that address */</span><br>	<span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr</span> *<span class="hljs-title">dstaddr</span>;</span>	<span class="hljs-comment">/* P2P destination address for that address */</span><br>&#125;;<br><span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">pcap_pkthdr</span></span><br><span class="hljs-class">&#123;</span><br>  <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">timeval</span> <span class="hljs-title">ts</span>;</span>    <span class="hljs-comment">/* time stamp */</span><br>  bpf_u_int32 caplen;   <span class="hljs-comment">/* length of portion present */</span><br>  bpf_u_int32 len;      <span class="hljs-comment">/* length this packet (off wire) */</span><br>&#125;;<span class="hljs-comment">//抓到的包的结构</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">pcap_loop</span><span class="hljs-params">(handler,<span class="hljs-number">10</span>,capture_handler,<span class="hljs-literal">NULL</span>)</span>;<br><span class="hljs-type">char</span> *<span class="hljs-title function_">inet_ntoa</span><span class="hljs-params">(<span class="hljs-keyword">struct</span> in_addr *addr)</span>;<span class="hljs-comment">//该函数返回的指针指向的地址空间是静态分配的,因此每次调用此函数后,后面的结果都会对上一次的结果进行覆盖</span><br><br></code></pre></td></tr></table></figure>
+                <h1 id="ads文件"><a href="#ads文件" class="headerlink" title="ads文件"></a>ads文件</h1><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念:"></a>基本概念:</h3><p>NTFS交换数据流（Alternate Data Streams，简称ADS）是NTFS磁盘格式的一个特性。在<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/NTFS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/2152677">NTFS文件系统</a>下，每个文件都可以存在多个数据流，意思是除了主文件流之外还可以有许多非主文件流寄宿在主文件流中，这些利用NTFS数据流寄宿并隐藏在系统中的非主文件流我们称之为ADS流文件。虽然我们无法看到ADS流文件，但它们却是真实存在。下面通过一个实例来具体展现ADS流文件的创建、关联及隐藏过程。</p>
+<h3 id="利用方法"><a href="#利用方法" class="headerlink" title="利用方法"></a>利用方法</h3><p>在ntfs文件系统分区创建ads文件流有两种方式,一个是指在指定宿主文件的情况下创建ads文件流,二是创建一个单独的ads文件流,ads文件不能直接查看到,可以使用dir &#x2F;r命令查看,后缀带有$DATA的文件就是ads文件,ads文件不能直接使用type进行查看,可以使用notepad进行打开编辑</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">echo</span> hello &gt; hello.txt:ads.txt <span class="hljs-comment">#以文件ads.txt为宿主文件,创建了ads文件ads.txt</span><br><span class="hljs-built_in">echo</span> hello &gt; :ads.txt <span class="hljs-comment">#创建一个没有宿主文件的单独ads文件(依赖于所在目录),(如果该文件在根分区目录下,只能借助第三方工具将其删除)</span><br></code></pre></td></tr></table></figure>
 
-<h4 id="2-打开一个网络接口"><a href="#2-打开一个网络接口" class="headerlink" title="2.打开一个网络接口"></a>2.打开一个网络接口</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">pcap_t</span>*  <span class="hljs-title function_">pcap_open_live</span><span class="hljs-params">(<span class="hljs-type">char</span> *device,<span class="hljs-type">int</span> snaplen,<span class="hljs-type">int</span> packet_count_limit,<span class="hljs-type">int</span> timeout_limit,<span class="hljs-type">char</span> *error_buffer)</span>;<span class="hljs-comment">//打开一个网卡获得一个抓包句柄</span><br><span class="hljs-comment">//device </span><br><span class="hljs-comment">//snaplen   </span><br><span class="hljs-comment">//packet_count_limit 最大抓取的包的数量</span><br><span class="hljs-comment">//int timeout_limit  设置包从内核缓冲区拷贝到用户区所等待的时间</span><br></code></pre></td></tr></table></figure>
-
-<h4 id="3-编译过滤条件"><a href="#3-编译过滤条件" class="headerlink" title="3.编译过滤条件"></a>3.编译过滤条件</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">pcap_compile</span><span class="hljs-params">(<span class="hljs-type">pcap_t</span> *handler, <span class="hljs-keyword">struct</span> bpf_program *fp, <span class="hljs-type">char</span> *<span class="hljs-built_in">exp</span>, <span class="hljs-type">int</span> optimize, bpf_u_int32 netmask)</span>;	<span class="hljs-comment">//编一个过滤条件</span><br><span class="hljs-comment">//handler 打开的网卡句柄</span><br><span class="hljs-comment">//fp 存储过滤条件指针</span><br><span class="hljs-comment">//optimize 是否进行优化</span><br><span class="hljs-comment">//netmask 网络地址</span><br></code></pre></td></tr></table></figure>
-
-<h4 id="4-设置过滤器"><a href="#4-设置过滤器" class="headerlink" title="4.设置过滤器"></a>4.设置过滤器</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> <span class="hljs-title function_">pcap_setfilter</span><span class="hljs-params">(<span class="hljs-type">pcap_t</span> *p, <span class="hljs-keyword">struct</span> bpf_program *fp)</span>;	<span class="hljs-comment">//设置过滤器</span><br><span class="hljs-comment">//p 打开网卡的句柄</span><br><span class="hljs-comment">//fp设置的过滤表达式</span><br></code></pre></td></tr></table></figure>
-
-<h4 id="5-获取包信息"><a href="#5-获取包信息" class="headerlink" title="5.获取包信息"></a>5.获取包信息</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c">u_char *<span class="hljs-title function_">pcap_next</span><span class="hljs-params">(device,&amp;packet)</span>;<br><span class="hljs-type">int</span> <span class="hljs-title function_">pcap_loop</span><span class="hljs-params">(<span class="hljs-type">pcap_t</span> *p, <span class="hljs-type">int</span> cnt,pcap_handler callback, u_char *user)</span>;<br><span class="hljs-keyword">typedef</span> <span class="hljs-title function_">void</span> <span class="hljs-params">(*pcap_handler)</span><span class="hljs-params">(u_char *user, <span class="hljs-type">const</span> <span class="hljs-keyword">struct</span> pcap_pkthdr *h,<span class="hljs-type">const</span> u_char *bytes)</span>;<br><span class="hljs-comment">//获取一个数据包</span><br></code></pre></td></tr></table></figure>
-
-
-
+<p>可以通过使用ads文件隐藏木马,起到免杀的作用</p>
+<h3 id="移除ads文件的方法"><a href="#移除ads文件的方法" class="headerlink" title="移除ads文件的方法"></a>移除ads文件的方法</h3><p>1.删除顶层目录</p>
+<p>2.删除宿主文件</p>
+<p>3.将文件移动到非ntfs分区</p>
+<p>4.借助第三方软件将ads文件删除</p>
 
                 
               </div>
@@ -314,7 +311,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">#网络编程</a>
+        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">#计算机基础</a>
       
     </div>
   
@@ -326,8 +323,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>libpcap的使用</div>
-      <div>https://dreamaccount.github.io/2022/07/08/libpcap的使用/</div>
+      <div>ads文件</div>
+      <div>https://dreamaccount.github.io/2022/08/13/ads文件/</div>
     </div>
     <div class="license-meta">
       
@@ -339,7 +336,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年7月8日</div>
+          <div>2022年8月13日</div>
         </div>
       
       
@@ -369,18 +366,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/07/12/kubernetes%E7%AE%80%E5%8D%95%E5%85%A5%E9%97%A8/" title="kubernetes简单入门">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">kubernetes简单入门</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/07/08/dnsmasq%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/" title="dnsmasq配置教程">
-                        <span class="hidden-mobile">dnsmasq配置教程</span>
+                      <a href="/2022/08/11/iproute2%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" title="iproute2的基本使用">
+                        <span class="hidden-mobile">iproute2的基本使用</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
