@@ -24,7 +24,7 @@
 <meta property="og:description" content="什么是microcode?cpu执行指令的步骤一般为 1.取指令 2.指令译码 3.指令执行 4.结果写回  由上述步骤我们知道,cpu在执行二进制代码的时候需要对指令进行译码才能够执行   cpu译码的开始在译码开始时,程序的指令和数据分别会放到一级指令缓存(L1 cache),和数据一级缓存中,(只有L1 cache才是唯一指令和数据单独分割的cache),然后指令一级缓存中的指令会进入解码器">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-10T15:54:48.000Z">
-<meta property="article:modified_time" content="2022-06-23T14:03:47.816Z">
+<meta property="article:modified_time" content="2022-08-18T02:41:41.359Z">
 <meta property="article:author" content="404NotFound">
 <meta property="article:tag" content="计算机基础">
 <meta name="twitter:card" content="summary_large_image">
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          651 字
+          652 字
         
       </span>
     
@@ -304,7 +304,7 @@
 <li>2.微码指令译码器</li>
 </ul>
 <p>现在我们使用的计算机一般是X86架构,属于CISC(复杂指令集),指令种类繁多,如果所有的解码都通过硬件来完成,将会大幅增加硬件布线的难度,因此一般cpu在设计的时候一般只会对一些少量基本的指令采用硬件解码的方式,而一些复杂的指令采用微码指令译码器将其拆解为多条精简指令(microcode),因此cpu只有microcode才是基本的执行单位,硬件解码完成后,将会被cpu调度器(scheduler)放入pipeline提高指令的并行性</p>
-<h3 id="microcode如何修复"><a href="#microcode如何修复" class="headerlink" title="microcode如何修复"></a>microcode如何修复</h3><p>我们知道,一条复杂指令要通过microcode译码器分解为多条microcode才能够被cpu所执行,原始的microcode来自于一块rom,为了microcode,新设计了一块较小的SRAM,用来为该rom上的microcode打补丁Microcode更新通常通过更新BIOS来更新</p>
+<h3 id="microcode如何修复"><a href="#microcode如何修复" class="headerlink" title="microcode如何修复?"></a>microcode如何修复?</h3><p>我们知道,一条复杂指令要通过microcode译码器分解为多条microcode才能够被cpu所执行,原始的microcode来自于一块rom,为了microcode,新设计了一块较小的SRAM,用来为该rom上的microcode打补丁Microcode更新通常通过更新BIOS来更新</p>
 
                 
               </div>
