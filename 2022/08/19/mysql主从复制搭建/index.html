@@ -16,24 +16,24 @@
   <meta name="author" content="404NotFound">
   <meta name="keywords" content="">
   
-    <meta name="description" content="什么是microcode?cpu执行指令的步骤一般为 1.取指令 2.指令译码 3.指令执行 4.结果写回  由上述步骤我们知道,cpu在执行二进制代码的时候需要对指令进行译码才能够执行   cpu译码的开始在译码开始时,程序的指令和数据分别会放到一级指令缓存(L1 cache),和数据一级缓存中,(只有L1 cache才是唯一指令和数据单独分割的cache),然后指令一级缓存中的指令会进入解码器">
+    <meta name="description" content="mysql主从复制1.mysql主从复制的原理 1.mysql主库将数据的更改记录记录到二进制日志(binary log)中 2.mysql从库将主库的更改记录的二进制日志同步到本地的中继日志(relay log) 3.mysql从库读取中继日志,根据日志中的操作步骤,同步数据  2.mysql主从复制的搭建1.使用docker启动两个mysql容器 12docker run -d --name">
 <meta property="og:type" content="article">
-<meta property="og:title" content="什么是microcode?">
-<meta property="og:url" content="https://dreamaccount.github.io/2022/04/10/%E4%BB%80%E4%B9%88%E6%98%AFmicrocode/index.html">
+<meta property="og:title" content="mysql主从复制">
+<meta property="og:url" content="https://dreamaccount.github.io/2022/08/19/mysql%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E6%90%AD%E5%BB%BA/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="什么是microcode?cpu执行指令的步骤一般为 1.取指令 2.指令译码 3.指令执行 4.结果写回  由上述步骤我们知道,cpu在执行二进制代码的时候需要对指令进行译码才能够执行   cpu译码的开始在译码开始时,程序的指令和数据分别会放到一级指令缓存(L1 cache),和数据一级缓存中,(只有L1 cache才是唯一指令和数据单独分割的cache),然后指令一级缓存中的指令会进入解码器">
+<meta property="og:description" content="mysql主从复制1.mysql主从复制的原理 1.mysql主库将数据的更改记录记录到二进制日志(binary log)中 2.mysql从库将主库的更改记录的二进制日志同步到本地的中继日志(relay log) 3.mysql从库读取中继日志,根据日志中的操作步骤,同步数据  2.mysql主从复制的搭建1.使用docker启动两个mysql容器 12docker run -d --name">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-04-10T15:54:48.000Z">
-<meta property="article:modified_time" content="2022-08-23T03:01:58.205Z">
+<meta property="article:published_time" content="2022-08-19T14:38:09.000Z">
+<meta property="article:modified_time" content="2022-08-21T03:20:10.103Z">
 <meta property="article:author" content="404NotFound">
-<meta property="article:tag" content="计算机基础">
+<meta property="article:tag" content="软件配置">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>什么是microcode? - Hexo</title>
+  <title>mysql主从复制 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +213,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="什么是microcode?"></span>
+            <span id="subtitle" data-typed-text="mysql主从复制"></span>
           
         </div>
 
@@ -224,8 +224,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-04-10 23:54" pubdate>
-          2022年4月10日 晚上
+        <time datetime="2022-08-19 22:38" pubdate>
+          2022年8月19日 晚上
         </time>
       </span>
     
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          652 字
+          1.3k 字
         
       </span>
     
@@ -247,7 +247,7 @@
         
         
         
-          6 分钟
+          11 分钟
         
       </span>
     
@@ -285,26 +285,38 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">什么是microcode?</h1>
+            <h1 style="display: none">mysql主从复制</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="什么是microcode"><a href="#什么是microcode" class="headerlink" title="什么是microcode?"></a>什么是microcode?</h1><h4 id="cpu执行指令的步骤一般为"><a href="#cpu执行指令的步骤一般为" class="headerlink" title="cpu执行指令的步骤一般为"></a>cpu执行指令的步骤一般为</h4><ul>
-<li>1.取指令</li>
-<li>2.指令译码</li>
-<li>3.指令执行</li>
-<li>4.结果写回</li>
+                <h1 id="mysql主从复制"><a href="#mysql主从复制" class="headerlink" title="mysql主从复制"></a>mysql主从复制</h1><h3 id="1-mysql主从复制的原理"><a href="#1-mysql主从复制的原理" class="headerlink" title="1.mysql主从复制的原理"></a>1.mysql主从复制的原理</h3><ul>
+<li>1.mysql主库将数据的更改记录记录到二进制日志(binary log)中</li>
+<li>2.mysql从库将主库的更改记录的二进制日志同步到本地的中继日志(relay log)</li>
+<li>3.mysql从库读取中继日志,根据日志中的操作步骤,同步数据</li>
 </ul>
-<p>由上述步骤我们知道,cpu在执行二进制代码的时候需要对指令进行译码才能够执行  </p>
-<h3 id="cpu译码的开始"><a href="#cpu译码的开始" class="headerlink" title="cpu译码的开始"></a>cpu译码的开始</h3><p>在译码开始时,程序的指令和数据分别会放到一级指令缓存(L1 cache),和数据一级缓存中,(只有L1 cache才是唯一指令和数据单独分割的cache),然后指令一级缓存中的指令会进入解码器,然后才是指令执行的开始</p>
-<h3 id="cpu如何认识并指令指令"><a href="#cpu如何认识并指令指令" class="headerlink" title="cpu如何认识并指令指令"></a>cpu如何认识并指令指令</h3><h4 id="cpu译码器-Instuction-Decode-Unit-IDU"><a href="#cpu译码器-Instuction-Decode-Unit-IDU" class="headerlink" title="cpu译码器(Instuction Decode Unit(IDU))"></a>cpu译码器(Instuction Decode Unit(IDU))</h4><p>cpu译码器一般分为两种</p>
+<h3 id="2-mysql主从复制的搭建"><a href="#2-mysql主从复制的搭建" class="headerlink" title="2.mysql主从复制的搭建"></a>2.mysql主从复制的搭建</h3><p>1.使用docker启动两个mysql容器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run -d --name mysql_master -p3306:3306 -e MYSQL_ROOT_PASSWORD=<span class="hljs-string">&#x27;root&#x27;</span> -v mysql_master_config:/etc mysql<br>docker run -d --name mysql_slave -p3307:3306 -e MYSQL_ROOT_PASSWORD=<span class="hljs-string">&#x27;root&#x27;</span> -v mysql_slave_config:/etc mysql<br></code></pre></td></tr></table></figure>
+
+<p>2.修改主库和从库的配置文件</p>
 <ul>
-<li>1.硬件指令译码器</li>
-<li>2.微码指令译码器</li>
+<li>修改mysql_master配置文件</li>
 </ul>
-<p>现在我们使用的计算机一般是X86架构,属于CISC(复杂指令集),指令种类繁多,如果所有的解码都通过硬件来完成,将会大幅增加硬件布线的难度,因此一般cpu在设计的时候一般只会对一些少量基本的指令采用硬件解码的方式,而一些复杂的指令采用微码指令译码器将其拆解为多条精简指令(microcode),因此cpu只有microcode才是基本的执行单位,硬件解码完成后,将会被cpu调度器(scheduler)放入pipeline提高指令的并行性</p>
-<h3 id="microcode如何修复"><a href="#microcode如何修复" class="headerlink" title="microcode如何修复?"></a>microcode如何修复?</h3><p>我们知道,一条复杂指令要通过microcode译码器分解为多条microcode才能够被cpu所执行,原始的microcode来自于一块rom,为了microcode,新设计了一块较小的SRAM,用来为该rom上的microcode打补丁Microcode更新通常通过更新BIOS来更新</p>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs routeros">[mysqld]<br><span class="hljs-attribute">server-id</span>=1<br><span class="hljs-attribute">log-bin</span>=localhost-binlog	#日志文件<br><br><span class="hljs-comment">#需要同步的表，不配置默认同步所有数据库</span><br><span class="hljs-attribute">binlog-do-db</span>=db_a<br><span class="hljs-attribute">binlog-do-db</span>=db_b<br><span class="hljs-attribute">binlog-do-db</span>=db_c<br><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><span class="hljs-built_in">..</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>修改mysql_slave配置文件</li>
+</ul>
+<figure class="highlight abnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs abnf">[mysqld]<br><span class="hljs-attribute">server-id</span><span class="hljs-operator">=</span><span class="hljs-number">2</span><br>......<br></code></pre></td></tr></table></figure>
+
+<p>3.mysql主库配置</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">alter user <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span> identified with mysql_native_password by <span class="hljs-string">&#x27;root&#x27;</span>;<br><br><span class="hljs-comment">#登录mysql数据库</span><br>mysql -h 127.0.0.1 -uroot -proot<br><br><span class="hljs-comment">#创建一个主从复制用户</span><br>create user slave@<span class="hljs-string">&#x27;%&#x27;</span> identified with mysql_native_password by <span class="hljs-string">&#x27;slave&#x27;</span>;<br><br><span class="hljs-comment">#赋予复制用户的读取权限</span><br>grant replication slave,replication client on *.* to slave@<span class="hljs-string">&#x27;%&#x27;</span>;<br></code></pre></td></tr></table></figure>
+
+<p>配置从机</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs sql">#修改验证方式<br><span class="hljs-keyword">alter</span> <span class="hljs-keyword">user</span> <span class="hljs-string">&#x27;root&#x27;</span>@<span class="hljs-string">&#x27;%&#x27;</span> identified <span class="hljs-keyword">with</span> mysql_native_password <span class="hljs-keyword">by</span> <span class="hljs-string">&#x27;root&#x27;</span>;<br><br>#配置主库的相关配置<br>change master <span class="hljs-keyword">to</span> <br>master_host<span class="hljs-operator">=</span><span class="hljs-string">&#x27;172.17.0.4&#x27;</span>,<br>master_port<span class="hljs-operator">=</span><span class="hljs-number">3306</span>,<br>master_user<span class="hljs-operator">=</span><span class="hljs-string">&#x27;slave&#x27;</span>,<br>master_password<span class="hljs-operator">=</span><span class="hljs-string">&#x27;slave&#x27;</span>,<br>master_log_file<span class="hljs-operator">=</span><span class="hljs-string">&#x27;logbin.000002&#x27;</span>,<br>master_log_pos<span class="hljs-operator">=</span><span class="hljs-number">1825</span>;#这个参数可以由主库<span class="hljs-keyword">show</span> master status得到<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight crmsh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs crmsh"><span class="hljs-comment">#开启备份</span><br><span class="hljs-literal">start</span> <span class="hljs-literal">slave</span><br></code></pre></td></tr></table></figure>
+
 
                 
               </div>
@@ -313,32 +325,11 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="category-chain-item">计算机基础</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">#计算机基础</a>
+        <a href="/tags/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/">#软件配置</a>
       
     </div>
   
@@ -350,8 +341,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>什么是microcode?</div>
-      <div>https://dreamaccount.github.io/2022/04/10/什么是microcode/</div>
+      <div>mysql主从复制</div>
+      <div>https://dreamaccount.github.io/2022/08/19/mysql主从复制搭建/</div>
     </div>
     <div class="license-meta">
       
@@ -363,7 +354,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年4月10日</div>
+          <div>2022年8月19日</div>
         </div>
       
       
@@ -393,9 +384,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/04/11/uboot%E5%9F%BA%E6%9C%AC%E5%91%BD%E4%BB%A4/" title="uboot基本命令">
+                      <a href="/2022/08/23/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="负载均衡解决方案">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">uboot基本命令</span>
+                        <span class="hidden-mobile">负载均衡解决方案</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -403,8 +394,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/04/10/Gentoolinux%E5%AE%89%E8%A3%85%E6%AD%A5%E9%AA%A4/" title="Gentoolinux安装步骤">
-                        <span class="hidden-mobile">Gentoolinux安装步骤</span>
+                      <a href="/2022/08/13/ads%E6%96%87%E4%BB%B6/" title="ads文件">
+                        <span class="hidden-mobile">ads文件</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
