@@ -16,24 +16,24 @@
   <meta name="author" content="404NotFound">
   <meta name="keywords" content="">
   
-    <meta name="description" content="linux设备驱动开发入门1.linux内核模块开发入门基本步骤 graph LR; a(编写内核模块代码)--&gt;b(修改该目录下的Kconfig文件和Makefile)--&gt;c(运行内核模块)     实例1234567891011121314151617181920212223242526272829303132333435#include &lt;linux&#x2F;kernel.h&amp;g">
+    <meta name="description" content="Tor的技术原理1.Tor的历史1995年，美国海军研究实验室的科学家开始开发一套匿名系统，可以避免人们在互联网上的行迹被追 踪到。由于在该系统中，数据被层层密码保护，这个技术被称为叫作“洋葱路由”(tor)。 2.Tor如何实现匿名访问?Tor客户端匿名原理: Tor是一个三重代理,客户端在接入tor网络的时候,Tor客户端会首先连接tor目录服务器通信获得全球活动的中继节点,然后从中选取三个作">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux设备驱动开发入门">
-<meta property="og:url" content="https://dreamaccount.github.io/2022/04/17/Linux%E8%AE%BE%E5%A4%87%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91%E5%85%A5%E9%97%A8/index.html">
+<meta property="og:title" content="Tor的技术原理">
+<meta property="og:url" content="https://dreamaccount.github.io/2022/09/04/Tor%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="linux设备驱动开发入门1.linux内核模块开发入门基本步骤 graph LR; a(编写内核模块代码)--&gt;b(修改该目录下的Kconfig文件和Makefile)--&gt;c(运行内核模块)     实例1234567891011121314151617181920212223242526272829303132333435#include &lt;linux&#x2F;kernel.h&amp;g">
+<meta property="og:description" content="Tor的技术原理1.Tor的历史1995年，美国海军研究实验室的科学家开始开发一套匿名系统，可以避免人们在互联网上的行迹被追 踪到。由于在该系统中，数据被层层密码保护，这个技术被称为叫作“洋葱路由”(tor)。 2.Tor如何实现匿名访问?Tor客户端匿名原理: Tor是一个三重代理,客户端在接入tor网络的时候,Tor客户端会首先连接tor目录服务器通信获得全球活动的中继节点,然后从中选取三个作">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-04-17T13:50:19.000Z">
-<meta property="article:modified_time" content="2022-09-04T13:09:54.911Z">
+<meta property="article:published_time" content="2022-09-04T09:58:13.000Z">
+<meta property="article:modified_time" content="2022-09-04T13:08:58.352Z">
 <meta property="article:author" content="404NotFound">
-<meta property="article:tag" content="linux内核驱动开发">
+<meta property="article:tag" content="软件配置">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Linux设备驱动开发入门 - Hexo</title>
+  <title>Tor的技术原理 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +213,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Linux设备驱动开发入门"></span>
+            <span id="subtitle" data-typed-text="Tor的技术原理"></span>
           
         </div>
 
@@ -224,8 +224,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-04-17 21:50" pubdate>
-          2022年4月17日 晚上
+        <time datetime="2022-09-04 17:58" pubdate>
+          2022年9月4日 下午
         </time>
       </span>
     
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.5k 字
+          1.7k 字
         
       </span>
     
@@ -247,7 +247,7 @@
         
         
         
-          21 分钟
+          15 分钟
         
       </span>
     
@@ -285,39 +285,57 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Linux设备驱动开发入门</h1>
+            <h1 style="display: none">Tor的技术原理</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="linux设备驱动开发入门"><a href="#linux设备驱动开发入门" class="headerlink" title="linux设备驱动开发入门"></a>linux设备驱动开发入门</h1><h3 id="1-linux内核模块开发入门"><a href="#1-linux内核模块开发入门" class="headerlink" title="1.linux内核模块开发入门"></a>1.linux内核模块开发入门</h3><p>基本步骤</p>
+                <h1 id="Tor的技术原理"><a href="#Tor的技术原理" class="headerlink" title="Tor的技术原理"></a>Tor的技术原理</h1><h3 id="1-Tor的历史"><a href="#1-Tor的历史" class="headerlink" title="1.Tor的历史"></a>1.Tor的历史</h3><p>1995年，美国海军研究实验室的科学家开始开发一套匿名系统，可以避免人们在互联网上的行迹被追 踪到。由于在该系统中，数据被层层密码保护，这个技术被称为叫作“洋葱路由”(tor)。</p>
+<h3 id="2-Tor如何实现匿名访问"><a href="#2-Tor如何实现匿名访问" class="headerlink" title="2.Tor如何实现匿名访问?"></a>2.Tor如何实现匿名访问?</h3><p><strong>Tor客户端匿名原理</strong>:</p>
+<p>Tor是一个三重代理,客户端在接入tor网络的时候,Tor客户端会首先连接tor目录服务器通信获得全球活动的中继节点,然后从中选取三个作为节点的相关信息(ip地址,公钥,出口策略,带宽,在线时间)组成电路(cirdcuit),这三个节点分别叫入口节点、中继节点、出口节点。用户的流量在发送到暗网服务器的时候会依次经过这三个节点,只有最后一个节点知道目标服务器,第一个节点知道自身的ip地址</p>
 <pre><code class=" mermaid">graph LR;
-a(编写内核模块代码)--&gt;b(修改该目录下的Kconfig文件和Makefile)--&gt;c(运行内核模块)
+Client--&gt;GuardRelay
+GuardRelay--&gt;MiddleRelay
+MiddleRelay--&gt;ExitRelay
+ExitRelay--&gt;RealServer
 </code></pre>
 
 
 
-<h6 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h6><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;linux/kernel.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;linux/module.h&gt;</span></span><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">__init 和__exit为两个宏</span><br><span class="hljs-comment">*/</span><br><span class="hljs-comment">// EXPORT_SYMBOL(gx);(声明符号表，使得该变量或者函数可以被其他模块调用)</span><br><span class="hljs-type">int</span> a = <span class="hljs-number">1</span>;<br><span class="hljs-type">char</span> *b = <span class="hljs-string">&quot;hello&quot;</span>;<br><span class="hljs-type">int</span> c[<span class="hljs-number">5</span>] = &#123;<span class="hljs-number">1</span>,<span class="hljs-number">2</span>,<span class="hljs-number">3</span>,<span class="hljs-number">4</span>,<span class="hljs-number">5</span>&#125;;<br>module_param(a,<span class="hljs-type">int</span>,<span class="hljs-number">0664</span>);<span class="hljs-comment">//内核模块传参,传参后内核函数可以直接使用这些参数</span><br>module_param(b,charp,<span class="hljs-number">0664</span>);<br>module_param(c,<span class="hljs-type">int</span>,<span class="hljs-literal">NULL</span>,<span class="hljs-number">0664</span>);<br><span class="hljs-type">int</span> __init <span class="hljs-title function_">my_init</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span><br>    <span class="hljs-comment">//init函数必须为int类型</span><br>&#123;<br>    printk(<span class="hljs-string">&quot;just a test for linux kernel module test!\n&quot;</span>);<br>    printk(<span class="hljs-string">&quot;my init linux kernel module is running!\n&quot;</span>);<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br><span class="hljs-type">void</span> __exit <span class="hljs-title function_">my_exit</span><span class="hljs-params">(<span class="hljs-type">void</span>)</span><br>&#123;<br>    <span class="hljs-comment">//exit函数必须为void类型</span><br>    printk(<span class="hljs-string">&quot;just a test for linux kernel module test!\n&quot;</span>);<br><br>&#125;<br>module_init(my_init);<br><span class="hljs-comment">//当该内核模块插入时将会执行my_init函数</span><br>module_exit(my_exit);<br><span class="hljs-comment">//当该内核模块移除时将会执行my_exit函数</span><br>MODULE_LICENCE(<span class="hljs-string">&quot;GPL&quot;</span>);<span class="hljs-comment">//指定模块的开源协议</span><br>MODULE_AUTHOR(<span class="hljs-string">&quot;bugprogram-git&quot;</span>);<span class="hljs-comment">//指定模块的作者</span><br>MODULE_DESCRIPTION(<span class="hljs-string">&quot;just a kernel module test&quot;</span>);<span class="hljs-comment">//指定内核模块的详细信息</span><br>MODULE_ALIAS(<span class="hljs-string">&quot;mymodule&quot;</span>);<span class="hljs-comment">//指定模块的别名</span><br><span class="hljs-comment">//这些MODLE_*的本质其实是定义在static字符数组用于存放指定字符串内容，这些字符串内容链接时存放在.modinfo字段,可以用modinfo命令来查看这些模块信息,用法</span><br>modinfo $(MODULE_NAME)<span class="hljs-comment">//查看某个模块的信息</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="2-修改模块代码所在的目录的Kconfig文件"><a href="#2-修改模块代码所在的目录的Kconfig文件" class="headerlink" title="2.修改模块代码所在的目录的Kconfig文件"></a>2.修改模块代码所在的目录的Kconfig文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">config MY_MODULE<br>    tristate <span class="hljs-string">&quot;this is the linux kernel moule for test&quot;</span><br>    <span class="hljs-built_in">help</span><br>        just a <span class="hljs-built_in">test</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="3-修改该目录下的Makefile文件"><a href="#3-修改该目录下的Makefile文件" class="headerlink" title="3.修改该目录下的Makefile文件"></a>3.修改该目录下的Makefile文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">obj-$(CONFIG_MY_MODULE)         += module.o<br><span class="hljs-comment">#(这里的module.o要和.c文件的文件名一致,MY_MODULE要和Kconfig文件里面的指定一致)</span><br></code></pre></td></tr></table></figure>
-
-<h3 id="4-运行内核模块"><a href="#4-运行内核模块" class="headerlink" title="4.运行内核模块"></a>4.运行内核模块</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">dmesg -C    <span class="hljs-comment">#清除内核已打印的信息</span><br>dmesg       <span class="hljs-comment">#查看内核打印信息</span><br>lsmod<span class="hljs-comment">#显示当前系统已经载入的模块</span><br>insmod<span class="hljs-comment">#将某个模块运行</span><br>dmesg<span class="hljs-comment">#查看内核打印信息</span><br></code></pre></td></tr></table></figure>
-
-<h2 id="linux设备驱动开发"><a href="#linux设备驱动开发" class="headerlink" title="linux设备驱动开发"></a>linux设备驱动开发</h2><p>linux内核用设备号来区分不同的设备,设备号是一个32位的无符号整数,dev_t类型,而且设备号可以分为两个部分,</p>
+<p><strong>暗网服务器匿名原理</strong>:</p>
+<p>服务器在接受客户端请求的时候,客户端并不是直接访问目标站点服务器,而是选取一个汇合节点进行通信,客户端和目标站点都是通过汇合节点进行数据请求的收发,而且服务器在和汇合节点通信的时候也是通过tor链路进行通信的。</p>
+<p><strong>客户端访问暗网网站的过程</strong>:</p>
 <ul>
-<li><p>1.主设备号</p>
-<p>占12位</p>
-</li>
-<li><p>2.次设备号</p>
-<p>占20位</p>
-</li>
+<li>1.客户端通过tor链路和暗网的分布式散列表建立连接,开始查询目标网站的描述符,获得目标服务器的介绍节点</li>
+<li>2.客户端随机选取一个节点作为汇合点(客户端和汇合点之间相隔两个节点),并生成一个一次性的cookie,并在汇合节点留下cookie将汇合点的ip地址和cookie加密(使用目标服务器的公钥)发送给介绍节点</li>
+<li>3.服务器收到密文数据包后,用自己的私钥解密数据包,获得汇合点的ip地址,</li>
+<li>4.服务器通过tor链路连接至汇合节点,并比对cookie,如果比对成功,客户端和目标站点建立通信</li>
 </ul>
-<h4 id="常用的api"><a href="#常用的api" class="headerlink" title="常用的api"></a>常用的api</h4>  <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs c">MAJOR(<span class="hljs-type">dev_t</span> dev);<br><span class="hljs-comment">//获取设备号的主设备号</span><br>MINOR(<span class="hljs-type">dev_t</span> dev);<br><span class="hljs-comment">//获取设备的次设备号</span><br>MKDEV(<span class="hljs-type">int</span> major,<span class="hljs-type">int</span> minor);<br><span class="hljs-comment">//创建一个设备</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">register_chrdev_region</span><span class="hljs-params">(<span class="hljs-type">dev_t</span> from,<span class="hljs-type">unsigned</span> count,<span class="hljs-type">char</span> *name)</span>;<br><span class="hljs-comment">//手动注册一个设备到内核</span><br><span class="hljs-type">int</span> <span class="hljs-title function_">alloc_chrdev_regionda</span><span class="hljs-params">(<span class="hljs-type">dev_t</span> *dev,<span class="hljs-type">unsigned</span> baseminor,<span class="hljs-type">unsigned</span> count,<span class="hljs-type">const</span> <span class="hljs-type">char</span> *name)</span>;<br><br><span class="hljs-comment">//只需要主次设备号和fops即可注册设备</span><br><span class="hljs-type">int</span> __register_chrdev(<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> major, <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> baseminor,<br>		      <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> count, <span class="hljs-type">const</span> <span class="hljs-type">char</span> *name,<br>		      <span class="hljs-type">const</span> <span class="hljs-keyword">struct</span> file_operations *fops)<br><span class="hljs-type">void</span> <span class="hljs-title function_">unregister_chrdev_region</span><span class="hljs-params">(<span class="hljs-type">dev_t</span> from,<span class="hljs-type">unsigned</span> count)</span>;<br><span class="hljs-comment">//注销一个设备</span><br><span class="hljs-comment">//动态注册一个设备到内核中</span><br><span class="hljs-comment">//分配成功后会在/proc/devices中查看到设备号对应的设备名称</span><br>cdev_alloc(<span class="hljs-type">void</span>);<br>cdev_init(<span class="hljs-keyword">struct</span> cdev *dev,<span class="hljs-keyword">struct</span> file_operations *fops);<br>cdev_add(<span class="hljs-keyword">struct</span> cdev *dev,<span class="hljs-type">dev_t</span> devnum,<span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> count);<br>cdev_del(<span class="hljs-keyword">struct</span> cdev *dev);<br><span class="hljs-comment">//将数据从内核空间拷贝到用户空间</span><br><span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> <span class="hljs-title function_">copy_to_user</span><span class="hljs-params">(<span class="hljs-type">void</span> __user *to,<span class="hljs-type">const</span> <span class="hljs-type">void</span> *from,<span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> n)</span>;<br><span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> <span class="hljs-title function_">copy_from_user</span><span class="hljs-params">(<span class="hljs-type">void</span> *to,<span class="hljs-type">void</span> *from,<span class="hljs-type">unsigned</span> <span class="hljs-type">long</span> n)</span>;<br></code></pre></td></tr></table></figure>
-<h4 id="基本步骤"><a href="#基本步骤" class="headerlink" title="基本步骤"></a>基本步骤</h4>  <pre><code class=" mermaid">graph LR;
-a(申请设备号)--&gt;b(注册设备号)--&gt;c(设置设备对应的file_ops)--&gt;d(将其加入到内核的链表中)
+<p>至此客户端和目标站点中间隔了6个节点,分别是客户端入口节点、客户端中继节点、汇合点、服务器出口节点、服务器中继节点、服务器入口节点。</p>
+<pre><code class=" mermaid">graph LR;
+Client--&gt;ClientGuardRelay
+ClientGuardRelay--&gt;ClientMiddleRelay;
+ClientMiddleRelay--&gt;ClientExitRelay;
+
+Server--&gt;ServerGuardRelay
+ServerGuardRelay--&gt;ServerMiddleRelay;
+ServerMiddleRelay--&gt;ServerExitRelay
 </code></pre>
+
+
+
+<p><strong>Tor数据包加密过程</strong></p>
+<p>首先客户端会选取三个作为节点作为通信的中继节点,并开始和这三个节点开始协商密钥对,每次发送数据时依次使用ExitNode的公钥,MiddleNode的公钥,GuardRelay的公钥对数据包进行加密。</p>
+<h3 id="3-如何搭建一个暗网网站"><a href="#3-如何搭建一个暗网网站" class="headerlink" title="3.如何搭建一个暗网网站?"></a>3.如何搭建一个暗网网站?</h3><p>安装tor</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install tor<br></code></pre></td></tr></table></figure>
+
+<p>编辑tor配置文件&#x2F;etc&#x2F;tor&#x2F;torrc</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">HiddenServiceDir /var/lib/tor/hidden_service/<br>HiddenServicePort 80 127.0.0.1:10000 <span class="hljs-comment">#表示对外映射一个虚拟端口80提供服务,并将本地10000端口映射到80端口</span><br>Socks5Proxy 127.0.0.0:1080 <span class="hljs-comment">#使用前置代理,用代理连接至tor网络</span><br>HiddenServiceNumInstrductionPoints 10 <span class="hljs-comment">#最大数量的介绍节点</span><br>HiddenServiceVersion 3<span class="hljs-comment">#使用第三代洋葱地址</span><br>SOCKSPolicy accept 0.0.0.0 <span class="hljs-comment">#控制访问的客户端的ip地址段</span><br></code></pre></td></tr></table></figure>
+
+<p>启动tor服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl start tor.service<br></code></pre></td></tr></table></figure>
+
+<p>启动后目录&#x2F;var&#x2F;lib&#x2F;tor&#x2F;hidden_service下会生成两个文件hostname和private_key,分别是暗网的主机名和私钥,公钥就是暗网主机名	</p>
 
                 
               </div>
@@ -336,7 +354,7 @@ a(申请设备号)--&gt;b(注册设备号)--&gt;c(设置设备对应的file_ops)
     
       <span class="category-chain">
         
-  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/" class="category-chain-item">软件开发</a>
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
   
   
 
@@ -351,7 +369,7 @@ a(申请设备号)--&gt;b(注册设备号)--&gt;c(设置设备对应的file_ops)
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/linux%E5%86%85%E6%A0%B8%E9%A9%B1%E5%8A%A8%E5%BC%80%E5%8F%91/">#linux内核驱动开发</a>
+        <a href="/tags/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/">#软件配置</a>
       
     </div>
   
@@ -363,8 +381,8 @@ a(申请设备号)--&gt;b(注册设备号)--&gt;c(设置设备对应的file_ops)
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Linux设备驱动开发入门</div>
-      <div>https://dreamaccount.github.io/2022/04/17/Linux设备驱动开发入门/</div>
+      <div>Tor的技术原理</div>
+      <div>https://dreamaccount.github.io/2022/09/04/Tor的技术原理/</div>
     </div>
     <div class="license-meta">
       
@@ -376,7 +394,7 @@ a(申请设备号)--&gt;b(注册设备号)--&gt;c(设置设备对应的file_ops)
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年4月17日</div>
+          <div>2022年9月4日</div>
         </div>
       
       
@@ -406,18 +424,12 @@ a(申请设备号)--&gt;b(注册设备号)--&gt;c(设置设备对应的file_ops)
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/04/17/socket%E7%BC%96%E7%A8%8B/" title="socket编程">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">socket编程</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/04/17/CVE-2022-0847%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%8F%8A%E5%A4%8D%E7%8E%B0/" title="CVE-2022-0847漏洞原理及复现">
-                        <span class="hidden-mobile">CVE-2022-0847漏洞原理及复现</span>
+                      <a href="/2022/09/01/linux%E7%94%A8%E6%88%B7%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86/" title="linux用户权限管理">
+                        <span class="hidden-mobile">linux用户权限管理</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
@@ -478,6 +490,13 @@ a(申请设备号)--&gt;b(注册设备号)--&gt;c(设置设备对应的file_ops)
 
   
 
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+  });
+</script>
 
 
 
