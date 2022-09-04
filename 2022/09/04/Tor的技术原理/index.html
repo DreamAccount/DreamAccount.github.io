@@ -24,7 +24,7 @@
 <meta property="og:description" content="Tor的技术原理1.Tor的历史1995年，美国海军研究实验室的科学家开始开发一套匿名系统，可以避免人们在互联网上的行迹被追 踪到。由于在该系统中，数据被层层密码保护，这个技术被称为叫作“洋葱路由”(tor)。 2.Tor如何实现匿名访问?Tor客户端匿名原理: Tor是一个三重代理,客户端在接入tor网络的时候,Tor客户端会首先连接tor目录服务器通信获得全球活动的中继节点,然后从中选取三个作">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-09-04T09:58:13.000Z">
-<meta property="article:modified_time" content="2022-09-04T13:08:58.352Z">
+<meta property="article:modified_time" content="2022-09-04T13:19:03.075Z">
 <meta property="article:author" content="404NotFound">
 <meta property="article:tag" content="软件配置">
 <meta name="twitter:card" content="summary_large_image">
@@ -336,6 +336,8 @@ ServerMiddleRelay--&gt;ServerExitRelay
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl start tor.service<br></code></pre></td></tr></table></figure>
 
 <p>启动后目录&#x2F;var&#x2F;lib&#x2F;tor&#x2F;hidden_service下会生成两个文件hostname和private_key,分别是暗网的主机名和私钥,公钥就是暗网主机名	</p>
+<p>参考:</p>
+<p><a target="_blank" rel="noopener" href="https://2047.one/t/9204">https://2047.one/t/9204</a></p>
 
                 
               </div>
