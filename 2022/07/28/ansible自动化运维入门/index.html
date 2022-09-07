@@ -24,7 +24,7 @@
 <meta property="og:description" content="ansible自动化运维入门1.ansible是什么?Ansible是一个开源配置管理工具，可以使用它来自动化任务，部署应用程序实现IT基础架构。ansible基于python开发,提供了多种运维模块, Ansible可以用来自动化日常任务，比如，服务器的初始化配置、安全基线配置、更新和打补丁系统，安装软件包等,而且ansible配置十分简单,被控制机器只需要支持ssh登录即可被ansible进行">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-07-28T01:26:45.000Z">
-<meta property="article:modified_time" content="2022-09-04T13:11:40.973Z">
+<meta property="article:modified_time" content="2022-09-04T17:35:22.311Z">
 <meta property="article:author" content="404NotFound">
 <meta property="article:tag" content="软件配置及软件原理">
 <meta name="twitter:card" content="summary_large_image">
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          753 字
+          3.1k 字
         
       </span>
     
@@ -247,7 +247,7 @@
         
         
         
-          7 分钟
+          26 分钟
         
       </span>
     
@@ -294,25 +294,71 @@
 <h4 id="2-ansible配置"><a href="#2-ansible配置" class="headerlink" title="2.ansible配置"></a>2.ansible配置</h4><p>基于ubuntu20.04(管理服务器)</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install ansible<br></code></pre></td></tr></table></figure>
 
-
-
 <p>配置运维机器列表清单</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">vim /etc/ansible/hosts<br>[mywebserver]<br>192.168.0.5 ansible_user=root ansible_ssh_private_key_file=<span class="hljs-variable">$HOME</span>/.ssh/private_keys/armbian<br></code></pre></td></tr></table></figure>
 
-<h4 id="3-实现远程服务器批量管理的模式"><a href="#3-实现远程服务器批量管理的模式" class="headerlink" title="3.实现远程服务器批量管理的模式"></a>3.实现远程服务器批量管理的模式</h4><h5 id="1-ad-hoc模式"><a href="#1-ad-hoc模式" class="headerlink" title="1.ad-hoc模式"></a>1.ad-hoc模式</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ansible -s module_name<span class="hljs-comment">#查看该模块支持的参数</span><br></code></pre></td></tr></table></figure>
+<p>常用的配置参数</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash">ansible_connection 	<span class="hljs-comment">#主机连接类型，这可以是任何 ansible 连接插件的名称，如 smart、ssh、paramiko、local</span><br>ansible_ssh_host 	<span class="hljs-comment"># 将要连接的远程主机名.与你想要设定的主机的别名不同的话,可通过此变量设置.</span><br>ansible_ssh_port 	<span class="hljs-comment"># 连接端口号（默认22）</span><br>ansible_ssh_user 	<span class="hljs-comment"># 连接主机时的用户名</span><br>ansible_ssh_pass 	<span class="hljs-comment"># 用于验证主机的密码</span><br>ansible_ssh_private_key_file <span class="hljs-comment"># ssh 使用的私钥文件.适用于有多个密钥,而你不想使用 SSH 代理的情况.</span><br>ansible_ssh_common_args <span class="hljs-comment"># 此设置附加到 sftp，scp 和 ssh 的缺省命令行</span><br>ansible_sftp_extra_args <span class="hljs-comment"># 此设置附加到默认 sftp 命令行</span><br>ansible_scp_extra_args <span class="hljs-comment"># 此设置附加到默认 scp 命令行</span><br>ansible_ssh_extra_args <span class="hljs-comment"># 此设置附加到默认 ssh 命令行</span><br>ansible_ssh_pipelining <span class="hljs-comment"># 确定是否使用 SSH 管道。 这可以覆盖 ansible.cfg 中得设置</span><br>ansible_shell_type <span class="hljs-comment"># 目标系统的 shell 类型，默认情况下命令的执行使用 &#x27;sh&#x27; 语法,可设置为 &#x27;csh&#x27; 或 &#x27;fish&#x27;</span><br>ansible_python_interpreter <span class="hljs-comment"># 目标主机的 python 路径，适用于的情况: 系统中有多个 Python, 或者命令路径不是&quot;/usr/bin/python&quot;,比如 *BSD, 或者 /usr/bin/python</span><br>ansible_interpreter <span class="hljs-comment"># 这里的&quot;&quot;可以是 ruby、perl 或其他语言的解释器，作用和ansible_python_interpreter 类似</span><br>ansible_shell_executable <span class="hljs-comment"># 这将设置 ansible 控制器将在目标机器上使用的 shell，覆盖 ansible.cfg 中的配置，默认为 /bin/sh</span><br></code></pre></td></tr></table></figure>
 
 
 
-<p>command模块:</p>
+<h4 id="3-实现远程服务器批量管理的模式"><a href="#3-实现远程服务器批量管理的模式" class="headerlink" title="3.实现远程服务器批量管理的模式"></a>3.实现远程服务器批量管理的模式</h4><h5 id="1-ad-hoc模式"><a href="#1-ad-hoc模式" class="headerlink" title="1.ad-hoc模式"></a>1.ad-hoc模式</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">ansible-doc -s module_name<span class="hljs-comment">#查看该模块支持的参数</span><br>ansible-doc -l <span class="hljs-comment">#查看可用的模块</span><br><span class="hljs-comment">#使用方法</span><br>ansible SERVERLIST -m <span class="hljs-variable">$MODULE_NAME</span> -a <span class="hljs-variable">$ARGS</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="4-ansible常用的模块"><a href="#4-ansible常用的模块" class="headerlink" title="4.ansible常用的模块"></a>4.ansible常用的模块</h4><p><strong>1.command模块</strong></p>
+<p>向远程主机执行命令 (不支持管道符)</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">chdir</span> 执行命令之前切换到指定目录<br>creates 执行命令命令前判断文件是否存在,如果存在则不执行前面的命令<br>removes 执行一个命令前判断指定的文件是否存在,如果存在执行前面的操作<br></code></pre></td></tr></table></figure>
 
+<p><strong>2.shell模块</strong></p>
+<p>shell模块基本和command相同，但是shell支持管道符</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ansible mywebserver -m shell -a <span class="hljs-string">&quot;/home/test.sh&quot;</span> <span class="hljs-comment">#在远程主机上执行远程主机的脚本(test.sh脚本在远程服务器)</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>3.script模块</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ansible mywebserver -m script -a <span class="hljs-string">&quot;/home/test.sh&quot;</span> <span class="hljs-comment">#在远程主机上执行本地的脚本(test.sh脚本在主控端本地)</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>4.copy模块</strong></p>
+<p>实现主控端向目标主机拷贝文件,类似于scp功能</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ansible mywebserver -m copy -a <span class="hljs-string">&quot;src=/home/test.sh dst=/tmp/test.sh owner=root group=root mode=0755&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>5.stat模块</strong></p>
+<p>获取远程文件的状态信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ansible mywebserver -m <span class="hljs-built_in">stat</span> -a <span class="hljs-string">&quot;path=/etc/hosts&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>6.get_url</strong></p>
+<p>实现远程主机下载指定url文件到远程主机</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ansible mywebserver -m get_url <span class="hljs-string">&quot;url=https://www.baidu.com dst=/tmp/index.html mode=0444 force=yes&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>7.yum</strong></p>
+<p>实现调用远程主机的yum包管理器下载指定的软件包</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ansible mywebserver -m yum -a <span class="hljs-string">&quot;name=kubernetes-master state=latest&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>8.crontab</strong></p>
+<p>配置远程主机的计划任务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ansible mywebserver -m cron -a <span class="hljs-string">&quot;name=mywebserver  hour=&#x27;5,2&#x27; job=&#x27;ls -alh &gt; /dev/null&#x27;&quot;</span><span class="hljs-comment">#name为crontab中的注释</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>9.mount</strong></p>
+<p>远程主机分区挂载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ansible mywebserver -m mount -a <span class="hljs-string">&quot;name=/mnt/data src=/dev/sda1 fstype=ext4 opts=ro state=present&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>10.service</strong></p>
+<p>对远程主机服务进行管理</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ansible mywebserver -m service -a <span class="hljs-string">&quot;name=nginx state=started|reloaded|stopped&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p><strong>11.user</strong></p>
+<p>远程主机用户管理</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ansible mywebserver -m user -a <span class="hljs-string">&quot;name=centos comment=&#x27;user&#x27;&quot;</span><br></code></pre></td></tr></table></figure>
 
 
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#用简单的命令行实现远程主机批量管理</span><br>ansible mywebserver -m <span class="hljs-built_in">command</span> -a <span class="hljs-string">&quot;ip route show&quot;</span><br>-m指定要调用的模块<br>-a指定执行的命令参数<br></code></pre></td></tr></table></figure>
 
 
 
 <h5 id="2-palybook模式"><a href="#2-palybook模式" class="headerlink" title="2.palybook模式"></a>2.palybook模式</h5><p>playbook模式是使用yaml文件格式将命令指定的参数以及目标类似于清单一样的描述下来</p>
+<p>实例清单</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-bullet">-</span> <span class="hljs-attr">hosts:</span> <span class="hljs-string">mycentos</span><br>  <span class="hljs-attr">remote_user:</span> <span class="hljs-string">root</span><br>  <span class="hljs-attr">tasks:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">copyfile</span> <span class="hljs-string">to</span> <span class="hljs-string">des</span> <span class="hljs-string">server</span><br>    <span class="hljs-attr">copy:</span> <span class="hljs-string">src=/root/shell.sh</span> <span class="hljs-string">dst=/tmp/shell.sh</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">install</span> <span class="hljs-string">tool</span><br>    <span class="hljs-attr">yum:</span> <span class="hljs-string">name=nginx</span> <span class="hljs-string">state=restarted</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">start</span> <span class="hljs-string">service</span><br>    <span class="hljs-attr">service:</span> <span class="hljs-string">name=nginx</span> <span class="hljs-string">state=started</span> <span class="hljs-string">enable=true</span><br>  <span class="hljs-attr">handlers:</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">name:</span> <span class="hljs-string">restart</span> <span class="hljs-string">nginx</span><br>    <span class="hljs-attr">service:</span> <span class="hljs-string">name=nginx</span> <span class="hljs-string">state=restarted</span><br></code></pre></td></tr></table></figure>
+
+
+
+<p>参考:</p>
+<p><a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903631066513421">https://juejin.cn/post/6844903631066513421</a></p>
 
                 
               </div>
