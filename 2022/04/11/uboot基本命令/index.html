@@ -24,7 +24,7 @@
 <meta property="og:description" content="uboot基本命令什么是uboot？uboot一个嵌入式领域常用的一种bootloader,支持多种计算机架构,如ARM,PPC,MIPS, 为什么用uboot? 1.开放源码 2.支持多种嵌入式操作系统内核，如Linux、NetBSD, VxWorks, QNX, RTEMS, ARTOS, LynxOS, android 3.支持多个处理器系列，如PowerPC、ARM、x86、MIPS 4.">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-11T10:57:13.000Z">
-<meta property="article:modified_time" content="2022-09-21T12:13:06.977Z">
+<meta property="article:modified_time" content="2022-10-18T17:31:56.904Z">
 <meta property="article:author" content="404NotFound">
 <meta property="article:tag" content="软件配置和使用">
 <meta name="twitter:card" content="summary_large_image">
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          825 字
+          824 字
         
       </span>
     
@@ -304,7 +304,7 @@
 
 <h4 id="2-读取命令"><a href="#2-读取命令" class="headerlink" title="2.读取命令"></a>2.读取命令</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">1.fatinfo &lt;interface&gt; dev:part (显示分区信息)<br>2.fatls &lt;interface&gt; dev:part directory(列出某个目录的文件或者是目录)<br>3.fatload &lt;interface&gt; address dev:part file (将一个文件从磁盘分区读取到内存)<br>以上命令都是针对于fat文件系统分区的操作<br></code></pre></td></tr></table></figure>
 
-<h4 id="3-设置环境变量"><a href="#3-设置环境变量" class="headerlink" title="3.设置环境变量"></a>3.设置环境变量</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">printenv</span>(显示当前环境变量)<br>setenv name value(设置环境变量)<br><br></code></pre></td></tr></table></figure>
+<h4 id="3-设置环境变量"><a href="#3-设置环境变量" class="headerlink" title="3.设置环境变量"></a>3.设置环境变量</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">printenv</span>(显示当前环境变量)<br>setenv name value(设置环境变量)<br></code></pre></td></tr></table></figure>
 
 
                 
