@@ -24,7 +24,7 @@
 <meta property="og:description" content="sql注入详解1.什么是sql注入?sql注入攻击是网站在处理用户请求的参数,在没有检验或者检验不严谨的情况下直接插入到sql语句中执行,导致用户可以构造恶意参数获取敏感数据。 2.sql注入的工作原理实例1 看下面的一段代码 12345678910111213141516171819202122232425262728293031323334353637383940414243444546474">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-10-06T02:17:31.000Z">
-<meta property="article:modified_time" content="2022-10-08T06:21:23.610Z">
+<meta property="article:modified_time" content="2022-11-29T16:03:30.289Z">
 <meta property="article:author" content="404NotFound">
 <meta property="article:tag" content="网络安全基础">
 <meta name="twitter:card" content="summary_large_image">
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.3k 字
+          3k 字
         
       </span>
     
@@ -247,7 +247,7 @@
         
         
         
-          20 分钟
+          25 分钟
         
       </span>
     
@@ -301,6 +301,28 @@
 <figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sql"><span class="hljs-keyword">SELECT</span> first_name, last_name <span class="hljs-keyword">FROM</span> users <span class="hljs-keyword">WHERE</span> user_id <span class="hljs-operator">=</span> <span class="hljs-string">&#x27;1&#x27;</span> <span class="hljs-keyword">and</span> <span class="hljs-number">1</span><span class="hljs-operator">=</span><span class="hljs-number">2</span> <span class="hljs-keyword">union</span> <span class="hljs-keyword">select</span> <span class="hljs-number">1</span>,version();<span class="hljs-comment">--+&#x27;</span><br></code></pre></td></tr></table></figure>
 
 <p>由于1&#x3D;2为假,因此这条sql语句执行的结果其实是我们构造的sql语句select 1, version()(一个mysql函数,返回数据库的版本信息)的执行结果,因此最终服务器会返回1,和数据库的版本信息。</p>
+<h3 id="3-sql注入类型"><a href="#3-sql注入类型" class="headerlink" title="3.sql注入类型"></a>3.sql注入类型</h3><h5 id="1-报错注入"><a href="#1-报错注入" class="headerlink" title="1.报错注入"></a>1.报错注入</h5><p>  注入过程中只有错误时目标服务器才有回显</p>
+<h5 id="2-布尔盲注"><a href="#2-布尔盲注" class="headerlink" title="2.布尔盲注"></a>2.布尔盲注</h5><p>  注入过程中只会出现正确和错误两种回显,并不会回显查询数据</p>
+<h5 id="3-延时注入"><a href="#3-延时注入" class="headerlink" title="3.延时注入"></a>3.延时注入</h5><p>  注入过程中怎么样都是正确的,但是在执行延时函数的时候能明显发现目标服务器回应时间出现了明显的变化。</p>
+<h5 id="4-宽字节注入"><a href="#4-宽字节注入" class="headerlink" title="4.宽字节注入"></a>4.宽字节注入</h5><p>  由于编码问题,注入库在处理指定的输入参数使用了gbk编码,导致用户输入的参数和闭合字符被当成一个字符处理。</p>
+<h5 id="5-http-header注入"><a href="#5-http-header注入" class="headerlink" title="5.http-header注入"></a>5.http-header注入</h5><p>  注入位置在http请求头(如User-Agent,Cookie等)中</p>
+<h3 id="4-sql注入的步骤"><a href="#4-sql注入的步骤" class="headerlink" title="4.sql注入的步骤"></a>4.sql注入的步骤</h3><p>1.测试sql注入的位置</p>
+<p>2.确定闭合方式</p>
+<p>3.探测回显位置</p>
+<p>4.获取数据库敏感信息</p>
+<h3 id="5-sqlmap"><a href="#5-sqlmap" class="headerlink" title="5.sqlmap"></a>5.sqlmap</h3><p>sqlmap是一个自动化的sql注入漏洞探测工具,由python开发,可以自行指定探测位置,以及设置相关参数。</p>
+<h5 id="sqlmap常用命令"><a href="#sqlmap常用命令" class="headerlink" title="sqlmap常用命令"></a>sqlmap常用命令</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">sqlmap -u <span class="hljs-string">&quot;https://www.baidu.com/index.php?id=1&quot;</span> -p <span class="hljs-string">&quot;id&quot;</span> --proxy http://localhost:1080 --banner<br>-u 指定探测的url<br>-p 指定探测的参数<br>--banner 探测目标数据库的版本<br>--dbs 探测目标数据库的所有数据库<br>--tables 探测指定目标数据库的所有的表<br>--columns 探测指定目标数据库指定表的指定列<br>--os-shell 获取目标服务器的shell<br>--sql-shell 获取目标服务器数据库的shell<br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+
+
+
+
 
                 
               </div>
@@ -399,8 +421,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/09/04/Tor%E7%9A%84%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86/" title="Tor的技术原理">
-                        <span class="hidden-mobile">Tor的技术原理</span>
+                      <a href="/2022/09/15/v2ray%E9%85%8D%E7%BD%AE/" title="v2ray配置">
+                        <span class="hidden-mobile">v2ray配置</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

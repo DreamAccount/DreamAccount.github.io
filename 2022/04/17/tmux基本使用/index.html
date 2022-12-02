@@ -24,7 +24,7 @@
 <meta property="og:description" content="tmux配置教程1.tmux是什么?tmux是一个终端复用工具,在实际开发运维中,可以用来保存当前工作状态,也可以将当前的单个终端拆分多个窗口。 2.tmux的基本结构tmux为C&#x2F;S架构,tmux进程为守护进程,独立于终端之外,在不使用tmux的情况下,在当前终端执行的所有任务都为当前终端的子进程,而在使用了tmux之后,在tmux下执行的任务为tmux的子进程,而tmux为一个守护进">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-04-17T13:52:09.000Z">
-<meta property="article:modified_time" content="2022-09-21T12:13:06.000Z">
+<meta property="article:modified_time" content="2022-11-29T16:07:18.257Z">
 <meta property="article:author" content="404NotFound">
 <meta property="article:tag" content="软件配置与使用">
 <meta name="twitter:card" content="summary_large_image">
@@ -292,18 +292,10 @@
                 
                 <h1 id="tmux配置教程"><a href="#tmux配置教程" class="headerlink" title="tmux配置教程"></a>tmux配置教程</h1><h3 id="1-tmux是什么"><a href="#1-tmux是什么" class="headerlink" title="1.tmux是什么?"></a>1.tmux是什么?</h3><p>tmux是一个终端复用工具,在实际开发运维中,可以用来保存当前工作状态,也可以将当前的单个终端拆分多个窗口。</p>
 <h3 id="2-tmux的基本结构"><a href="#2-tmux的基本结构" class="headerlink" title="2.tmux的基本结构"></a>2.tmux的基本结构</h3><p>tmux为C&#x2F;S架构,tmux进程为守护进程,独立于终端之外,在不使用tmux的情况下,在当前终端执行的所有任务都为当前终端的子进程,而在使用了tmux之后,在tmux下执行的任务为tmux的子进程,而tmux为一个守护进程,因此不用担心在退出当前终端或者远程ssh突然断网时，执行的任务被杀死的情况.</p>
-<h3 id="3-tmux的三个概念"><a href="#3-tmux的三个概念" class="headerlink" title="3.tmux的三个概念"></a>3.tmux的三个概念</h3><ul>
-<li><p>1.session</p>
-<p>一个session就是一个会话,session为tmux的一个会话,一个tmux可以同时开多个session</p>
-</li>
-<li><p>2.windows</p>
-<p>window为session的子集,一个session可以有有多个window</p>
-</li>
-<li><p>3.pannel</p>
-<p>一个pannel为一个窗格,为window的子集,一个window可以有多个pannel</p>
-</li>
-</ul>
-<h3 id="4-tmux的安装使用"><a href="#4-tmux的安装使用" class="headerlink" title="4.tmux的安装使用"></a>4.tmux的安装使用</h3><h5 id="tmux的安装"><a href="#tmux的安装" class="headerlink" title="tmux的安装"></a>tmux的安装</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo pacman -S tmux<br></code></pre></td></tr></table></figure>
+<h3 id="3-tmux的三个概念"><a href="#3-tmux的三个概念" class="headerlink" title="3.tmux的三个概念"></a>3.tmux的三个概念</h3><h5 id="1-session"><a href="#1-session" class="headerlink" title="1.session"></a>1.session</h5><p>  一个session就是一个会话,session为tmux的一个会话,一个tmux可以同时开多个session</p>
+<h5 id="2-windows"><a href="#2-windows" class="headerlink" title="2.windows"></a>2.windows</h5><p>  window为session的子集,一个session可以有有多个window</p>
+<h5 id="3-pannel"><a href="#3-pannel" class="headerlink" title="3.pannel"></a>3.pannel</h5><p>  一个pannel为一个窗格,为window的子集,一个window可以有多个pannel</p>
+<h3 id="4-tmux的安装使用"><a href="#4-tmux的安装使用" class="headerlink" title="4.tmux的安装使用"></a>4.tmux的安装使用</h3><h5 id="tmux的安装"><a href="#tmux的安装" class="headerlink" title="tmux的安装"></a>tmux的安装</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo pacman -S tmux(安装环境为archlinux)<br></code></pre></td></tr></table></figure>
 
 <h5 id="tmux配置文件"><a href="#tmux配置文件" class="headerlink" title="tmux配置文件"></a>tmux配置文件</h5><p>tmux系统配置文件为&#x2F;etc&#x2F;tmux.conf,用户配置文件为~&#x2F;.tmux.conf</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#解绑prefix键位</span><br>unbind C-b<br>unbind <span class="hljs-string">&#x27;&quot;&#x27;</span><br>unbind <span class="hljs-string">&#x27;%&#x27;</span><br><span class="hljs-comment">#设置prefix键位为C-a</span><br><span class="hljs-built_in">set</span> -g prefix C-a<br><span class="hljs-built_in">bind</span> C-a send-prefix<br><span class="hljs-comment">#设置切分窗格键位为prefix和h以及prefix和v</span><br><span class="hljs-built_in">bind</span> h split-window -h<br><span class="hljs-built_in">bind</span> v split-window -v<br><span class="hljs-comment">#设置C-r为重载tmux配置文件(指定-n为不用使用prefix键位就可以触发)</span><br>bind-key -n C-r source-file ~/.tmux.conf<br><span class="hljs-comment">#设置调整窗格大小键位(指定-r键位为不用每次触发的时候都要使用prefix键位(只要摁一次prefix键位就可以持续出发操作))</span><br><span class="hljs-built_in">bind</span> -r H resize-pane -L 5<br><span class="hljs-built_in">bind</span> -r J resize-pane -D 5<br><span class="hljs-built_in">bind</span> -r K resize-pane -U 5<br><span class="hljs-built_in">bind</span> -r L resize-pane -R 5<br><span class="hljs-comment">#bind k selectp -U</span><br><span class="hljs-comment">#bind h selectp -L</span><br><span class="hljs-comment">#bind j selectp -D</span><br><span class="hljs-comment">#bind l selectp -R</span><br><span class="hljs-comment">#bind -r ^k resizep -U 5</span><br><span class="hljs-comment">#bind -r ^h resizep -L 5</span><br><span class="hljs-comment">#bind -r ^j resizep -D 5</span><br><span class="hljs-comment">#bind -r ^l resizep -R 5</span><br></code></pre></td></tr></table></figure>

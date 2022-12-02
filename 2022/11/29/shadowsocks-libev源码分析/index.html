@@ -1,0 +1,806 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="404NotFound">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="shadowsocks-libev源码分析1.什么是shadowsocks?shadowsocks-libev是一个轻量的socks5代理,可用于伪装ip访问服务器,底层基于libev事件驱动库,非常轻量高效 2.shadowsocks协议解析    类型 目标ip地址 目标端口 数据    长度(Byte) 1 可变 2 可变   ATYP: 协议类型         * 0x01 ipv4的i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="shadowsocks-libev源码分析">
+<meta property="og:url" content="https://dreamaccount.github.io/2022/11/29/shadowsocks-libev%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="shadowsocks-libev源码分析1.什么是shadowsocks?shadowsocks-libev是一个轻量的socks5代理,可用于伪装ip访问服务器,底层基于libev事件驱动库,非常轻量高效 2.shadowsocks协议解析    类型 目标ip地址 目标端口 数据    长度(Byte) 1 可变 2 可变   ATYP: 协议类型         * 0x01 ipv4的i">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-11-28T17:05:33.000Z">
+<meta property="article:modified_time" content="2022-11-28T17:49:58.102Z">
+<meta property="article:author" content="404NotFound">
+<meta property="article:tag" content="网络编程">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>shadowsocks-libev源码分析 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"dreamaccount.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="shadowsocks-libev源码分析"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-11-29 01:05" pubdate>
+          2022年11月29日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          17k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          145 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">shadowsocks-libev源码分析</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="shadowsocks-libev源码分析"><a href="#shadowsocks-libev源码分析" class="headerlink" title="shadowsocks-libev源码分析"></a>shadowsocks-libev源码分析</h1><h3 id="1-什么是shadowsocks"><a href="#1-什么是shadowsocks" class="headerlink" title="1.什么是shadowsocks?"></a>1.什么是shadowsocks?</h3><p><a href="(https://shadowsocks.org/">shadowsocks-libev</a>是一个轻量的socks5代理,可用于伪装ip访问服务器,底层基于libev事件驱动库,非常轻量高效</p>
+<h3 id="2-shadowsocks协议解析"><a href="#2-shadowsocks协议解析" class="headerlink" title="2.shadowsocks协议解析"></a>2.shadowsocks协议解析</h3><table>
+<thead>
+<tr>
+<th align="center"></th>
+<th>类型</th>
+<th>目标ip地址</th>
+<th>目标端口</th>
+<th>数据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">长度(Byte)</td>
+<td>1</td>
+<td>可变</td>
+<td>2</td>
+<td>可变</td>
+</tr>
+</tbody></table>
+<p>ATYP: 协议类型</p>
+<pre><code class="hljs">        * 0x01 ipv4的ip地址
+        * 0x03 域名
+        * 0x04 ipv6的ip地址
+</code></pre>
+<p>当目标服务器使用域名时</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>类型</th>
+<th>域名长度</th>
+<th>域名</th>
+<th>目标端口</th>
+<th>数据</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>长度(Byte)</td>
+<td>1</td>
+<td>1</td>
+<td>2</td>
+<td>2</td>
+<td>可变</td>
+</tr>
+</tbody></table>
+<h3 id="3-shadowsocks-libev核心文件"><a href="#3-shadowsocks-libev核心文件" class="headerlink" title="3.shadowsocks-libev核心文件"></a>3.shadowsocks-libev核心文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ss-server 	<span class="hljs-comment">#服务端运行程序</span><br>ss-local	<span class="hljs-comment">#客户端运行文程序</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="4-shadowsocks-libev源码解析"><a href="#4-shadowsocks-libev源码解析" class="headerlink" title="4.shadowsocks-libev源码解析"></a>4.shadowsocks-libev源码解析</h3><p>shadowsocks-libev分为客户端和服务端,因此我们需要两份代码,一个客户端代码一个服务段代码。</p>
+<h4 id="4-1-ss-server-服务端"><a href="#4-1-ss-server-服务端" class="headerlink" title="4.1.ss-server(服务端)"></a>4.1.ss-server(服务端)</h4><p>1.我们先看shadowsocks-libev ss-server服务端程序开始监听客户端连接的程序代码段</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">if</span> (mode != UDP_ONLY) &#123;<br>        <span class="hljs-type">int</span> num_listen_ctx = <span class="hljs-number">0</span>;<br>        <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> i = <span class="hljs-number">0</span>; i &lt; server_num; i++) &#123;<br>            <span class="hljs-type">const</span> <span class="hljs-type">char</span> *host = server_addr[i].host;<br>            <span class="hljs-type">const</span> <span class="hljs-type">char</span> *port = server_addr[i].port ? server_addr[i].port : server_port;<br><br>            <span class="hljs-keyword">if</span> (plugin != <span class="hljs-literal">NULL</span>) &#123;<br>                host = plugin_host;<br>            &#125;<br><br>            <span class="hljs-keyword">if</span> (host &amp;&amp; ss_is_ipv6addr(host))<br>                LOGI(<span class="hljs-string">&quot;tcp server listening at [%s]:%s&quot;</span>, host, port);<br>            <span class="hljs-keyword">else</span><br>                LOGI(<span class="hljs-string">&quot;tcp server listening at %s:%s&quot;</span>, host ? host : <span class="hljs-string">&quot;0.0.0.0&quot;</span>, port);<br><br>            <span class="hljs-comment">// Bind to port</span><br>            <span class="hljs-type">int</span> listenfd;<br>            listenfd = create_and_bind(host, port, mptcp);<br>            <span class="hljs-keyword">if</span> (listenfd == <span class="hljs-number">-1</span>) &#123;<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            <span class="hljs-keyword">if</span> (listen(listenfd, SSMAXCONN) == <span class="hljs-number">-1</span>) &#123;<br>                ERROR(<span class="hljs-string">&quot;listen()&quot;</span>);<br>                <span class="hljs-keyword">continue</span>;<br>            &#125;<br>            setfastopen(listenfd);<br>            setnonblocking(listenfd);<br>            <span class="hljs-type">listen_ctx_t</span> *listen_ctx = &amp;listen_ctx_list[i];<br><br>            <span class="hljs-comment">// Setup proxy context</span><br>            listen_ctx-&gt;timeout = atoi(timeout);<br>            listen_ctx-&gt;fd      = listenfd;<br>            listen_ctx-&gt;iface   = iface;<br>            listen_ctx-&gt;loop    = loop;<br><br>            ev_io_init(&amp;listen_ctx-&gt;io, accept_cb, listenfd, EV_READ);<br>            <span class="hljs-comment">//开始监听客户端的连接，accept_cb为ss-server接受客户端请求连接的回调函数</span><br>            ev_io_start(loop, &amp;listen_ctx-&gt;io);<br><br>            num_listen_ctx++;<br><br>            <span class="hljs-keyword">if</span> (plugin != <span class="hljs-literal">NULL</span>)<br>                <span class="hljs-keyword">break</span>;<br>        &#125;<br><br>        <span class="hljs-keyword">if</span> (num_listen_ctx == <span class="hljs-number">0</span>) &#123;<br>            FATAL(<span class="hljs-string">&quot;failed to listen on any address&quot;</span>);<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>我们可以看到这里服务端绑定本机接口并开始监听,等待来自客户端的连接。</p>
+<p>2.我们来看看客户端连接ss-server 后的回调函数accept_cb</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c">    <span class="hljs-type">listen_ctx_t</span> *listener = (<span class="hljs-type">listen_ctx_t</span> *)w;<br>    <span class="hljs-type">int</span> serverfd           = accept(listener-&gt;fd, <span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>);<br>    <span class="hljs-keyword">if</span> (serverfd == <span class="hljs-number">-1</span>) &#123;<br>        ERROR(<span class="hljs-string">&quot;accept&quot;</span>);<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br>...<br>    <span class="hljs-type">server_t</span> *server = new_server(serverfd, listener);<br>    ev_io_start(EV_A_ &amp; server-&gt;recv_ctx-&gt;io);<br></code></pre></td></tr></table></figure>
+
+<p>这里回调函数accept_cb函数调用了我们常用的accept函数接收客户端的连接,得到和客户端数据交互的socket,并使用new_server函数创建了一个新的任务,开始等待接收客户端发来的数据</p>
+<p>3.我们继续看new_server函数干了什么?</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">static</span> <span class="hljs-type">server_t</span> *<br><span class="hljs-title function_">new_server</span><span class="hljs-params">(<span class="hljs-type">int</span> fd, <span class="hljs-type">listen_ctx_t</span> *listener)</span><br>&#123;<br>    <span class="hljs-keyword">if</span> (verbose) &#123;<br>        server_conn++;<br>        LOGI(<span class="hljs-string">&quot;new connection from client, %d opened client connections&quot;</span>, server_conn);<br>    &#125;<br><br>    <span class="hljs-type">server_t</span> *server;<br>    server = ss_malloc(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">server_t</span>));<br><br>    <span class="hljs-built_in">memset</span>(server, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">server_t</span>));<br><br>    server-&gt;recv_ctx = ss_malloc(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">server_ctx_t</span>));<br>    server-&gt;send_ctx = ss_malloc(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">server_ctx_t</span>));<br>    server-&gt;buf      = ss_malloc(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">buffer_t</span>));<br>    <span class="hljs-built_in">memset</span>(server-&gt;recv_ctx, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">server_ctx_t</span>));<br>    <span class="hljs-built_in">memset</span>(server-&gt;send_ctx, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">server_ctx_t</span>));<br>    balloc(server-&gt;buf, SOCKET_BUF_SIZE);<br>    server-&gt;fd                  = fd;<br>    server-&gt;recv_ctx-&gt;server    = server;<br>    server-&gt;recv_ctx-&gt;connected = <span class="hljs-number">0</span>;<br>    server-&gt;send_ctx-&gt;server    = server;<br>    server-&gt;send_ctx-&gt;connected = <span class="hljs-number">0</span>;<br>    server-&gt;stage               = STAGE_INIT;<br>    server-&gt;frag                = <span class="hljs-number">0</span>;<br>    server-&gt;query               = <span class="hljs-literal">NULL</span>;<br>    server-&gt;listen_ctx          = listener;<br>    server-&gt;remote              = <span class="hljs-literal">NULL</span>;<br><br>    server-&gt;e_ctx = ss_malloc(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">cipher_ctx_t</span>));<br>    server-&gt;d_ctx = ss_malloc(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">cipher_ctx_t</span>));<br>    crypto-&gt;ctx_init(crypto-&gt;cipher, server-&gt;e_ctx, <span class="hljs-number">1</span>);<br>    crypto-&gt;ctx_init(crypto-&gt;cipher, server-&gt;d_ctx, <span class="hljs-number">0</span>);<br><br>    <span class="hljs-type">int</span> timeout = max(MIN_TCP_IDLE_TIMEOUT, server-&gt;listen_ctx-&gt;timeout);<br>    ev_io_init(&amp;server-&gt;recv_ctx-&gt;io, server_recv_cb, fd, EV_READ);<br>    ev_io_init(&amp;server-&gt;send_ctx-&gt;io, server_send_cb, fd, EV_WRITE);<br>    ev_timer_init(&amp;server-&gt;recv_ctx-&gt;watcher, server_timeout_cb,<br>                  timeout, timeout);<br><br>    cork_dllist_add(&amp;connections, &amp;server-&gt;entries);<br><br>    <span class="hljs-keyword">return</span> server;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p>这里可以看到new_server函数设置了接收数据后的回调函数server_recv_cb,和发送数据的处理函数server_send_cb</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c">ev_io_init(&amp;server-&gt;recv_ctx-&gt;io, server_recv_cb, fd, EV_READ);<br>ev_io_init(&amp;server-&gt;send_ctx-&gt;io, server_send_cb, fd, EV_WRITE);<br></code></pre></td></tr></table></figure>
+
+<p>4.我们继续看server_recv_cb函数如何对数据进行处理</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">server_ctx_t</span> *server_recv_ctx = (<span class="hljs-type">server_ctx_t</span> *)w;<br>    <span class="hljs-type">server_t</span> *server              = server_recv_ctx-&gt;server;<br>    <span class="hljs-type">remote_t</span> *remote              = <span class="hljs-literal">NULL</span>;<br><br>    <span class="hljs-type">buffer_t</span> *buf = server-&gt;buf;<br><br>    <span class="hljs-keyword">if</span> (server-&gt;stage == STAGE_STREAM) &#123;<br>        remote = server-&gt;remote;<br>        buf    = remote-&gt;buf;<br><br>        <span class="hljs-comment">// Only timer the watcher if a valid connection is established</span><br>        ev_timer_again(EV_A_ &amp; server-&gt;recv_ctx-&gt;watcher);<br>    &#125;<br><br>    <span class="hljs-type">ssize_t</span> r = recv(server-&gt;fd, buf-&gt;data, SOCKET_BUF_SIZE, <span class="hljs-number">0</span>);<br><br>    <span class="hljs-keyword">if</span> (r == <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-comment">// connection closed</span><br>        close_and_free_remote(EV_A_ remote);<br>        close_and_free_server(EV_A_ server);<br>        <span class="hljs-keyword">return</span>;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (r == <span class="hljs-number">-1</span>) &#123;<br>        <span class="hljs-keyword">if</span> (errno == EAGAIN || errno == EWOULDBLOCK) &#123;<br>            <span class="hljs-comment">// no data</span><br>            <span class="hljs-comment">// continue to wait for recv</span><br>            <span class="hljs-keyword">return</span>;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            ERROR(<span class="hljs-string">&quot;server recv&quot;</span>);<br>            close_and_free_remote(EV_A_ remote);<br>            close_and_free_server(EV_A_ server);<br>            <span class="hljs-keyword">return</span>;<br>        &#125;<br>    &#125;<br><br>    <span class="hljs-comment">// Ignore any new packet if the server is stopped</span><br>    <span class="hljs-keyword">if</span> (server-&gt;stage == STAGE_STOP) &#123;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br><br>    tx      += r;<br>    buf-&gt;len = r;<br><br>    <span class="hljs-type">int</span> err = crypto-&gt;decrypt(buf, server-&gt;d_ctx, SOCKET_BUF_SIZE);<br><br>    <span class="hljs-keyword">if</span> (err == CRYPTO_ERROR) &#123;<br>        report_addr(server-&gt;fd, <span class="hljs-string">&quot;authentication error&quot;</span>);<br>        stop_server(EV_A_ server);<br>        <span class="hljs-keyword">return</span>;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (err == CRYPTO_NEED_MORE) &#123;<br>        <span class="hljs-keyword">if</span> (server-&gt;stage != STAGE_STREAM) &#123;<br>            server-&gt;frag++;<br>        &#125;<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br><span class="hljs-keyword">if</span> (server-&gt;stage == STAGE_STREAM) &#123;<br>        <span class="hljs-type">int</span> s = send(remote-&gt;fd, remote-&gt;buf-&gt;data, remote-&gt;buf-&gt;len, <span class="hljs-number">0</span>);<br>        <span class="hljs-keyword">if</span> (s == <span class="hljs-number">-1</span>) &#123;<br>            <span class="hljs-keyword">if</span> (errno == EAGAIN || errno == EWOULDBLOCK) &#123;<br>                <span class="hljs-comment">// no data, wait for send</span><br>                remote-&gt;buf-&gt;idx = <span class="hljs-number">0</span>;<br>                ev_io_stop(EV_A_ &amp; server_recv_ctx-&gt;io);<br>                ev_io_start(EV_A_ &amp; remote-&gt;send_ctx-&gt;io);<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                ERROR(<span class="hljs-string">&quot;server_recv_send&quot;</span>);<br>                close_and_free_remote(EV_A_ remote);<br>                close_and_free_server(EV_A_ server);<br>            &#125;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (s &lt; remote-&gt;buf-&gt;len) &#123;<br>            remote-&gt;buf-&gt;len -= s;<br>            remote-&gt;buf-&gt;idx  = s;<br>            ev_io_stop(EV_A_ &amp; server_recv_ctx-&gt;io);<br>            ev_io_start(EV_A_ &amp; remote-&gt;send_ctx-&gt;io);<br>        &#125;<br>        <span class="hljs-keyword">return</span>;<br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (server-&gt;stage == STAGE_INIT) &#123;<br></code></pre></td></tr></table></figure>
+
+<p>这里我们可以看到首先程序先将数据读取到缓冲区</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">ssize_t</span> r = recv(server-&gt;fd, buf-&gt;data, SOCKET_BUF_SIZE, <span class="hljs-number">0</span>);<br></code></pre></td></tr></table></figure>
+
+<p>其次对数据包进行了解密</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> err = crypto-&gt;decrypt(buf, server-&gt;d_ctx, SOCKET_BUF_SIZE);<br></code></pre></td></tr></table></figure>
+
+<p>然后对数据包进行了初步分析,判断数据包的类型</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><code class="hljs c">   <span class="hljs-keyword">if</span> (server-&gt;stage == STAGE_STOP) &#123;<br>       <span class="hljs-keyword">return</span>;<br>   &#125;<br><span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (server-&gt;stage == STAGE_INIT)<br>   &#123;<br>       ...<br>   &#125;<br>	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (server-&gt;stage == STAGE_STREAM)<br>   &#123;<br>        ...<br>       <span class="hljs-keyword">if</span> (!need_query) &#123;<br>           <span class="hljs-type">remote_t</span> *remote = connect_to_remote(EV_A_ &amp; info, server);<br>           <span class="hljs-keyword">if</span> (remote == <span class="hljs-literal">NULL</span>) &#123;<br>               LOGE(<span class="hljs-string">&quot;connect error&quot;</span>);<br>               close_and_free_server(EV_A_ server);<br>               <span class="hljs-keyword">return</span>;<br>           &#125; <span class="hljs-keyword">else</span> &#123;<br>               server-&gt;remote = remote;<br>               remote-&gt;server = server;<br><br>               <span class="hljs-comment">// <span class="hljs-doctag">XXX:</span> should handle buffer carefully</span><br>               <span class="hljs-keyword">if</span> (server-&gt;buf-&gt;len &gt; <span class="hljs-number">0</span>) &#123;<br>                   brealloc(remote-&gt;buf, server-&gt;buf-&gt;len, SOCKET_BUF_SIZE);<br>                   <span class="hljs-built_in">memcpy</span>(remote-&gt;buf-&gt;data, server-&gt;buf-&gt;data + server-&gt;buf-&gt;idx,<br>                          server-&gt;buf-&gt;len);<br>                   remote-&gt;buf-&gt;len = server-&gt;buf-&gt;len;<br>                   remote-&gt;buf-&gt;idx = <span class="hljs-number">0</span>;<br>                   server-&gt;buf-&gt;len = <span class="hljs-number">0</span>;<br>                   server-&gt;buf-&gt;idx = <span class="hljs-number">0</span>;<br>               &#125;<br><br>               <span class="hljs-comment">// waiting on remote connected event</span><br>               ev_io_stop(EV_A_ &amp; server_recv_ctx-&gt;io);<br>               ev_io_start(EV_A_ &amp; remote-&gt;send_ctx-&gt;io);<br>           &#125;<br>   &#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里我们看到当数据包类型为STAGE_STREAM类型时,首先服务器和目标服务器建立了tcp连接</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">remote_t</span> *remote = connect_to_remote(EV_A_ &amp; info, server);<br></code></pre></td></tr></table></figure>
+
+<p>并且如果开始停止接收数据的任务,开始处理发送任务</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// waiting on remote connected event</span><br>ev_io_stop(EV_A_ &amp; server_recv_ctx-&gt;io);<br>ev_io_start(EV_A_ &amp; remote-&gt;send_ctx-&gt;io);<br></code></pre></td></tr></table></figure>
+
+<p>5.我们再来看看server_send_cb函数做了什么</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">static</span> <span class="hljs-type">void</span><br><span class="hljs-title function_">server_send_cb</span><span class="hljs-params">(EV_P_ ev_io *w, <span class="hljs-type">int</span> revents)</span><br>&#123;<br>    <span class="hljs-type">server_ctx_t</span> *server_send_ctx = (<span class="hljs-type">server_ctx_t</span> *)w;<br>    <span class="hljs-type">server_t</span> *server              = server_send_ctx-&gt;server;<br>    <span class="hljs-type">remote_t</span> *remote              = server-&gt;remote;<br><br>    <span class="hljs-keyword">if</span> (remote == <span class="hljs-literal">NULL</span>) &#123;<br>        LOGE(<span class="hljs-string">&quot;invalid server&quot;</span>);<br>        close_and_free_server(EV_A_ server);<br>        <span class="hljs-keyword">return</span>;<br>    &#125;<br><br>    <span class="hljs-keyword">if</span> (server-&gt;buf-&gt;len == <span class="hljs-number">0</span>) &#123;<br>        <span class="hljs-comment">// close and free</span><br>        close_and_free_remote(EV_A_ remote);<br>        close_and_free_server(EV_A_ server);<br>        <span class="hljs-keyword">return</span>;<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>        <span class="hljs-comment">// has data to send</span><br>        <span class="hljs-type">ssize_t</span> s = send(server-&gt;fd, server-&gt;buf-&gt;data + server-&gt;buf-&gt;idx,<br>                         server-&gt;buf-&gt;len, <span class="hljs-number">0</span>);<br>        <span class="hljs-keyword">if</span> (s == <span class="hljs-number">-1</span>) &#123;<br>            <span class="hljs-keyword">if</span> (errno != EAGAIN &amp;&amp; errno != EWOULDBLOCK) &#123;<br>                ERROR(<span class="hljs-string">&quot;server_send_send&quot;</span>);<br>                close_and_free_remote(EV_A_ remote);<br>                close_and_free_server(EV_A_ server);<br>            &#125;<br>            <span class="hljs-keyword">return</span>;<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (s &lt; server-&gt;buf-&gt;len) &#123;<br>            <span class="hljs-comment">// partly sent, move memory, wait for the next time to send</span><br>            server-&gt;buf-&gt;len -= s;<br>            server-&gt;buf-&gt;idx += s;<br>            <span class="hljs-keyword">return</span>;<br>        &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">// all sent out, wait for reading</span><br>            server-&gt;buf-&gt;len = <span class="hljs-number">0</span>;<br>            server-&gt;buf-&gt;idx = <span class="hljs-number">0</span>;<br>            ev_io_stop(EV_A_ &amp; server_send_ctx-&gt;io);<br>            <span class="hljs-keyword">if</span> (remote != <span class="hljs-literal">NULL</span>) &#123;<br>                ev_io_start(EV_A_ &amp; remote-&gt;recv_ctx-&gt;io);<br>                <span class="hljs-keyword">return</span>;<br>            &#125; <span class="hljs-keyword">else</span> &#123;<br>                LOGE(<span class="hljs-string">&quot;invalid remote&quot;</span>);<br>                close_and_free_remote(EV_A_ remote);<br>                close_and_free_server(EV_A_ server);<br>                <span class="hljs-keyword">return</span>;<br>            &#125;<br>        &#125;<br>    &#125;<br></code></pre></td></tr></table></figure>
+
+<p>这里程序对缓冲区的程序进行了发送</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">ssize_t</span> s = send(server-&gt;fd, server-&gt;buf-&gt;data + server-&gt;buf-&gt;idx,<br>                 server-&gt;buf-&gt;len, <span class="hljs-number">0</span>);<br></code></pre></td></tr></table></figure>
+
+<p>并且开始停止发送任务,开始处理接收任务</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c">ev_io_stop(EV_A_ &amp; server_send_ctx-&gt;io);<br><span class="hljs-keyword">if</span> (remote != <span class="hljs-literal">NULL</span>) &#123;<br>    ev_io_start(EV_A_ &amp; remote-&gt;recv_ctx-&gt;io);<br>    <span class="hljs-keyword">return</span>;<br></code></pre></td></tr></table></figure>
+
+<p>我们从以上分析结果得出shadowsocks服务器工作的核心函数有以下几个</p>
+<h5 id="4-1-1-核心函数"><a href="#4-1-1-核心函数" class="headerlink" title="4.1.1.核心函数"></a>4.1.1.核心函数</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">remote_recv_cb</span><span class="hljs-params">(EV_P_ ev_io *w, <span class="hljs-type">int</span> revents)</span>; 	<span class="hljs-comment">//和接收来自远程服务器发来的数据包</span><br><span class="hljs-type">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">remote_send_cb</span><span class="hljs-params">(EV_P_ ev_io *w,<span class="hljs-type">int</span> revents)</span>;		<span class="hljs-comment">//发送数据包给远程服务器</span><br><span class="hljs-type">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">server_recv_cb</span><span class="hljs-params">(EV_P_ ev_io *w, <span class="hljs-type">int</span> revents)</span>;	<span class="hljs-comment">//接收来自shadowsocks客户端发送来的数据包</span><br><span class="hljs-type">static</span> <span class="hljs-type">void</span> <span class="hljs-title function_">server_send_cb</span><span class="hljs-params">(EV_P_ ev_io *w,<span class="hljs-type">int</span> revents)</span>;		<span class="hljs-comment">//发送数据包给shadowsock客户端</span><br></code></pre></td></tr></table></figure>
+
+<h5 id="4-1-2-函数调用关系"><a href="#4-1-2-函数调用关系" class="headerlink" title="4.1.2.函数调用关系"></a>4.1.2.函数调用关系</h5><p>ss-server接收到客户端的数据,处理数据的函数调用关系图</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">server_recv_cb----&gt;decrypto---send/remote_send_cb-----&gt;recv/remote_recv_cb------&gt;crypto----&gt;server_send_cb<br></code></pre></td></tr></table></figure>
+
+<p>其实从函数调用关系图不难得出整个ss-server的工作流程</p>
+<ul>
+<li>1.接收数据</li>
+<li>2.解密数据</li>
+<li>3.将数据发送给目标服务器</li>
+<li>4.接收来自远程服务器发送的数据包</li>
+<li>5.加密数据</li>
+<li>6.将服务器发送的数据包发送给客户端</li>
+</ul>
+<h4 id="4-2-ss-local-客户端"><a href="#4-2-ss-local-客户端" class="headerlink" title="4.2.ss-local(客户端)"></a>4.2.ss-local(客户端)</h4><h5 id="4-2-1-核心函数"><a href="#4-2-1-核心函数" class="headerlink" title="4.2.1.核心函数"></a>4.2.1.核心函数</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> <span class="hljs-title function_">server_recv_cb</span><span class="hljs-params">(EV_P_ ev_io *w, <span class="hljs-type">int</span> revents)</span>;   <span class="hljs-comment">//接收客户端发送数据后的回调函数</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">server_send_cb</span><span class="hljs-params">(EV_P_ ev_io *w, <span class="hljs-type">int</span> revents)</span>;   <span class="hljs-comment">//发送给客户端数据后的回调函数</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">remote_recv_cb</span><span class="hljs-params">(EV_P_ ev_io *w, <span class="hljs-type">int</span> revents)</span>;   <span class="hljs-comment">//接收到来自远程服务器数据后的回调函数</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">remote_send_cb</span><span class="hljs-params">(EV_P_ ev_io *w, <span class="hljs-type">int</span> revents)</span>;   <span class="hljs-comment">//发送给远程服务器数据后的回调函数</span><br><span class="hljs-type">void</span> <span class="hljs-title function_">server_stream</span><span class="hljs-params">(EV_P_ ev_io *w, <span class="hljs-type">buffer_t</span> *buf)</span>;<br></code></pre></td></tr></table></figure>
+<p>1.先看主函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c">...<br><span class="hljs-keyword">if</span> (mode != UDP_ONLY) &#123;  <br>        <span class="hljs-comment">// Setup socket  </span><br>        <span class="hljs-type">int</span> listenfd;  <br><span class="hljs-meta">#<span class="hljs-keyword">ifdef</span> HAVE_LAUNCHD  </span><br>        listenfd = launch_or_create(local_addr, local_port);  <br><span class="hljs-meta">#<span class="hljs-keyword">else</span>  </span><br>        listenfd = create_and_bind(local_addr, local_port);  <br><span class="hljs-meta">#<span class="hljs-keyword">endif</span>  </span><br>        <span class="hljs-keyword">if</span> (listenfd == <span class="hljs-number">-1</span>) &#123;  <br>            FATAL(<span class="hljs-string">&quot;bind() error&quot;</span>);  <br>        &#125;  <br>        <span class="hljs-keyword">if</span> (listen(listenfd, SOMAXCONN) == <span class="hljs-number">-1</span>) &#123;  <br>            FATAL(<span class="hljs-string">&quot;listen() error&quot;</span>);  <br>        &#125;  <br>        setnonblocking(listenfd);  <br>  <br>        listen_ctx.fd = listenfd;  <br>  <br>        ev_io_init(&amp;listen_ctx.io, accept_cb, listenfd, EV_READ);  <br>        ev_io_start(loop, &amp;listen_ctx.io);  <br>    &#125;<br>...<br></code></pre></td></tr></table></figure>
+<p>这里很明显可以看清楚,客户端首先创建了socket并绑定端口开始监听连接,从函数名我们很容易看出<br>accept_cb为客户端接收连接的回调函数<br>我们耿总accept_cb函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">listen_ctx_t</span> *listener = (<span class="hljs-type">listen_ctx_t</span> *)w;  <br>    <span class="hljs-type">int</span> serverfd           = accept(listener-&gt;fd, <span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>);  <br>    <span class="hljs-keyword">if</span> (serverfd == <span class="hljs-number">-1</span>) &#123;  <br>        ERROR(<span class="hljs-string">&quot;accept&quot;</span>);  <br>        <span class="hljs-keyword">return</span>;    &#125;  <br>    setnonblocking(serverfd);  <br>    <span class="hljs-type">int</span> opt = <span class="hljs-number">1</span>;  <br>    setsockopt(serverfd, SOL_TCP, TCP_NODELAY, &amp;opt, <span class="hljs-keyword">sizeof</span>(opt));  <br><span class="hljs-meta">#<span class="hljs-keyword">ifdef</span> SO_NOSIGPIPE  </span><br>    setsockopt(serverfd, SOL_SOCKET, SO_NOSIGPIPE, &amp;opt, <span class="hljs-keyword">sizeof</span>(opt));  <br><span class="hljs-meta">#<span class="hljs-keyword">endif</span>  </span><br>  <br>    <span class="hljs-keyword">if</span> (tcp_incoming_sndbuf &gt; <span class="hljs-number">0</span>) &#123;  <br>        setsockopt(serverfd, SOL_SOCKET, SO_SNDBUF, &amp;tcp_incoming_sndbuf, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>));  <br>    &#125;  <br>  <br>    <span class="hljs-keyword">if</span> (tcp_incoming_rcvbuf &gt; <span class="hljs-number">0</span>) &#123;  <br>        setsockopt(serverfd, SOL_SOCKET, SO_RCVBUF, &amp;tcp_incoming_rcvbuf, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">int</span>));  <br>    &#125;  <br>  <br>    <span class="hljs-type">server_t</span> *server = new_server(serverfd);  <br>    server-&gt;listener = listener;  <br>  <br>    ev_io_start(EV_A_ &amp; server-&gt;recv_ctx-&gt;io);<br></code></pre></td></tr></table></figure>
+<p>这里发现客户端接收连接后使用new_server函数创建了一个server对象,继续跟踪new_server函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">server_t</span> *server;  <br>server = ss_malloc(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">server_t</span>));  <br>  <br><span class="hljs-built_in">memset</span>(server, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">server_t</span>));  <br>  <br>server-&gt;recv_ctx = ss_malloc(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">server_ctx_t</span>));  <br>server-&gt;send_ctx = ss_malloc(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">server_ctx_t</span>));  <br>server-&gt;buf      = ss_malloc(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">buffer_t</span>));  <br>server-&gt;abuf     = ss_malloc(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">buffer_t</span>));  <br>balloc(server-&gt;buf, SOCKET_BUF_SIZE);  <br>balloc(server-&gt;abuf, SOCKET_BUF_SIZE);  <br><span class="hljs-built_in">memset</span>(server-&gt;recv_ctx, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">server_ctx_t</span>));  <br><span class="hljs-built_in">memset</span>(server-&gt;send_ctx, <span class="hljs-number">0</span>, <span class="hljs-keyword">sizeof</span>(<span class="hljs-type">server_ctx_t</span>));  <br>server-&gt;stage               = STAGE_INIT;  <br>server-&gt;recv_ctx-&gt;connected = <span class="hljs-number">0</span>;  <br>server-&gt;send_ctx-&gt;connected = <span class="hljs-number">0</span>;  <br>server-&gt;fd                  = fd;  <br>server-&gt;recv_ctx-&gt;server    = server;  <br>server-&gt;send_ctx-&gt;server    = server;  <br>  <br>server-&gt;e_ctx = ss_malloc(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">cipher_ctx_t</span>));  <br>server-&gt;d_ctx = ss_malloc(<span class="hljs-keyword">sizeof</span>(<span class="hljs-type">cipher_ctx_t</span>));  <br>crypto-&gt;ctx_init(crypto-&gt;cipher, server-&gt;e_ctx, <span class="hljs-number">1</span>);  <br>crypto-&gt;ctx_init(crypto-&gt;cipher, server-&gt;d_ctx, <span class="hljs-number">0</span>);  <br>  <br>ev_io_init(&amp;server-&gt;recv_ctx-&gt;io, server_recv_cb, fd, EV_READ);  <br>ev_io_init(&amp;server-&gt;send_ctx-&gt;io, server_send_cb, fd, EV_WRITE);  <br>  <br>ev_timer_init(&amp;server-&gt;delayed_connect_watcher,  <br>              delayed_connect_cb, <span class="hljs-number">0.05</span>, <span class="hljs-number">0</span>);  <br>  <br>cork_dllist_add(&amp;connections, &amp;server-&gt;entries);<br></code></pre></td></tr></table></figure>
+<p>这里发现server-&gt;recv_ctx绑定了函数server_recv_cb和server_send_cb,这个函数从名称上不难猜测分别是服务端接收信息后的回调函数和服务端发送信息后的回调函数。<br>分别跟踪server_recv_cb函数和server_send_cb函数<br>server_recv_cb</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-keyword">if</span> (revents != EV_TIMER) &#123;  <br>    r = recv(server-&gt;fd, buf-&gt;data + buf-&gt;len, SOCKET_BUF_SIZE - buf-&gt;len, <span class="hljs-number">0</span>);  <br>  <br>    <span class="hljs-keyword">if</span> (r == <span class="hljs-number">0</span>) &#123;  <br>        <span class="hljs-comment">// connection closed  </span><br>        close_and_free_remote(EV_A_ remote);  <br>        close_and_free_server(EV_A_ server);  <br>        <span class="hljs-keyword">return</span>;    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (r == <span class="hljs-number">-1</span>) &#123;  <br>        <span class="hljs-keyword">if</span> (errno == EAGAIN || errno == EWOULDBLOCK) &#123;  <br>            <span class="hljs-comment">// no data  </span><br>            <span class="hljs-comment">// continue to wait for recv            return;  </span><br>        &#125; <span class="hljs-keyword">else</span> &#123;  <br>            <span class="hljs-keyword">if</span> (verbose)  <br>                ERROR(<span class="hljs-string">&quot;server_recv_cb_recv&quot;</span>);  <br>            close_and_free_remote(EV_A_ remote);  <br>            close_and_free_server(EV_A_ server);  <br>            <span class="hljs-keyword">return</span>;        &#125;  <br>    &#125;  <br>    buf-&gt;len += r;  <br>&#125;  <br>  <br><span class="hljs-keyword">while</span> (<span class="hljs-number">1</span>) &#123;  <br>    <span class="hljs-comment">// local socks5 server  </span><br>    <span class="hljs-keyword">if</span> (server-&gt;stage == STAGE_STREAM) &#123;  <br>        server_stream(EV_A_ w, buf);  <br>  <br>        <span class="hljs-comment">// all processed  </span><br>        <span class="hljs-keyword">return</span>;  <br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (server-&gt;stage == STAGE_INIT) &#123;<br>    .....<br></code></pre></td></tr></table></figure>
+<p>这里看到回调函数首先调用了recv函数用于接收请求,然后通过判断server-&gt;stage参数的值,看到当server-&gt;stage&#x3D;STAGE_STREAM的时候,会调用server_stream函数,从这里不容易看出server_stream函数到底做了什么,我们跟踪一下server_stream函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">server_ctx_t</span> *server_recv_ctx = (<span class="hljs-type">server_ctx_t</span> *)w;  <br>    <span class="hljs-type">server_t</span> *server              = server_recv_ctx-&gt;server;  <br>    <span class="hljs-type">remote_t</span> *remote              = server-&gt;remote;  <br>  <br>    <span class="hljs-keyword">if</span> (remote == <span class="hljs-literal">NULL</span>) &#123;  <br>        LOGE(<span class="hljs-string">&quot;invalid remote&quot;</span>);  <br>        close_and_free_server(EV_A_ server);  <br>        <span class="hljs-keyword">return</span>;    &#125;  <br>  <br>    <span class="hljs-comment">// insert shadowsocks header  </span><br>    <span class="hljs-keyword">if</span> (!remote-&gt;direct) &#123;  <br><span class="hljs-meta">#<span class="hljs-keyword">ifdef</span> __ANDROID__  </span><br>        tx += remote-&gt;buf-&gt;len;  <br><span class="hljs-meta">#<span class="hljs-keyword">endif</span>  </span><br>        <span class="hljs-type">int</span> err = crypto-&gt;encrypt(remote-&gt;buf, server-&gt;e_ctx, SOCKET_BUF_SIZE);  <br>  <br>        <span class="hljs-keyword">if</span> (err) &#123;  <br>            LOGE(<span class="hljs-string">&quot;invalid password or cipher&quot;</span>);  <br>            close_and_free_remote(EV_A_ remote);  <br>            close_and_free_server(EV_A_ server);  <br>            <span class="hljs-keyword">return</span>;        &#125;  <br>  <br>        <span class="hljs-keyword">if</span> (server-&gt;abuf) &#123;  <br>            bprepend(remote-&gt;buf, server-&gt;abuf, SOCKET_BUF_SIZE);  <br>            bfree(server-&gt;abuf);  <br>            ss_free(server-&gt;abuf);  <br>            server-&gt;abuf = <span class="hljs-literal">NULL</span>;  <br>        &#125;  <br>    &#125;  <br>  <br>    <span class="hljs-keyword">if</span> (!remote-&gt;send_ctx-&gt;connected) &#123;  <br><span class="hljs-meta">#<span class="hljs-keyword">ifdef</span> __ANDROID__  </span><br>        <span class="hljs-keyword">if</span> (vpn) &#123;  <br>            <span class="hljs-type">int</span> not_protect = <span class="hljs-number">0</span>;            <span class="hljs-keyword">if</span> (remote-&gt;addr.ss_family == AF_INET) &#123;                <span class="hljs-class"><span class="hljs-keyword">struct</span> <span class="hljs-title">sockaddr_in</span> *<span class="hljs-title">s</span> =</span> (<span class="hljs-keyword">struct</span> sockaddr_in *)&amp;remote-&gt;addr;                <span class="hljs-keyword">if</span> (s-&gt;sin_addr.s_addr == inet_addr(<span class="hljs-string">&quot;127.0.0.1&quot;</span>))                    not_protect = <span class="hljs-number">1</span>;            &#125;            <span class="hljs-keyword">if</span> (!not_protect) &#123;                <span class="hljs-keyword">if</span> (protect_socket(remote-&gt;fd) == <span class="hljs-number">-1</span>) &#123;                    ERROR(<span class="hljs-string">&quot;protect_socket&quot;</span>);                    close_and_free_remote(EV_A_ remote);                    close_and_free_server(EV_A_ server);                    <span class="hljs-keyword">return</span>;                &#125;            &#125;        &#125;<span class="hljs-meta">#<span class="hljs-keyword">endif</span>  </span><br>  <br>        remote-&gt;buf-&gt;idx = <span class="hljs-number">0</span>;  <br>  <br>        <span class="hljs-keyword">if</span> (!fast_open || remote-&gt;direct) &#123;  <br>            <span class="hljs-comment">// connecting, wait until connected  </span><br>            <span class="hljs-type">int</span> r = connect(remote-&gt;fd, (<span class="hljs-keyword">struct</span> sockaddr *)&amp;(remote-&gt;addr), remote-&gt;addr_len);  <br>  <br>            <span class="hljs-keyword">if</span> (r == <span class="hljs-number">-1</span> &amp;&amp; errno != CONNECT_IN_PROGRESS) &#123;  <br>                ERROR(<span class="hljs-string">&quot;connect&quot;</span>);  <br>                close_and_free_remote(EV_A_ remote);  <br>                close_and_free_server(EV_A_ server);  <br>                <span class="hljs-keyword">return</span>;            &#125;  <br>  <br>            <span class="hljs-comment">// wait on remote connected event  </span><br>            ev_io_stop(EV_A_ &amp; server_recv_ctx-&gt;io);  <br>            ev_io_start(EV_A_ &amp; remote-&gt;send_ctx-&gt;io);  <br>            ev_timer_start(EV_A_ &amp; remote-&gt;send_ctx-&gt;watcher);<br>            ....<br></code></pre></td></tr></table></figure>
+<p>这里看到,server_stream函数首先调用了encrypto函数将数据进行了加密,然后调用connect函数连接了远程shadowsocks服务器,然后暂时禁用了接收客户端数据后的处理任务,并启动一个任务等待将数据发送给远程服务器<br>跟踪完server_recv_cb函数我们来看server_send_cb</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">server_ctx_t</span> *server_send_ctx = (<span class="hljs-type">server_ctx_t</span> *)w;  <br><span class="hljs-type">server_t</span> *server              = server_send_ctx-&gt;server;  <br><span class="hljs-type">remote_t</span> *remote              = server-&gt;remote;  <br><span class="hljs-keyword">if</span> (server-&gt;buf-&gt;len == <span class="hljs-number">0</span>) &#123;  <br>    <span class="hljs-comment">// close and free  </span><br>    close_and_free_remote(EV_A_ remote);  <br>    close_and_free_server(EV_A_ server);  <br>    <span class="hljs-keyword">return</span>;&#125; <span class="hljs-keyword">else</span> &#123;  <br>    <span class="hljs-comment">// has data to send  </span><br>    <span class="hljs-type">ssize_t</span> s = send(server-&gt;fd, server-&gt;buf-&gt;data + server-&gt;buf-&gt;idx,  <br>                     server-&gt;buf-&gt;len, <span class="hljs-number">0</span>);  <br>    <span class="hljs-keyword">if</span> (s == <span class="hljs-number">-1</span>) &#123;  <br>        <span class="hljs-keyword">if</span> (errno != EAGAIN &amp;&amp; errno != EWOULDBLOCK) &#123;  <br>            ERROR(<span class="hljs-string">&quot;server_send_cb_send&quot;</span>);  <br>            close_and_free_remote(EV_A_ remote);  <br>            close_and_free_server(EV_A_ server);  <br>        &#125;  <br>        <span class="hljs-keyword">return</span>;  <br>    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (s &lt; (<span class="hljs-type">ssize_t</span>)(server-&gt;buf-&gt;len)) &#123;  <br>        <span class="hljs-comment">// partly sent, move memory, wait for the next time to send  </span><br>        server-&gt;buf-&gt;len -= s;  <br>        server-&gt;buf-&gt;idx += s;  <br>        <span class="hljs-keyword">return</span>;    &#125; <span class="hljs-keyword">else</span> &#123;  <br>        <span class="hljs-comment">// all sent out, wait for reading  </span><br>        server-&gt;buf-&gt;len = <span class="hljs-number">0</span>;  <br>        server-&gt;buf-&gt;idx = <span class="hljs-number">0</span>;  <br>        ev_io_stop(EV_A_ &amp; server_send_ctx-&gt;io);  <br>        ev_io_start(EV_A_ &amp; remote-&gt;recv_ctx-&gt;io);  <br>        <span class="hljs-keyword">return</span>;<br></code></pre></td></tr></table></figure>
+<p>这里发现server_send_cb函数首先调用了send函数将数据返回给客户端,然后停止给客户端发送数据,等待接收来自远程服务器发送来的数据</p>
+<h5 id="4-2-2-函数调用关系"><a href="#4-2-2-函数调用关系" class="headerlink" title="4.2.2.函数调用关系"></a>4.2.2.函数调用关系</h5><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">server_recv_cb--&gt;recv--&gt;encrypto---&gt;remote_send_cb---&gt;remote_recv_cb---&gt;decrypto---&gt;server_send_cb<br></code></pre></td></tr></table></figure>
+<p>我们可以总结出整个shadowsock客户端ss-local在运行时做的事情</p>
+<ul>
+<li>1.通过socks5协议接收来自需要代理程序发来的socks5流量包,并解包解析里面的数据</li>
+<li>2.将实际的数据封装成shadowsocks包,并将其加密发送给远程shadowsocks服务器</li>
+<li>3.等待服务器响应数据包,由于接收来自服务器的相应包也是shadowsocks包,因此首先先对包进行解密</li>
+<li>4.将解密后的数据包重新封装成socks5数据包,并将数据包返回给客户端。</li>
+</ul>
+<h4 id="4-3-shadowsocks工作原理"><a href="#4-3-shadowsocks工作原理" class="headerlink" title="4.3.shadowsocks工作原理"></a>4.3.shadowsocks工作原理</h4><p>经过源码分析和各个函数调用关系我们不难得出shadowsocksocks的工作原理</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs c">client---socks5---&gt;ss-local---crypto-----&gt;shadowsocks----&gt;ss-server---&gt;decrypto---&gt;server<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li>1.客户端将数据包用socks5协议重新封装,发送给ss-local,</li>
+<li>2.ss-local将数据包重新封装成shadowsock协议格式的数据包,</li>
+<li>3.ss-local将数据包加密后发送给ss-server,</li>
+<li>4.ss-server收到数据包后将数据包进行解密,按照shadowsock协议解析出实际的payload</li>
+<li>5.ss-server开始和目标服务器建立连接,并将数据包发送给目标服务器,</li>
+<li>6.目标服务器返回数据给ss-server</li>
+<li>7.将目标服务器响应的数据封装成shadowsocks协议</li>
+<li>8.ss-server将数据包加密,通过之前和ss-local建立连接将数据包返回给ss-local,</li>
+<li>9.ss-local将数据包解密,按照shadowsocks协议规则解析出原始响应报文</li>
+<li>10.ss-local将原始响应报文封装成socks5协议发挥个客户端</li>
+</ul>
+<h3 id="5-小结"><a href="#5-小结" class="headerlink" title="5.小结"></a>5.小结</h3><p>整个过程如果不深究细节,分析shadowsocks原理还是非常简单的,核心点就在于网络编程和libev的理解,因此在分析shadowsocks-libev之前一定要先理解网络编程和libev事件驱动库的使用。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%BD%AF%E4%BB%B6%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" class="category-chain-item">软件源码分析</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B/">#网络编程</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>shadowsocks-libev源码分析</div>
+      <div>https://dreamaccount.github.io/2022/11/29/shadowsocks-libev源码分析/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>404NotFound</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年11月29日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/11/30/Reactor%E6%A8%A1%E5%9E%8B/" title="reactor模式">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">reactor模式</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/10/27/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/" title="文件系统">
+                        <span class="hidden-mobile">文件系统</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
