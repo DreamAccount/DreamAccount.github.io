@@ -1,0 +1,699 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="404NotFound">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="科学上网技术原理和配置教程1.什么是科学上网?由于中国大陆的一些政治原因，我们上国际互联网的流量在出国的时候一般会受到政府的审查。(其他的国家没有上网流量审查，中国特有，上国内的网站不会被屏蔽)，类似于google，facebook，twitter的一些网站一般会都会被政府的屏蔽，导致我们在中国大陆是无法直接访问这些被屏蔽的网站的，因此我们需要借助一些特别的技术手段实现访问这些被屏蔽的网站我们通常">
+<meta property="og:type" content="article">
+<meta property="og:title" content="科学上网技术原理和配置教程">
+<meta property="og:url" content="https://dreamaccount.github.io/2022/12/22/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%92%8C%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="科学上网技术原理和配置教程1.什么是科学上网?由于中国大陆的一些政治原因，我们上国际互联网的流量在出国的时候一般会受到政府的审查。(其他的国家没有上网流量审查，中国特有，上国内的网站不会被屏蔽)，类似于google，facebook，twitter的一些网站一般会都会被政府的屏蔽，导致我们在中国大陆是无法直接访问这些被屏蔽的网站的，因此我们需要借助一些特别的技术手段实现访问这些被屏蔽的网站我们通常">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://dreamaccount.github.io/images/clash1.png">
+<meta property="og:image" content="https://dreamaccount.github.io/images/clash2.png">
+<meta property="og:image" content="https://dreamaccount.github.io/images/clash3.png">
+<meta property="og:image" content="https://dreamaccount.github.io/images/clash4.png">
+<meta property="og:image" content="https://dreamaccount.github.io/images/clashallowlan.png">
+<meta property="og:image" content="https://dreamaccount.github.io/images/clash5.png">
+<meta property="og:image" content="https://dreamaccount.github.io/images/cmd.png">
+<meta property="og:image" content="https://dreamaccount.github.io/images/ip.png">
+<meta property="og:image" content="https://dreamaccount.github.io/images/proxy1.png">
+<meta property="og:image" content="https://dreamaccount.github.io/images/proxy2.png">
+<meta property="og:image" content="https://dreamaccount.github.io/images/proxy3.png">
+<meta property="article:published_time" content="2022-12-22T04:35:34.000Z">
+<meta property="article:modified_time" content="2022-12-25T08:11:05.244Z">
+<meta property="article:author" content="404NotFound">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://dreamaccount.github.io/images/clash1.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>科学上网技术原理和配置教程 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"dreamaccount.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":70,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="科学上网技术原理和配置教程"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-12-22 12:35" pubdate>
+          2022年12月22日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          25 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">科学上网技术原理和配置教程</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="科学上网技术原理和配置教程"><a href="#科学上网技术原理和配置教程" class="headerlink" title="科学上网技术原理和配置教程"></a>科学上网技术原理和配置教程</h1><h3 id="1-什么是科学上网"><a href="#1-什么是科学上网" class="headerlink" title="1.什么是科学上网?"></a>1.什么是科学上网?</h3><p>由于中国大陆的一些政治原因，我们上国际互联网的流量在出国的时候一般会受到政府的审查。(其他的国家没有上网流量审查，中国特有，上国内的网站不会被屏蔽)，类似于google，facebook，twitter的一些网站一般会都会被政府的屏蔽，导致我们在中国大陆是无法直接访问这些被屏蔽的网站的，因此我们需要借助一些特别的技术手段实现访问这些被屏蔽的网站<br>我们通常上网的流量在访问国际互联网首先要经过政府的流量审查设备GFW(Great FireWall)，因此我们要访问那些被屏蔽的网站，如google，首先就要过GFW这一关<br>要绕过GFW我们首先要明白GFW的工作原理</p>
+<ul>
+<li>GFW工作原理<br>GFW通常通过域名、IP、关键字等进行流量审查(但不仅限于这些手段)，因此我们要绕过GFW就要绕过GFW就要借助这些特点<pre><code class=" mermaid">sequenceDiagram
+ 用户-&gt;&gt; GFW:访问google
+ GFW --&gt;&gt; Google: 丢弃数据包
+</code></pre>
+如果我们使用科学上网一般是这样的<pre><code class=" mermaid">sequenceDiagram
+用户 -&gt;&gt; GFW:访问代理服务器
+GFW -&gt;&gt; 代理服务器: (正常访问)
+代理服务器 -&gt;&gt; Google: (访问成功)
+</code></pre></li>
+</ul>
+<h3 id="2-常用的科学上网手段"><a href="#2-常用的科学上网手段" class="headerlink" title="2.常用的科学上网手段"></a>2.常用的科学上网手段</h3><ul>
+<li><p>VPN<br>VPN(Virtual Private Network)虚拟专用网络，一般用于企业中为了实现多地区组网实现加密通讯的一种协议。正是由于VPN加密的特点，使得VPN可以用于科学上网，不过近些年由于GFW的不断升级，GFW现如今很容易识别到VPN流量，因此现如今使用VPN实现科学上网的方式并不安全。</p>
+</li>
+<li><p>Shadowsocks协议<br>一种简单的基于socks5代理方式的加密传输协议，最早由clowwindy为了实现科学上网而开发，轻量而且抗封锁</p>
+</li>
+<li><p>ShadowosocksR协议<br>Shadowsocks协议的加强版本</p>
+</li>
+<li><p>VMess协议<br>VMess协议是v2ray原创的加密通讯协议(也是为了实现科学上网)</p>
+</li>
+<li><p>VLess协议<br>VLESS是一种无状态的轻量级数据传输协议，被定义为下一代V2ray数据传输协议。</p>
+</li>
+<li><p>Trojan协议<br>Trojan使用TLS加密模式模仿互联网最常见的https流量，以逃过防火墙的识别。</p>
+</li>
+</ul>
+<h3 id="3-详细技术原理"><a href="#3-详细技术原理" class="headerlink" title="3.详细技术原理"></a>3.详细技术原理</h3><p>1.以shadowsocks为例<br>shadowsocks程序中有两个核心程序分别为ss-server和ss-local<br>整个工作流程</p>
+<pre><code class=" mermaid">graph TD
+client--&gt;|socks5|ss-local
+ss-local--crypto--&gt;ss-server
+ss-server--decrypto--&gt;destination_site
+destination_site--&gt;ss-server
+ss-server--&gt;|crypto|ss-local
+ss-local--&gt;|decrypto|client
+</code></pre>
+
+<p>1.客户端需要代理的程序首先将需要代理的流量封装成socks5数据包发送给本地代理客户端ss-local<br>2.ss-local接收到来自客户端程序发送来的流量之后，将数据包解封装还原成原始流量，并将数据包重新封装成shadowsocks数据包，并将数据包进行加密，发送给远程shdowsocks服务器ss-server。<br>3.ss-server接收到ss-local客户端发送来的数据后，首先将数据解析，并将数据进行解密，还原成原始数据报文，并根据数据报文中的信息，请求客户端实际需要请求的服务器，<br>4.ss-server接收到实际请求的服务器返回来的数据报文,将数据报文首先进行加密，并将数据报文封装成shadowsocks数据包文，发送给远程客户端ss-local。<br>5.客户端ss-local接收到数据包后将数据包进行解密，还原数据原始报文，并将数据包文封装成socks5协议数据包返回给实际代理的应用程序。</p>
+<h3 id="4-科学上网服务器部署"><a href="#4-科学上网服务器部署" class="headerlink" title="4.科学上网服务器部署"></a>4.科学上网服务器部署</h3><p>1.以shadowsocks服务器为例(环境基于ubuntu-20.04)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo apt install shadowsocks-libev <span class="hljs-comment">#shadowsocks-libev是shadowsocks协议的c语言实现版本,当然也可以使用其他版本</span><br></code></pre></td></tr></table></figure>
+<p>2.修改配置文件</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br>    <span class="hljs-attr">&quot;server&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-punctuation">[</span><span class="hljs-string">&quot;::0&quot;</span><span class="hljs-punctuation">,</span><span class="hljs-string">&quot;0.0.0.0&quot;</span><span class="hljs-punctuation">]</span><span class="hljs-punctuation">,</span>        <span class="hljs-comment">//监听的地址</span><br>    <span class="hljs-attr">&quot;server_port&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-number">8388</span><span class="hljs-punctuation">,</span>                <span class="hljs-comment">//监听的端口</span><br>    <span class="hljs-attr">&quot;method&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;chacha20-ietf-poly1305&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-comment">//加密算法</span><br>    <span class="hljs-attr">&quot;password&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;ExamplePassword&quot;</span><span class="hljs-punctuation">,</span>      <span class="hljs-comment">//密码</span><br>    <span class="hljs-attr">&quot;mode&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-string">&quot;tcp_and_udp&quot;</span><span class="hljs-punctuation">,</span>              <span class="hljs-comment">//模式</span><br>    <span class="hljs-attr">&quot;fast_open&quot;</span><span class="hljs-punctuation">:</span><span class="hljs-keyword">false</span>                  <span class="hljs-comment">//是否打开fast_open,(fast_open可以减少多次tcp传输数据之前的握手次数。)</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<p>3.启动shadowsocks服务器</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">systemctl start shdowsocks-libev.service<br></code></pre></td></tr></table></figure>
+<h3 id="5-科学上网客户端部署"><a href="#5-科学上网客户端部署" class="headerlink" title="5.科学上网客户端部署"></a>5.科学上网客户端部署</h3><p>客户端配置文件用于ss-local调用。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs json"><span class="hljs-punctuation">&#123;</span><br><br>    <span class="hljs-attr">&quot;server&quot;</span> <span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;127.0.0.1&quot;</span><span class="hljs-punctuation">,</span> <span class="hljs-comment">//ss-server的ip地址</span><br>    <span class="hljs-attr">&quot;server_port&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">8388</span><span class="hljs-punctuation">,</span>    <span class="hljs-comment">//ss-server监听的端口</span><br>    <span class="hljs-attr">&quot;local_port&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">1080</span><span class="hljs-punctuation">,</span>     <span class="hljs-comment">//本地提供socks5代理的端口</span><br>    <span class="hljs-attr">&quot;password&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;ExamplePassword&quot;</span><span class="hljs-punctuation">,</span>  <span class="hljs-comment">//服务端验证密码</span><br>    <span class="hljs-attr">&quot;timeout&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-number">300</span><span class="hljs-punctuation">,</span>                 <span class="hljs-comment">//超时时间</span><br>    <span class="hljs-attr">&quot;method&quot;</span><span class="hljs-punctuation">:</span> <span class="hljs-string">&quot;aes-256-cfb&quot;</span>         <span class="hljs-comment">//加密方法</span><br><span class="hljs-punctuation">&#125;</span><br></code></pre></td></tr></table></figure>
+<p>启动客户端</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo systemctl start shadowsocks-libev-local.service<br></code></pre></td></tr></table></figure>
+<h3 id="6-常用的客户端软件配置"><a href="#6-常用的客户端软件配置" class="headerlink" title="6.常用的客户端软件配置"></a>6.常用的客户端软件配置</h3><h5 id="1-Clash"><a href="#1-Clash" class="headerlink" title="1.Clash"></a>1.Clash</h5><p>对于已经购买机场订阅链接的用户，可以直接导入订阅链接(订阅链接机场一般会提供)<br>导入订阅链接的步骤如下<br>1.点解clash主界面的profile选项<br><img src="/images/clash1.png" srcset="/img/loading.gif" lazyload alt="点解profile"><br>2.输入订阅链接后并点解下载<br><img src="/images/clash2.png" srcset="/img/loading.gif" lazyload alt="输入订阅链接"><br>3.点击下载好的配置文件<br><img src="/images/clash3.png" srcset="/img/loading.gif" lazyload alt="点击下载好的配置文件"><br>4.返回节点列表，进行刷新，选择合适的可用的节点<br><img src="/images/clash4.png" srcset="/img/loading.gif" lazyload alt="选择合适的节点"></p>
+<h3 id="7-如何借助局域网已经科学上网设备设备实现科学上网"><a href="#7-如何借助局域网已经科学上网设备设备实现科学上网" class="headerlink" title="7.如何借助局域网已经科学上网设备设备实现科学上网?"></a>7.如何借助局域网已经科学上网设备设备实现科学上网?</h3><p>此次实例仍然基于clash进行演示。<br>对于不便于装上科学上王的客户端的设备可以使用局域网已经实现科学上网的设备实现科学上网,基本原理如下<br><img src="/images/clashallowlan.png" srcset="/img/loading.gif" lazyload alt="大体流程"><br>配置流程</p>
+<h5 id="1-开启clash的局域网访问"><a href="#1-开启clash的局域网访问" class="headerlink" title="1.开启clash的局域网访问"></a>1.开启clash的局域网访问</h5><p><img src="/images/clash5.png" srcset="/img/loading.gif" lazyload alt="提前准备"></p>
+<h5 id="2-获取主机的ip和端口"><a href="#2-获取主机的ip和端口" class="headerlink" title="2.获取主机的ip和端口"></a>2.获取主机的ip和端口</h5><p>1.获取ip<br>对于windows系统，Win+R键,输入cmd,输入ipconfig<br><img src="/images/cmd.png" srcset="/img/loading.gif" lazyload alt="win+r"></p>
+<p><img src="/images/ip.png" srcset="/img/loading.gif" lazyload alt="获取ip"><br>由于我这里链接的是网线,因此有效的ip应该是以太网，如果你使用的是wifi链接,则关注wlan链接的ip信息。</p>
+<h5 id="3-手机上配置相关代理"><a href="#3-手机上配置相关代理" class="headerlink" title="3.手机上配置相关代理"></a>3.手机上配置相关代理</h5><p><img src="/images/proxy1.png" srcset="/img/loading.gif" lazyload alt="点击代理"><br><img src="/images/proxy2.png" srcset="/img/loading.gif" lazyload alt="点击手动"><br><img src="/images/proxy3.png" srcset="/img/loading.gif" lazyload alt="输入主机名和端口"><br>主机名为之前查看的ip地址，端口号为clash上的端口号<br>配置完成即可上网。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>科学上网技术原理和配置教程</div>
+      <div>https://dreamaccount.github.io/2022/12/22/科学上网技术原理和配置教程/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>404NotFound</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年12月22日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/12/21/I2C%E5%8D%8F%E8%AE%AE/" title="I2c协议">
+                        <span class="hidden-mobile">I2c协议</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  <script>
+  Fluid.utils.createScript('https://lib.baomitu.com/mermaid/8.14.0/mermaid.min.js', function() {
+    mermaid.initialize({"theme":"default"});
+  });
+</script>
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

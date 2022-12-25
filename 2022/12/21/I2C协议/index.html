@@ -16,24 +16,28 @@
   <meta name="author" content="404NotFound">
   <meta name="keywords" content="">
   
-    <meta name="description" content="OSPF协议1.什么是OSPF?ospf(开放最短路径优先)是一种基于链路状态的路由协议,具有路由变化收敛快、无路由环路、支持变长子网掩码(VLSM)和汇总、层次区域划分等优点 ospf数据直接封装在ip数据报中,属于网络层协议,协议号为89 ospf使用多播地址进行通信,ip地址为224.0.0.5和224.0.0.6,224.0.0.5为非dr&#x2F;bdr路由器监听的地址,224.0.0">
+    <meta name="description" content="I2C协议1.什么是I2C协议？I2C总线是PHLIPS公司在20世纪80年代推出的一种串行总线。具有引脚少，硬件实现简单，可扩展性强的优点，I2C支持多主控，总线上的任意一个设备能够进行发送&#x2F;接收数据的设备都可以占领总线。当然，任意时间点上只能存在一个主控。 2.I2C接线图I2C通讯只有两根线一根是SCL，一根是SDA，SCL为同步时钟线用于传递时钟信号，SDA为数据线用于传递数据，">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ospf协议">
-<meta property="og:url" content="https://dreamaccount.github.io/2022/10/18/ospf%E8%AF%A6%E8%A7%A3/index.html">
+<meta property="og:title" content="I2c协议">
+<meta property="og:url" content="https://dreamaccount.github.io/2022/12/21/I2C%E5%8D%8F%E8%AE%AE/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="OSPF协议1.什么是OSPF?ospf(开放最短路径优先)是一种基于链路状态的路由协议,具有路由变化收敛快、无路由环路、支持变长子网掩码(VLSM)和汇总、层次区域划分等优点 ospf数据直接封装在ip数据报中,属于网络层协议,协议号为89 ospf使用多播地址进行通信,ip地址为224.0.0.5和224.0.0.6,224.0.0.5为非dr&#x2F;bdr路由器监听的地址,224.0.0">
+<meta property="og:description" content="I2C协议1.什么是I2C协议？I2C总线是PHLIPS公司在20世纪80年代推出的一种串行总线。具有引脚少，硬件实现简单，可扩展性强的优点，I2C支持多主控，总线上的任意一个设备能够进行发送&#x2F;接收数据的设备都可以占领总线。当然，任意时间点上只能存在一个主控。 2.I2C接线图I2C通讯只有两根线一根是SCL，一根是SDA，SCL为同步时钟线用于传递时钟信号，SDA为数据线用于传递数据，">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-10-18T08:02:40.000Z">
-<meta property="article:modified_time" content="2022-10-18T17:19:47.057Z">
+<meta property="og:image" content="https://dreamaccount.github.io/images/i2c.png">
+<meta property="og:image" content="https://dreamaccount.github.io/image/i2cstart.png">
+<meta property="og:image" content="https://dreamaccount.github.io/image/i2cstop.png">
+<meta property="article:published_time" content="2022-12-21T09:08:35.000Z">
+<meta property="article:modified_time" content="2022-12-21T10:02:39.753Z">
 <meta property="article:author" content="404NotFound">
-<meta property="article:tag" content="计算机网络">
+<meta property="article:tag" content="嵌入式软件开发">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://dreamaccount.github.io/images/i2c.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>ospf协议 - Hexo</title>
+  <title>I2c协议 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +217,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="ospf协议"></span>
+            <span id="subtitle" data-typed-text="I2c协议"></span>
           
         </div>
 
@@ -224,8 +228,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-10-18 16:02" pubdate>
-          2022年10月18日 下午
+        <time datetime="2022-12-21 17:08" pubdate>
+          2022年12月21日 下午
         </time>
       </span>
     
@@ -236,7 +240,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2k 字
+          1.5k 字
         
       </span>
     
@@ -247,7 +251,7 @@
         
         
         
-          17 分钟
+          13 分钟
         
       </span>
     
@@ -285,82 +289,24 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">ospf协议</h1>
+            <h1 style="display: none">I2c协议</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="OSPF协议"><a href="#OSPF协议" class="headerlink" title="OSPF协议"></a>OSPF协议</h1><h3 id="1-什么是OSPF"><a href="#1-什么是OSPF" class="headerlink" title="1.什么是OSPF?"></a>1.什么是OSPF?</h3><p>ospf(开放最短路径优先)是一种基于链路状态的路由协议,具有路由变化收敛快、无路由环路、支持变长子网掩码(VLSM)和汇总、层次区域划分等优点</p>
-<p>ospf数据直接封装在ip数据报中,属于网络层协议,协议号为89</p>
-<p>ospf使用多播地址进行通信,ip地址为224.0.0.5和224.0.0.6,224.0.0.5为非dr&#x2F;bdr路由器监听的地址,224.0.0.6为dr&#x2F;bdr监听的地址</p>
-<h3 id="2-OSPF在不同的网络中使用的通信地址"><a href="#2-OSPF在不同的网络中使用的通信地址" class="headerlink" title="2.OSPF在不同的网络中使用的通信地址"></a>2.OSPF在不同的网络中使用的通信地址</h3><ul>
-<li><p><strong>点到点网络</strong>:<br>是连接单独的一对路由器的网络,点到点网络上的有效邻居总是可以形成邻接关系的,在这种网络上,ospf包使用的目标地址是224.0.0.5。</p>
-</li>
-<li><p><strong>广播型网络</strong>:</p>
-<p>在广播行网络中(比如以太网),这样的网络会推举一个DR(指定路由器)和BDR(备份指定路由器),DR&#x2F;BDR的发送的OSPF包的目标地址为224.0.0.5;而除了DR&#x2F;BDR以外的OSPF包的目标地址为224.0.0.6</p>
-<p>在广播型网络中,所有的路由器都使用224.0.0.5的ip地址发送hello包,用来维持邻居关系,非DR&#x2F;BDR路由都以224.0.0.6的地址发送lsa更新,而只有DR&#x2F;BDR路由监听这个地址,反过来,DR路由使用224.0.0.5来发送更新到非DR路由</p>
-</li>
-</ul>
-<h3 id="3-OSPF协议报文类型"><a href="#3-OSPF协议报文类型" class="headerlink" title="3.OSPF协议报文类型"></a>3.OSPF协议报文类型</h3><ul>
-<li><p>Hello 报文(Hello Packet	)<br>最常用的一种报文，周期性的发送给本路由器的邻居。内容包括一些定时器的数值、DR、BDR（Backup Designated Router）以及自己已知的邻居。</p>
-</li>
-<li><p>DD 报文(Database Description Packet)</p>
-<p>两台路由器进行数据同步时,用DD报文来描述自己的LSDB(Link State DataBase),内容包括每一条LSA的摘要(摘要是指LSA的HEAD，通过该HEAD可以唯一标识一条LSA) </p>
-</li>
-<li><p>LSR报文(Link State Request Packet)</p>
-<p>两台路由器互相交换过DD报文之后，知道对端的路由器有哪些LSA是本地的LSDB 所缺少的，这时需要发送LSR报文向对方请求所需的LSA。内容包括所需要的LSA的摘要</p>
-</li>
-<li><p>LSU报文(Link State Update Packet)</p>
-<p>用来向对端路由器发送所需要的LSA，内容是多条LSA（全部内容）的集合。</p>
-</li>
-<li><p>LSACK报文(Link State Acknowledgement Packet)</p>
-<p>用来对接收到的LSU报文进行确认。内容是需要确认的LSA的HEAD（一个报文可对多个LSA 进行确认）。</p>
-</li>
-</ul>
-<p>	</p>
-<h3 id="4-运行OSPF路由协议的路由器类型"><a href="#4-运行OSPF路由协议的路由器类型" class="headerlink" title="4.运行OSPF路由协议的路由器类型"></a>4.运行OSPF路由协议的路由器类型</h3><ul>
-<li><p><strong>1.IR(Internal Router)</strong></p>
-<p>区域内部的路由器</p>
-</li>
-<li><p><strong>2.BR(Borded Router)</strong></p>
-<p>骨干区域路由器</p>
-</li>
-<li><p><strong>3.ABR(Area Borded Router)</strong></p>
-<p>区域边界路由器</p>
-</li>
-<li><p><strong>4.ASBR(AS Boundary Router)</strong></p>
-<p>自治系统边界路由器</p>
-</li>
-</ul>
-<h3 id="5-OSPF的相关概念"><a href="#5-OSPF的相关概念" class="headerlink" title="5.OSPF的相关概念"></a>5.OSPF的相关概念</h3><ul>
-<li><p><strong>1.区域</strong></p>
-<p>OSPF属于自治系统内部的路由协议,一般如果自治系统包含的路由器数量过多,一般会采用分层结构,将整个自治系统分为多个区域,区域之间通过一个骨干区域互联，每个非骨干区域都需要直接与骨干区域连接。</p>
-</li>
-<li><p><strong>2.路由器ID号</strong></p>
-<p>一台路由器如果要运行OSPF协议，必须存在Router ID。如果没有配置ID号，系统会从当前接口的IP 地址中自动选一个作为路由器的ID号。</p>
-</li>
-<li><p><strong>3.路由聚合</strong></p>
-<p>AS被划分成不同的区域，每一个区域通过OSPF边界路由器（ABR）相连，区域间可以通过路由汇聚来减少路由信息，减小路由表的规模，提高路由器的运算速度。</p>
-</li>
-<li><p><strong>4.路由类型</strong></p>
-<ul>
-<li><p>1.区域内路由</p>
-</li>
-<li><p>2.区域间路由</p>
-</li>
-<li><p>3.第一类外部路由</p>
-</li>
-<li><p>4.第二类外部路由</p>
-</li>
-</ul>
-<p>区域内和区域间路由描述的是AS内部的网络结构，外部路由则描述了应该如何选择到AS以外目的地址的路由。</p>
-<p>第一类外部路由是指接收的是IGP（Interior Gateway Protocol，内部网关协议）路由（例如静态路由和RIP路由）。由于这类路由的可信程度较高，并且和OSPF自身路由的开销具有可比性，所以到第一类外部路由的开销等于本路由器到相应的ASBR的开销与ASBR到该路由目的地址的开销之和。</p>
-<p>第二类外部路由是指接收的是EGP（Exterior Gateway Protocol，外部网关协议）路由。由于这类路由的可信度比较低，所以OSPF协议认为从ASBR到自治系统之外的开销远远大于在自治系统之内到达ASBR的开销。所以计算路由开销时将主要考虑前者，即到第二类外部路由的开销等于ASBR到该路由目的地址的开销。如果计算出开销值相等的两条路由，再考虑本路由器到相应的ASBR的开销。</p>
-</li>
-</ul>
-<p>参考:</p>
-<p><a target="_blank" rel="noopener" href="https://blog.51cto.com/kalng/829436">https://blog.51cto.com/kalng/829436</a></p>
-<p><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/2021022">https://cloud.tencent.com/developer/article/2021022</a></p>
+                <h1 id="I2C协议"><a href="#I2C协议" class="headerlink" title="I2C协议"></a>I2C协议</h1><h3 id="1-什么是I2C协议？"><a href="#1-什么是I2C协议？" class="headerlink" title="1.什么是I2C协议？"></a>1.什么是I2C协议？</h3><p>I2C总线是PHLIPS公司在20世纪80年代推出的一种串行总线。具有引脚少，硬件实现简单，可扩展性强的优点，I2C支持多主控，总线上的任意一个设备能够进行发送&#x2F;接收数据的设备都可以占领总线。当然，任意时间点上只能存在一个主控。</p>
+<h3 id="2-I2C接线图"><a href="#2-I2C接线图" class="headerlink" title="2.I2C接线图"></a>2.I2C接线图</h3><p>I2C通讯只有两根线一根是SCL，一根是SDA，SCL为同步时钟线用于传递时钟信号，SDA为数据线用于传递数据，因此只有一根线用于实际数据的收发，因此I2C也是一种半双工通讯协议。<br><img src="/images/i2c.png" srcset="/img/loading.gif" lazyload alt="i2c"></p>
+<h3 id="3-I2C通讯特点"><a href="#3-I2C通讯特点" class="headerlink" title="3.I2C通讯特点"></a>3.I2C通讯特点</h3><p>起始信号和结束信号都是由主机发出的，起始信号一旦发出，总线就处于被占用状态，在结束信号一旦发出后，总线就处于空闲状态。</p>
+<h5 id="1-起始信号"><a href="#1-起始信号" class="headerlink" title="1.起始信号"></a>1.起始信号</h5><p>在SCL时钟线为高电平期间，数据线由高电平往低电平转变为起始信号。<br><img src="/image/i2cstart.png" srcset="/img/loading.gif" lazyload alt="I2C起始信号"></p>
+<h5 id="2-结束信号"><a href="#2-结束信号" class="headerlink" title="2.结束信号"></a>2.结束信号</h5><p>在SCL时钟线为高电平期间，数据线由低电平往高电平转变为结束信号。<br><img src="/image/i2cstop.png" srcset="/img/loading.gif" lazyload alt="I2C结束信号"><br>起始信号后</p>
+<h5 id="3-注意事项"><a href="#3-注意事项" class="headerlink" title="3.注意事项"></a>3.注意事项</h5><p>(1) 接收器件接收到一个完整的数据字节后，可能需要完成一些其他工作，如处理内部接收中断服务函数等，这就无法立即接收下一字节的数据，这时接收器件可将SCL线拉成低电平，从而使得主机处于等待状态。直至接收器件准备好接收下一字节数据时再释放SCL线使之为高电平。</p>
+<p>(2) 连接到I2C总线上的器件，若具有I2C总线控制器那么很硬件会自动检测到起始、结束信号，而对于不具备I2C总线控制器的器件(单片机)来说，需要在每个时钟周期内保证对数据线SDA采样两次，捕获是否接收到起始&#x2F;结束信号。</p>
+<h5 id="4-通信过程"><a href="#4-通信过程" class="headerlink" title="4.通信过程"></a>4.通信过程</h5><p>(1)起始信号后，总线上所有的从机开始等待主机紧接下来的从机地址广播。因为总线上每个设备的地址都是唯一的，当主机广播的地址与某个设备地址相同时，该设备就被选中，并向主机发出应答(ACK)或者非应答(NACK)，主机只有在接收到应答信号后继续发送&#x2F;接收数据，没选中的设备将会忽略之后的数据信号。根据I2C协议，从机地址可以是7位或者10位。</p>
+<p>(2)I2C总线上传输的数据包括上述的地址信号，又包括真正的数据信号。在起始信号后需传送一个从机地址(7位)，第8位是数据的传输方向(接收&#x2F;发送)，“0”表示主机发送数据，“1”表示主机接收数据。每次数据的传输总是由主机产生结束信号以结束传输，但若主机希望继续占用总线进行新的数据传输时，则可以不产生结束信号，而是再次发送起始信号对另一从机地址寻址。</p>
+<p>(3)若配置为写数据方向，主机开始向从机传输数据，数据包大小为8位，主机每发送完1字节数据都有等到从机的应答信号(ACK)，多字节数据发送时重复此过程。传输结束后，主机向从机发送一个停止信号表不再传输数据。</p>
+<p>(4)若配置为读方向，从机开始向主机返回数据，数据包大小还是8位。同理，从机每发送完一字节数据都要等到主机的应答信号(ACK)，重复此过程可以返回多个数据。当主机希望停止接收数据时就向返回一个非应答信号(NACK)，数据传输将结束。</p>
+<p>(5) 实际I2C通讯采用的是读写复合的格式。传输过程中主机需要发出2次起始信号：第一次传输主机通过从机地址找到从机设备，发送一段数据，这个数据是从设备内部寄存器或者存储器地址；第二次传输是对该地址进行读&#x2F;写。主机要读取从机数据时，主机会释放对SDA总线的控制，由从机控制SDA总线，主机负责接收信号；主机要向从机设备写数据时，SDA由主机控制，从机负责接收信号。</p>
+<p>原文链接：<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_29344757/article/details/76520378">https://blog.csdn.net/qq_29344757/article/details/76520378</a></p>
 
                 
               </div>
@@ -369,32 +315,11 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/" class="category-chain-item">计算机基础</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/">#计算机网络</a>
+        <a href="/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91/">#嵌入式软件开发</a>
       
     </div>
   
@@ -406,8 +331,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>ospf协议</div>
-      <div>https://dreamaccount.github.io/2022/10/18/ospf详解/</div>
+      <div>I2c协议</div>
+      <div>https://dreamaccount.github.io/2022/12/21/I2C协议/</div>
     </div>
     <div class="license-meta">
       
@@ -419,7 +344,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年10月18日</div>
+          <div>2022年12月21日</div>
         </div>
       
       
@@ -449,9 +374,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/11/29/shadowsocks-libev%E6%BA%90%E7%A0%81%E5%88%86%E6%9E%90/" title="shadowsocks-libev源码分析">
+                      <a href="/2022/12/22/%E7%A7%91%E5%AD%A6%E4%B8%8A%E7%BD%91%E6%8A%80%E6%9C%AF%E5%8E%9F%E7%90%86%E5%92%8C%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/" title="科学上网技术原理和配置教程">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">shadowsocks-libev源码分析</span>
+                        <span class="hidden-mobile">科学上网技术原理和配置教程</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -459,8 +384,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/10/15/samba%E6%9C%8D%E5%8A%A1%E9%85%8D%E7%BD%AE/" title="samba服务配置">
-                        <span class="hidden-mobile">samba服务配置</span>
+                      <a href="/2022/12/21/stm32%E5%BC%80%E5%8F%91/" title="stm32开发">
+                        <span class="hidden-mobile">stm32开发</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
