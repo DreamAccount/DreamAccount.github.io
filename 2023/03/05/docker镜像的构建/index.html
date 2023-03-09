@@ -16,24 +16,24 @@
   <meta name="author" content="404NotFound">
   <meta name="keywords" content="">
   
-    <meta name="description" content="tmux配置教程1.tmux是什么?tmux是一个终端复用工具，在实际开发运维中，可以用来保存当前工作状态，也可以将当前的单个终端拆分多个窗口。 2.tmux的基本结构tmux为C&#x2F;S架构，tmux进程为守护进程，独立于终端之外，在不使用tmux的情况下，在当前终端执行的所有任务都为当前终端的子进程，而在使用了tmux之后，在tmux下执行的任务为tmux的子进程,而tmux为一个守护进">
+    <meta name="description" content="docker镜像的构建1.DockerfileDockerfile是构建docker镜像的脚本，它里面会告诉docker镜像构建程序如何构建一个特定的docker镜像 2.overlayeroverlayer是docker镜像的镜像层，每一个docker镜像由多个overlayer的组成，由于docker镜像存储使用了联合文件系统，每一个docker镜像由多个overlayer组成，多个docke">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tmux基本使用">
-<meta property="og:url" content="https://dreamaccount.github.io/2022/04/17/tmux%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:title" content="docker镜像的构建">
+<meta property="og:url" content="https://dreamaccount.github.io/2023/03/05/docker%E9%95%9C%E5%83%8F%E7%9A%84%E6%9E%84%E5%BB%BA/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="tmux配置教程1.tmux是什么?tmux是一个终端复用工具，在实际开发运维中，可以用来保存当前工作状态，也可以将当前的单个终端拆分多个窗口。 2.tmux的基本结构tmux为C&#x2F;S架构，tmux进程为守护进程，独立于终端之外，在不使用tmux的情况下，在当前终端执行的所有任务都为当前终端的子进程，而在使用了tmux之后，在tmux下执行的任务为tmux的子进程,而tmux为一个守护进">
+<meta property="og:description" content="docker镜像的构建1.DockerfileDockerfile是构建docker镜像的脚本，它里面会告诉docker镜像构建程序如何构建一个特定的docker镜像 2.overlayeroverlayer是docker镜像的镜像层，每一个docker镜像由多个overlayer的组成，由于docker镜像存储使用了联合文件系统，每一个docker镜像由多个overlayer组成，多个docke">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-04-17T13:52:09.000Z">
-<meta property="article:modified_time" content="2023-03-09T23:55:36.077Z">
+<meta property="article:published_time" content="2023-03-05T09:37:53.000Z">
+<meta property="article:modified_time" content="2023-03-05T13:07:37.691Z">
 <meta property="article:author" content="404NotFound">
-<meta property="article:tag" content="软件配置与使用">
+<meta property="article:tag" content="docker">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>tmux基本使用 - Hexo</title>
+  <title>docker镜像的构建 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +213,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="tmux基本使用"></span>
+            <span id="subtitle" data-typed-text="docker镜像的构建"></span>
           
         </div>
 
@@ -224,8 +224,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-04-17 21:52" pubdate>
-          2022年4月17日 晚上
+        <time datetime="2023-03-05 17:37" pubdate>
+          2023年3月5日 下午
         </time>
       </span>
     
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          1.3k 字
         
       </span>
     
@@ -247,7 +247,7 @@
         
         
         
-          18 分钟
+          11 分钟
         
       </span>
     
@@ -285,23 +285,19 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">tmux基本使用</h1>
+            <h1 style="display: none">docker镜像的构建</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="tmux配置教程"><a href="#tmux配置教程" class="headerlink" title="tmux配置教程"></a>tmux配置教程</h1><h3 id="1-tmux是什么"><a href="#1-tmux是什么" class="headerlink" title="1.tmux是什么?"></a>1.tmux是什么?</h3><p>tmux是一个终端复用工具，在实际开发运维中，可以用来保存当前工作状态，也可以将当前的单个终端拆分多个窗口。</p>
-<h3 id="2-tmux的基本结构"><a href="#2-tmux的基本结构" class="headerlink" title="2.tmux的基本结构"></a>2.tmux的基本结构</h3><p>tmux为C&#x2F;S架构，tmux进程为守护进程，独立于终端之外，在不使用tmux的情况下，在当前终端执行的所有任务都为当前终端的子进程，而在使用了tmux之后，在tmux下执行的任务为tmux的子进程,而tmux为一个守护进程，因此不用担心在退出当前终端或者远程ssh突然断网时，执行的任务被杀死的情况。</p>
-<h3 id="3-tmux的三个概念"><a href="#3-tmux的三个概念" class="headerlink" title="3.tmux的三个概念"></a>3.tmux的三个概念</h3><h5 id="1-session"><a href="#1-session" class="headerlink" title="1.session"></a>1.session</h5><p>  一个session就是一个会话，session为tmux的一个会话，一个tmux可以同时开多个session。</p>
-<h5 id="2-windows"><a href="#2-windows" class="headerlink" title="2.windows"></a>2.windows</h5><p>  window为session的子集，一个session可以有有多个window。</p>
-<h5 id="3-pannel"><a href="#3-pannel" class="headerlink" title="3.pannel"></a>3.pannel</h5><p>  一个pannel为一个窗格,为window的子集,一个window可以有多个pannel</p>
-<h3 id="4-tmux的安装使用"><a href="#4-tmux的安装使用" class="headerlink" title="4.tmux的安装使用"></a>4.tmux的安装使用</h3><h5 id="1-tmux的安装"><a href="#1-tmux的安装" class="headerlink" title="1.tmux的安装"></a>1.tmux的安装</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo pacman -S tmux(安装环境为archlinux)<br></code></pre></td></tr></table></figure>
-
-<h5 id="2-tmux配置文件"><a href="#2-tmux配置文件" class="headerlink" title="2.tmux配置文件"></a>2.tmux配置文件</h5><p>tmux系统配置文件为&#x2F;etc&#x2F;tmux.conf,用户配置文件为~&#x2F;.tmux.conf</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#解绑prefix键位</span><br><span class="hljs-built_in">set</span> -g default-terminal <span class="hljs-string">&quot;screen-256color&quot;</span><br>unbind C-b<br>unbind <span class="hljs-string">&#x27;&quot;&#x27;</span><br>unbind <span class="hljs-string">&#x27;%&#x27;</span><br><span class="hljs-comment">#设置prefix键位为C-a</span><br><span class="hljs-built_in">set</span> -g prefix C-a<br><span class="hljs-built_in">bind</span> C-a send-prefix<br><span class="hljs-comment">#设置切分窗格键位为prefix和h以及prefix和v</span><br><span class="hljs-built_in">bind</span> h split-window -h<br><span class="hljs-built_in">bind</span> v split-window -v<br><span class="hljs-comment">#设置C-r为重载tmux配置文件(指定-n为不用使用prefix键位就可以触发)</span><br>bind-key -n C-r source-file ~/.tmux.conf<br><span class="hljs-comment">#设置调整窗格大小键位(指定-r键位为不用每次触发的时候都要使用prefix键位(只要摁一次prefix键位就可以持续出发操作))</span><br><span class="hljs-built_in">bind</span> -r H resize-pane -L 5<br><span class="hljs-built_in">bind</span> -r J resize-pane -D 5<br><span class="hljs-built_in">bind</span> -r K resize-pane -U 5<br><span class="hljs-built_in">bind</span> -r L resize-pane -R 5<br><span class="hljs-comment">#bind k selectp -U</span><br><span class="hljs-comment">#bind h selectp -L</span><br><span class="hljs-comment">#bind j selectp -D</span><br><span class="hljs-comment">#bind l selectp -R</span><br><span class="hljs-comment">#bind -r ^k resizep -U 5</span><br><span class="hljs-comment">#bind -r ^h resizep -L 5</span><br><span class="hljs-comment">#bind -r ^j resizep -D 5</span><br><span class="hljs-comment">#bind -r ^l resizep -R 5</span><br></code></pre></td></tr></table></figure>
-
-<h5 id="3-tmux常用命令"><a href="#3-tmux常用命令" class="headerlink" title="3.tmux常用命令"></a>3.tmux常用命令</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#创建一个tmux会话并在该tmux会话下创建一个窗口并在该窗口下创建一个pannel</span><br>tmux<br><span class="hljs-comment">#查看tmux会话</span><br>tmux list-session<br><span class="hljs-comment">#离开tmux会话</span><br>tmux detach<br><span class="hljs-comment">#进入已经打开的tmux会话</span><br>tmux attach<br><span class="hljs-comment">#Ctrl+b %：划分左右两个窗格。</span><br><span class="hljs-comment">#Ctrl+b &quot;：划分上下两个窗格。</span><br><span class="hljs-comment">#Ctrl+b &lt;arrow key&gt;：光标切换到其他窗格。&lt;arrow key&gt;是指向要切换到的窗格的方向键，比如切换到下方窗格，就按方向键↓。</span><br><span class="hljs-comment">#Ctrl+b ;：光标切换到上一个窗格。</span><br><span class="hljs-comment">#Ctrl+b o：光标切换到下一个窗格。</span><br><span class="hljs-comment">#Ctrl+b &#123;：当前窗格与上一个窗格交换位置。</span><br><span class="hljs-comment">#Ctrl+b &#125;：当前窗格与下一个窗格交换位置。</span><br><span class="hljs-comment">#Ctrl+b Ctrl+o：所有窗格向前移动一个位置，第一个窗格变成最后一个窗格。</span><br><span class="hljs-comment">#Ctrl+b Alt+o：所有窗格向后移动一个位置，最后一个窗格变成第一个窗格。</span><br><span class="hljs-comment">#Ctrl+b x：关闭当前窗格。</span><br><span class="hljs-comment">#Ctrl+b !：将当前窗格拆分为一个独立窗口。</span><br><span class="hljs-comment">#Ctrl+b z：当前窗格全屏显示，再使用一次会变回原来大小。</span><br><span class="hljs-comment">#Ctrl+b Ctrl+&lt;arrow key&gt;：按箭头方向调整窗格大小。</span><br><span class="hljs-comment">#Ctrl+b q：显示窗格编号。</span><br><br><span class="hljs-comment">#切换窗格</span><br><br><span class="hljs-comment"># 光标切换到上方窗格</span><br>tmux select-pane -U<br><br><span class="hljs-comment"># 光标切换到下方窗格</span><br>tmux select-pane -D<br><br><span class="hljs-comment"># 光标切换到左边窗格</span><br>tmux select-pane -L<br><br><span class="hljs-comment"># 光标切换到右边窗格</span><br>tmux select-pane -R<br><br><span class="hljs-comment">#交换窗格</span><br><br><span class="hljs-comment"># 当前窗格上移</span><br>tmux swap-pane -U<br><br><span class="hljs-comment"># 当前窗格下移</span><br>tmux swap-pane -D<br><span class="hljs-comment">#窗口管理</span><br><br><span class="hljs-comment">#创建一个新的窗口</span><br>tmux new-window <span class="hljs-string">&quot;window-name&quot;</span><br><span class="hljs-comment">#切换窗口</span><br>tmux select-window -t &lt;window-number&gt; or &lt;window-name&gt;<br><span class="hljs-comment">#重命名window(修改当前窗口的名称)</span><br>tmux rename-window <span class="hljs-string">&quot;new-name&quot;</span><br></code></pre></td></tr></table></figure>
-
+                <h2 id="docker镜像的构建"><a href="#docker镜像的构建" class="headerlink" title="docker镜像的构建"></a>docker镜像的构建</h2><h3 id="1-Dockerfile"><a href="#1-Dockerfile" class="headerlink" title="1.Dockerfile"></a>1.Dockerfile</h3><p>Dockerfile是构建docker镜像的脚本，它里面会告诉docker镜像构建程序如何构建一个特定的docker镜像</p>
+<h3 id="2-overlayer"><a href="#2-overlayer" class="headerlink" title="2.overlayer"></a>2.overlayer</h3><p>overlayer是docker镜像的镜像层，每一个docker镜像由多个overlayer的组成，由于docker镜像存储使用了联合文件系统，每一个docker镜像由多个overlayer组成，多个docker镜像相同的overlayer进行共用，这使得不管是存储docker镜像还是运行docker容器，这都极大的节省了空间</p>
+<h3 id="3-Dockerfile语法"><a href="#3-Dockerfile语法" class="headerlink" title="3.Dockerfile语法"></a>3.Dockerfile语法</h3><figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs Dockerfile"><span class="hljs-keyword">FROM</span> ubuntu:latest       <span class="hljs-comment">#以什么镜像为基础构建镜像</span><br>MANTAINER bugprogram-git <span class="hljs-comment">#镜像的构建人</span><br><span class="hljs-keyword">ENV</span> hello=world <span class="hljs-comment">#设置环境变量，在镜像运行时，此参数仍然生效</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> sed -i <span class="hljs-string">&#x27;s/archive.ubuntu.com/mirrors.ustc.edu.cn/g&#x27;</span> /etc/apt/sources.list \</span><br><span class="language-bash">&amp;&amp; apt update -y &amp;&amp; apt upgrade -y \</span><br><span class="language-bash">&amp;&amp; <span class="hljs-built_in">ln</span> -snf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \</span><br><span class="language-bash"></span><br></code></pre></td></tr></table></figure>
+<h3 id="4-docker镜像构建"><a href="#4-docker镜像构建" class="headerlink" title="4.docker镜像构建"></a>4.docker镜像构建</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker build -t myubuntu:latest -f ./Dockerfile .<br><span class="hljs-comment">#-f指定dockerfile文件名 </span><br><span class="hljs-comment">#-t指定构建的镜像名和tag</span><br></code></pre></td></tr></table></figure>
+<h3 id="5-docker镜像多阶段构建"><a href="#5-docker镜像多阶段构建" class="headerlink" title="5.docker镜像多阶段构建"></a>5.docker镜像多阶段构建</h3><p>在实际构建docker镜像的过程中，有时候可能要先构建成中间产物，比如部署项目时，我们可能要先部署编译环境，然后构建成可执行程序的时候，然后在清理中间产物，导致整个构建过程十分的繁琐，因此自从Docker 17.05.0-ce之后，docker支持了多阶段构建镜像</p>
+<p>例如，部署golang程序，我们首先在golang的docker镜像上将源码编译成可执行程序，再将可执行程序部署到alpine镜像上构建成docker镜像。</p>
+<figure class="highlight dockerfile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs Dockerfile">	<br>	<span class="hljs-keyword">FROM</span> golang:alpine as builder<br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> ./hello.go .</span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> go build -o hello ./hello.go</span><br><br><span class="hljs-keyword">FROM</span> alpine<br><span class="hljs-keyword">MAINTAINER</span> bugprogram-git<br><span class="hljs-keyword">WORKDIR</span><span class="language-bash"> /</span><br><span class="hljs-keyword">COPY</span><span class="language-bash"> --from=builder /hello . <span class="hljs-comment">#从上述构建的镜像中拷贝可执行程序拷贝到此镜像中</span></span><br><span class="hljs-keyword">RUN</span><span class="language-bash"> <span class="hljs-built_in">chmod</span> +x hello</span><br><span class="hljs-keyword">ENTRYPOINT</span><span class="language-bash"> /hello</span><br><br></code></pre></td></tr></table></figure>
+<h3 id="6-常用的docker基础镜像"><a href="#6-常用的docker基础镜像" class="headerlink" title="6.常用的docker基础镜像"></a>6.常用的docker基础镜像</h3><p><strong>alpine</strong><br>最常用的docker基础镜像，非常小，只有几MB，libc使用的musllib，和glibc不兼容，因此部署的可执行程序需要在musllib作为libc时进行编译，否则无法运行<br><strong>centos</strong><br>常用的运行环境，centos由于其稳定性是企业中最常用的linux发行版，<br><strong>ubuntu</strong><br>常用的编译环境，libc为glibc</p>
 
                 
               </div>
@@ -310,32 +306,11 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%92%8C%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" class="category-chain-item">软件和系统配置</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/">#软件配置与使用</a>
+        <a href="/tags/docker/">#docker</a>
       
     </div>
   
@@ -347,8 +322,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>tmux基本使用</div>
-      <div>https://dreamaccount.github.io/2022/04/17/tmux基本使用/</div>
+      <div>docker镜像的构建</div>
+      <div>https://dreamaccount.github.io/2023/03/05/docker镜像的构建/</div>
     </div>
     <div class="license-meta">
       
@@ -360,7 +335,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年4月17日</div>
+          <div>2023年3月5日</div>
         </div>
       
       
@@ -390,18 +365,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/04/17/I-O%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" title="I/O多路复用">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">I/O多路复用</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/04/17/socket%E7%BC%96%E7%A8%8B/" title="socket编程">
-                        <span class="hidden-mobile">socket编程</span>
+                      <a href="/2023/02/11/ssh%E6%9C%8D%E5%8A%A1%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/" title="ssh配置密钥">
+                        <span class="hidden-mobile">ssh配置密钥</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

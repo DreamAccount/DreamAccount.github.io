@@ -16,24 +16,24 @@
   <meta name="author" content="404NotFound">
   <meta name="keywords" content="">
   
-    <meta name="description" content="tmux配置教程1.tmux是什么?tmux是一个终端复用工具，在实际开发运维中，可以用来保存当前工作状态，也可以将当前的单个终端拆分多个窗口。 2.tmux的基本结构tmux为C&#x2F;S架构，tmux进程为守护进程，独立于终端之外，在不使用tmux的情况下，在当前终端执行的所有任务都为当前终端的子进程，而在使用了tmux之后，在tmux下执行的任务为tmux的子进程,而tmux为一个守护进">
+    <meta name="description" content="1.什么是ssh？ssh是一种应用层协议，一般用于本地客户端登录到远程服务器进行相关作业，端口是22&#x2F;TCP。 2.ssh结构 1.ssh服务器 2.ssh客户端  3.ssh客户端认证方式 1.密码认证 2.密钥认证基于安全性和便利性考量，我们一般使用密钥认证  4.ssh相关配置1.服务器配置1.生成密钥1234567#生成一对长度为2048的RSA密钥，指定注释为“rocky li">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tmux基本使用">
-<meta property="og:url" content="https://dreamaccount.github.io/2022/04/17/tmux%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/index.html">
+<meta property="og:title" content="ssh配置密钥">
+<meta property="og:url" content="https://dreamaccount.github.io/2023/02/11/ssh%E6%9C%8D%E5%8A%A1%E7%9B%B8%E5%85%B3%E9%85%8D%E7%BD%AE/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="tmux配置教程1.tmux是什么?tmux是一个终端复用工具，在实际开发运维中，可以用来保存当前工作状态，也可以将当前的单个终端拆分多个窗口。 2.tmux的基本结构tmux为C&#x2F;S架构，tmux进程为守护进程，独立于终端之外，在不使用tmux的情况下，在当前终端执行的所有任务都为当前终端的子进程，而在使用了tmux之后，在tmux下执行的任务为tmux的子进程,而tmux为一个守护进">
+<meta property="og:description" content="1.什么是ssh？ssh是一种应用层协议，一般用于本地客户端登录到远程服务器进行相关作业，端口是22&#x2F;TCP。 2.ssh结构 1.ssh服务器 2.ssh客户端  3.ssh客户端认证方式 1.密码认证 2.密钥认证基于安全性和便利性考量，我们一般使用密钥认证  4.ssh相关配置1.服务器配置1.生成密钥1234567#生成一对长度为2048的RSA密钥，指定注释为“rocky li">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-04-17T13:52:09.000Z">
-<meta property="article:modified_time" content="2023-03-09T23:55:36.077Z">
+<meta property="article:published_time" content="2023-02-11T06:37:58.000Z">
+<meta property="article:modified_time" content="2023-02-25T10:06:43.076Z">
 <meta property="article:author" content="404NotFound">
-<meta property="article:tag" content="软件配置与使用">
+<meta property="article:tag" content="linux系统配置">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>tmux基本使用 - Hexo</title>
+  <title>ssh配置密钥 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +213,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="tmux基本使用"></span>
+            <span id="subtitle" data-typed-text="ssh配置密钥"></span>
           
         </div>
 
@@ -224,8 +224,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-04-17 21:52" pubdate>
-          2022年4月17日 晚上
+        <time datetime="2023-02-11 14:37" pubdate>
+          2023年2月11日 下午
         </time>
       </span>
     
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.2k 字
+          1.1k 字
         
       </span>
     
@@ -247,7 +247,7 @@
         
         
         
-          18 分钟
+          9 分钟
         
       </span>
     
@@ -285,24 +285,30 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">tmux基本使用</h1>
+            <h1 style="display: none">ssh配置密钥</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="tmux配置教程"><a href="#tmux配置教程" class="headerlink" title="tmux配置教程"></a>tmux配置教程</h1><h3 id="1-tmux是什么"><a href="#1-tmux是什么" class="headerlink" title="1.tmux是什么?"></a>1.tmux是什么?</h3><p>tmux是一个终端复用工具，在实际开发运维中，可以用来保存当前工作状态，也可以将当前的单个终端拆分多个窗口。</p>
-<h3 id="2-tmux的基本结构"><a href="#2-tmux的基本结构" class="headerlink" title="2.tmux的基本结构"></a>2.tmux的基本结构</h3><p>tmux为C&#x2F;S架构，tmux进程为守护进程，独立于终端之外，在不使用tmux的情况下，在当前终端执行的所有任务都为当前终端的子进程，而在使用了tmux之后，在tmux下执行的任务为tmux的子进程,而tmux为一个守护进程，因此不用担心在退出当前终端或者远程ssh突然断网时，执行的任务被杀死的情况。</p>
-<h3 id="3-tmux的三个概念"><a href="#3-tmux的三个概念" class="headerlink" title="3.tmux的三个概念"></a>3.tmux的三个概念</h3><h5 id="1-session"><a href="#1-session" class="headerlink" title="1.session"></a>1.session</h5><p>  一个session就是一个会话，session为tmux的一个会话，一个tmux可以同时开多个session。</p>
-<h5 id="2-windows"><a href="#2-windows" class="headerlink" title="2.windows"></a>2.windows</h5><p>  window为session的子集，一个session可以有有多个window。</p>
-<h5 id="3-pannel"><a href="#3-pannel" class="headerlink" title="3.pannel"></a>3.pannel</h5><p>  一个pannel为一个窗格,为window的子集,一个window可以有多个pannel</p>
-<h3 id="4-tmux的安装使用"><a href="#4-tmux的安装使用" class="headerlink" title="4.tmux的安装使用"></a>4.tmux的安装使用</h3><h5 id="1-tmux的安装"><a href="#1-tmux的安装" class="headerlink" title="1.tmux的安装"></a>1.tmux的安装</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo pacman -S tmux(安装环境为archlinux)<br></code></pre></td></tr></table></figure>
-
-<h5 id="2-tmux配置文件"><a href="#2-tmux配置文件" class="headerlink" title="2.tmux配置文件"></a>2.tmux配置文件</h5><p>tmux系统配置文件为&#x2F;etc&#x2F;tmux.conf,用户配置文件为~&#x2F;.tmux.conf</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#解绑prefix键位</span><br><span class="hljs-built_in">set</span> -g default-terminal <span class="hljs-string">&quot;screen-256color&quot;</span><br>unbind C-b<br>unbind <span class="hljs-string">&#x27;&quot;&#x27;</span><br>unbind <span class="hljs-string">&#x27;%&#x27;</span><br><span class="hljs-comment">#设置prefix键位为C-a</span><br><span class="hljs-built_in">set</span> -g prefix C-a<br><span class="hljs-built_in">bind</span> C-a send-prefix<br><span class="hljs-comment">#设置切分窗格键位为prefix和h以及prefix和v</span><br><span class="hljs-built_in">bind</span> h split-window -h<br><span class="hljs-built_in">bind</span> v split-window -v<br><span class="hljs-comment">#设置C-r为重载tmux配置文件(指定-n为不用使用prefix键位就可以触发)</span><br>bind-key -n C-r source-file ~/.tmux.conf<br><span class="hljs-comment">#设置调整窗格大小键位(指定-r键位为不用每次触发的时候都要使用prefix键位(只要摁一次prefix键位就可以持续出发操作))</span><br><span class="hljs-built_in">bind</span> -r H resize-pane -L 5<br><span class="hljs-built_in">bind</span> -r J resize-pane -D 5<br><span class="hljs-built_in">bind</span> -r K resize-pane -U 5<br><span class="hljs-built_in">bind</span> -r L resize-pane -R 5<br><span class="hljs-comment">#bind k selectp -U</span><br><span class="hljs-comment">#bind h selectp -L</span><br><span class="hljs-comment">#bind j selectp -D</span><br><span class="hljs-comment">#bind l selectp -R</span><br><span class="hljs-comment">#bind -r ^k resizep -U 5</span><br><span class="hljs-comment">#bind -r ^h resizep -L 5</span><br><span class="hljs-comment">#bind -r ^j resizep -D 5</span><br><span class="hljs-comment">#bind -r ^l resizep -R 5</span><br></code></pre></td></tr></table></figure>
-
-<h5 id="3-tmux常用命令"><a href="#3-tmux常用命令" class="headerlink" title="3.tmux常用命令"></a>3.tmux常用命令</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#创建一个tmux会话并在该tmux会话下创建一个窗口并在该窗口下创建一个pannel</span><br>tmux<br><span class="hljs-comment">#查看tmux会话</span><br>tmux list-session<br><span class="hljs-comment">#离开tmux会话</span><br>tmux detach<br><span class="hljs-comment">#进入已经打开的tmux会话</span><br>tmux attach<br><span class="hljs-comment">#Ctrl+b %：划分左右两个窗格。</span><br><span class="hljs-comment">#Ctrl+b &quot;：划分上下两个窗格。</span><br><span class="hljs-comment">#Ctrl+b &lt;arrow key&gt;：光标切换到其他窗格。&lt;arrow key&gt;是指向要切换到的窗格的方向键，比如切换到下方窗格，就按方向键↓。</span><br><span class="hljs-comment">#Ctrl+b ;：光标切换到上一个窗格。</span><br><span class="hljs-comment">#Ctrl+b o：光标切换到下一个窗格。</span><br><span class="hljs-comment">#Ctrl+b &#123;：当前窗格与上一个窗格交换位置。</span><br><span class="hljs-comment">#Ctrl+b &#125;：当前窗格与下一个窗格交换位置。</span><br><span class="hljs-comment">#Ctrl+b Ctrl+o：所有窗格向前移动一个位置，第一个窗格变成最后一个窗格。</span><br><span class="hljs-comment">#Ctrl+b Alt+o：所有窗格向后移动一个位置，最后一个窗格变成第一个窗格。</span><br><span class="hljs-comment">#Ctrl+b x：关闭当前窗格。</span><br><span class="hljs-comment">#Ctrl+b !：将当前窗格拆分为一个独立窗口。</span><br><span class="hljs-comment">#Ctrl+b z：当前窗格全屏显示，再使用一次会变回原来大小。</span><br><span class="hljs-comment">#Ctrl+b Ctrl+&lt;arrow key&gt;：按箭头方向调整窗格大小。</span><br><span class="hljs-comment">#Ctrl+b q：显示窗格编号。</span><br><br><span class="hljs-comment">#切换窗格</span><br><br><span class="hljs-comment"># 光标切换到上方窗格</span><br>tmux select-pane -U<br><br><span class="hljs-comment"># 光标切换到下方窗格</span><br>tmux select-pane -D<br><br><span class="hljs-comment"># 光标切换到左边窗格</span><br>tmux select-pane -L<br><br><span class="hljs-comment"># 光标切换到右边窗格</span><br>tmux select-pane -R<br><br><span class="hljs-comment">#交换窗格</span><br><br><span class="hljs-comment"># 当前窗格上移</span><br>tmux swap-pane -U<br><br><span class="hljs-comment"># 当前窗格下移</span><br>tmux swap-pane -D<br><span class="hljs-comment">#窗口管理</span><br><br><span class="hljs-comment">#创建一个新的窗口</span><br>tmux new-window <span class="hljs-string">&quot;window-name&quot;</span><br><span class="hljs-comment">#切换窗口</span><br>tmux select-window -t &lt;window-number&gt; or &lt;window-name&gt;<br><span class="hljs-comment">#重命名window(修改当前窗口的名称)</span><br>tmux rename-window <span class="hljs-string">&quot;new-name&quot;</span><br></code></pre></td></tr></table></figure>
-
-
+                <h2 id="1-什么是ssh？"><a href="#1-什么是ssh？" class="headerlink" title="1.什么是ssh？"></a>1.什么是ssh？</h2><p>ssh是一种应用层协议，一般用于本地客户端登录到远程服务器进行相关作业，端口是22&#x2F;TCP。</p>
+<h2 id="2-ssh结构"><a href="#2-ssh结构" class="headerlink" title="2.ssh结构"></a>2.ssh结构</h2><ul>
+<li>1.ssh服务器</li>
+<li>2.ssh客户端</li>
+</ul>
+<h2 id="3-ssh客户端认证方式"><a href="#3-ssh客户端认证方式" class="headerlink" title="3.ssh客户端认证方式"></a>3.ssh客户端认证方式</h2><ul>
+<li>1.密码认证</li>
+<li>2.密钥认证<br>基于安全性和便利性考量，我们一般使用密钥认证</li>
+</ul>
+<h2 id="4-ssh相关配置"><a href="#4-ssh相关配置" class="headerlink" title="4.ssh相关配置"></a>4.ssh相关配置</h2><h3 id="1-服务器配置"><a href="#1-服务器配置" class="headerlink" title="1.服务器配置"></a>1.服务器配置</h3><h4 id="1-生成密钥"><a href="#1-生成密钥" class="headerlink" title="1.生成密钥"></a>1.生成密钥</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#生成一对长度为2048的RSA密钥，指定注释为“rocky linux ECS”</span><br>ssh-keygen -t rsa -b 2048 -C <span class="hljs-string">&quot;rocky linux ECS&quot;</span> -f rocky<br><span class="hljs-comment">#-t 为指定密钥算法类型</span><br><span class="hljs-comment">#-b 为密钥的长度一般指定2048足以，</span><br><span class="hljs-comment">#-C 指定密钥的注释</span><br><span class="hljs-comment">#-f 指定生成的密钥文件名称</span><br><br></code></pre></td></tr></table></figure>
+<p>上面这一步将会生成一对RSA密钥，公钥会以.pub为后缀,公钥放在被登录的服务器上，私钥自行留存，被用于以后进行登录服务器时进行身份验证使用。</p>
+<h4 id="2-配置密钥"><a href="#2-配置密钥" class="headerlink" title="2.配置密钥"></a>2.配置密钥</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#将公钥配置在家目录的.ssh目录下</span><br><span class="hljs-built_in">cat</span> id_rsa.pub &gt; <span class="hljs-variable">$HOME</span>/.ssh/authorized_keys<br><span class="hljs-comment">#注意权限</span><br><span class="hljs-comment">#.ssh目录要配置成700权限authorized_keys密钥文件权限要配置成644</span><br></code></pre></td></tr></table></figure>
+<p>将公钥配置在服务器上，并且相关目录的权限要配置正确</p>
+<h4 id="3-其他相关配置"><a href="#3-其他相关配置" class="headerlink" title="3.其他相关配置"></a>3.其他相关配置</h4><p>为了服务器的安全考虑以及其他相关需求，我们一般要对服务器进行其他相关配置，ssh服务器的配置文件为&#x2F;etc&#x2F;ssh&#x2F;sshd_config</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#vim /etc/ssh/sshd_config</span><br>PermitRootlogin <span class="hljs-built_in">yes</span><span class="hljs-comment">#指定是否允许root用户登录,如果一般不使用root用户登录建议关闭</span><br>PasswordAuthentication <span class="hljs-comment">#指定是否允许通过密码认证方式登录,如果已经使用密钥登录建议关闭</span><br>AuthorizedKeyFiles .ssh/authorized_key <span class="hljs-comment">#指定服务器公钥的存放路径，仅在使用密钥认证的情况下有用</span><br></code></pre></td></tr></table></figure>
+<h3 id="2-客户端配置"><a href="#2-客户端配置" class="headerlink" title="2.客户端配置"></a>2.客户端配置</h3><h4 id="1-配置密钥"><a href="#1-配置密钥" class="headerlink" title="1.配置密钥"></a>1.配置密钥</h4><p>将上次生成的密钥对中的私钥放在客户端目录，一般为了方便我们一般会定义一个ssh客户端配置文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">vim <span class="hljs-variable">$HOME</span>/.ssh/config<br>Host armbian<span class="hljs-comment">#取的别名</span><br>        Hostname 192.168.1.254<span class="hljs-comment">#登录的服务器的ip地址</span><br>        Port 22<span class="hljs-comment">#ssh服务开放的端口，一般默认22</span><br>        User root<span class="hljs-comment">#登录的用户名</span><br>        Identityfile ~/.ssh/private_keys/armbian<span class="hljs-comment">#指定密钥的所在地</span><br></code></pre></td></tr></table></figure>
+<p>将私钥放在配置文件指定的目录下面</p>
+<h4 id="2-使用-配置的别名登录服务器"><a href="#2-使用-配置的别名登录服务器" class="headerlink" title="2.使用 配置的别名登录服务器"></a>2.使用 配置的别名登录服务器</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh armbian<br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -310,32 +316,11 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/%E8%BD%AF%E4%BB%B6%E5%92%8C%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/" class="category-chain-item">软件和系统配置</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
   
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8/">#软件配置与使用</a>
+        <a href="/tags/linux%E7%B3%BB%E7%BB%9F%E9%85%8D%E7%BD%AE/">#linux系统配置</a>
       
     </div>
   
@@ -347,8 +332,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>tmux基本使用</div>
-      <div>https://dreamaccount.github.io/2022/04/17/tmux基本使用/</div>
+      <div>ssh配置密钥</div>
+      <div>https://dreamaccount.github.io/2023/02/11/ssh服务相关配置/</div>
     </div>
     <div class="license-meta">
       
@@ -360,7 +345,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年4月17日</div>
+          <div>2023年2月11日</div>
         </div>
       
       
@@ -390,9 +375,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/04/17/I-O%E5%A4%9A%E8%B7%AF%E5%A4%8D%E7%94%A8/" title="I/O多路复用">
+                      <a href="/2023/03/05/docker%E9%95%9C%E5%83%8F%E7%9A%84%E6%9E%84%E5%BB%BA/" title="docker镜像的构建">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">I/O多路复用</span>
+                        <span class="hidden-mobile">docker镜像的构建</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -400,8 +385,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/04/17/socket%E7%BC%96%E7%A8%8B/" title="socket编程">
-                        <span class="hidden-mobile">socket编程</span>
+                      <a href="/2023/02/07/cmake%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" title="cmake基本使用">
+                        <span class="hidden-mobile">cmake基本使用</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
