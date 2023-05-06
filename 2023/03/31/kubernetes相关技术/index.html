@@ -1,0 +1,682 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="404NotFound">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="kubernetes相关技术1.kubernetes的资源对象 1.ReplicationController 2.ReplicationSet 3.Deployment 4.Ingress 5.Secret  1.ReplicationControllerReplication Controller（RC）是一种核心资源对象，用于确保指定数量的Pod副本正在运行。它允许用户定义一个Pod模板，并">
+<meta property="og:type" content="article">
+<meta property="og:title" content="kubernetes相关技术">
+<meta property="og:url" content="https://dreamaccount.github.io/2023/03/31/kubernetes%E7%9B%B8%E5%85%B3%E6%8A%80%E6%9C%AF/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="kubernetes相关技术1.kubernetes的资源对象 1.ReplicationController 2.ReplicationSet 3.Deployment 4.Ingress 5.Secret  1.ReplicationControllerReplication Controller（RC）是一种核心资源对象，用于确保指定数量的Pod副本正在运行。它允许用户定义一个Pod模板，并">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-31T03:38:01.000Z">
+<meta property="article:modified_time" content="2023-03-31T08:46:13.338Z">
+<meta property="article:author" content="404NotFound">
+<meta property="article:tag" content="云原生">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>kubernetes相关技术 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"dreamaccount.github.io","root":"/","version":"1.9.2","typing":{"enable":true,"typeSpeed":50,"cursorChar":"|","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              &nbsp;<i class="iconfont icon-search"></i>&nbsp;
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="kubernetes相关技术"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-31 11:38" pubdate>
+          2023年3月31日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          26 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">kubernetes相关技术</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="kubernetes相关技术"><a href="#kubernetes相关技术" class="headerlink" title="kubernetes相关技术"></a>kubernetes相关技术</h1><h3 id="1-kubernetes的资源对象"><a href="#1-kubernetes的资源对象" class="headerlink" title="1.kubernetes的资源对象"></a>1.kubernetes的资源对象</h3><ul>
+<li>1.ReplicationController</li>
+<li>2.ReplicationSet</li>
+<li>3.Deployment</li>
+<li>4.Ingress</li>
+<li>5.Secret</li>
+</ul>
+<h5 id="1-ReplicationController"><a href="#1-ReplicationController" class="headerlink" title="1.ReplicationController"></a>1.ReplicationController</h5><p>Replication Controller（RC）是一种核心资源对象，用于确保指定数量的Pod副本正在运行。它允许用户定义一个Pod模板，并创建多个相同的Pod副本，以便在集群中部署和管理应用程序容器。</p>
+<p>具体来说，Replication Controller 可以确保满足以下条件：<br>1.运行指定数量的 Pod 副本：用户可以通过 RC 对象指定需要创建和维护的Pod副本数。</p>
+<p>2.重启崩溃的 Pod：当某个 Pod 崩溃或被删除时，RC会自动创建一个新的 Pod 副本来代替它。</p>
+<p>3.控制 Pod 的生命周期：用户可以使用 RC 来进行滚动更新、扩容&#x2F;缩容等操作，而无需手动管理每个 Pod 的状态。<br>Replication Controller已经不被推荐使用，而是使用ReplicationSet或者Deployment进行代替</p>
+<h5 id="2-ReplicationSet"><a href="#2-ReplicationSet" class="headerlink" title="2.ReplicationSet"></a>2.ReplicationSet</h5><p>ReplicaSet（RS）是一种资源对象，用于确保指定数量的 Pod 副本正在运行。类似于 Replication Controller（RC），但 RS 具有更多高级的功能。</p>
+<p>1.与 RC 不同的是，RS 可以使用 Label Selector 来选择要管理的 Pod 子集，从而允许用户根据其需要更精细地控制 Pod 的创建和删除。例如，用户可以定义一个 Label Selector 来选择特定类型的 Pod，并在满足一些特定条件时自动扩展或缩小该 Pod 集合。</p>
+<p>2.此外，RS 还支持滚动升级，即在更新 Pod 模板时逐步替换现有 Pod 副本，以实现应用程序的无缝升级，这在 RC 中是不支持的。</p>
+<p>3.总之，ReplicaSet 是 Kubernetes 中一种关键的资源对象，用于管理 Pod 的副本集。它提供了比 RC 更高级的功能，如 Label Selector、滚动升级等，使得管理和部署应用程序变得更加灵活和可靠。</p>
+<h5 id="3-Deployment"><a href="#3-Deployment" class="headerlink" title="3.Deployment"></a>3.Deployment</h5><p>1.Deployment 是一种资源对象，用于管理 Pod 副本集的创建、更新和删除等操作。Deployment 通常建立在 ReplicaSet（RS）之上，并通过动态地创建、更新和删除 RS 对象来实现应用程序的无缝升级和回滚。</p>
+<p>2.Deployment 允许用户指定一个 Pod 模板，并定义需要创建和维护的 Pod 副本数。然后，当需要更新应用程序时，用户可以修改 Pod 模板，并通过 Deployment 对象进行滚动升级，以逐步替换现有 Pod 副本。如果更新失败或出现问题，Deployment 还支持回滚操作，以自动恢复到先前的稳定状态。</p>
+<p>3.此外，Deployment 还支持暂停&#x2F;恢复操作，允许用户在更新过程中暂停所有 Pod 的创建和删除，以便进行一些必要的检查和修复。</p>
+<h5 id="4-Service"><a href="#4-Service" class="headerlink" title="4.Service"></a>4.Service</h5><p>具体来说，Service 可以帮助用户实现以下功能：</p>
+<p>1.发现和路由：通过 Service 对象，用户可以为一组 Pod 创建一个稳定的 IP 和端口，并使用该 IP 和端口将请求路由到集群中的任何一个 Pod 上。</p>
+<p>2.负载均衡：当多个 Pod 共享同一个 Service 时，Kubernetes 会自动为这些 Pod 进行负载均衡，从而分摊请求流量并提高系统的可靠性和性能。</p>
+<p>3.健康检查：Service 还支持对后端 Pod 的健康状态进行检查，并在发现故障时自动调整路由策略，从而保证应用程序的可用性和稳定性。</p>
+<h5 id="5-Secret"><a href="#5-Secret" class="headerlink" title="5.Secret"></a>5.Secret</h5><p>Secret 是一种资源对象，用于存储敏感数据，例如密码、API 密钥、证书等。它提供了一种安全地将这些敏感数据传递给容器的方法，同时也可以确保这些数据在传输和存储过程中得到加密和保护。</p>
+<p>具体来说，Secret 可以用于以下场景：</p>
+<p>1.存储密码和机密数据：例如数据库密码、SSH 密钥等。</p>
+<p>2.存储 TLS 证书：例如 HTTPS 网站所需的证书和私钥。</p>
+<p>3.存储 API 认证密钥：例如 OAuth 鉴权所需的令牌信息等。</p>
+<p>在使用 Secret 时，用户需要先创建一个 Secret 对象，并将需要存储的数据放到其中。然后，可以通过 Pod 的环境变量、卷挂载等方式，将这些数据传递给容器。Kubernetes 会自动将 Secret 数据转换为 Base64 编码格式，并在传输和存储过程中对其进行加密和保护。</p>
+<h5 id="6-Ingress"><a href="#6-Ingress" class="headerlink" title="6.Ingress"></a>6.Ingress</h5><p>Ingress 是一种资源对象，用于管理对集群中 Service 的 HTTP&#x2F;HTTPS 访问，并允许用户使用类似于 Nginx 的路由规则将流量路由到不同的服务或后端 Pod 上。</p>
+<p>具体来说，Ingress 可以实现以下功能：</p>
+<p>1.路由：使用 Ingress 规则，将入站请求路由到指定的 Service 或后端 Pod 上。</p>
+<p>2.HTTPS 支持：通过定义 TLS 证书和私钥，Ingress 可以实现终止和解密传入的 HTTPS 连接，并在转发请求时重新加密。</p>
+<p>3.负载均衡：当多个 Pod 共享同一个 Ingress 时，Kubernetes 会自动为这些 Pod 进行负载均衡，从而分摊请求流量并提高系统的可靠性和性能。</p>
+<p>4.应用程序层通信：可以使用 Ingress 控制器实现应用程序层的通信，例如 WebSocket、HTTP&#x2F;2 等。</p>
+<p>注意，Ingress本身并不提供负载均衡功能，只是简单的将各个匹配规则的流量转发到各个Service，虽然Ingress会有负载均衡算法，但是这些负载均衡算法是告诉Service的，实际的负载均衡是Service来做的</p>
+<h5 id="5-其他技术细节"><a href="#5-其他技术细节" class="headerlink" title="5.其他技术细节"></a>5.其他技术细节</h5><p>1.Flannel<br>Flannel是Kubernetes中一种常用的网络插件，用于为集群中的Pod提供网络互联。它使用了一种名为VXLAN（Virtual Extensible LAN）的技术来创建覆盖整个Kubernetes集群的虚拟网络。</p>
+<p>具体来说，Flannel使用以下方式工作：</p>
+<p>1.初始化：当Flannel代理节点启动时，它会为每个节点分配一个唯一的、未使用的子网(CIDR)地址段，通过etcd存储这些地址段信息，并将其称为“网络配置”。</p>
+<p>2.分配IP地址：当需要为一个新的Pod分配IP地址时，Flannel会从网络配置中选择一个可用的子网，然后在该子网中为该Pod分配一个IP地址。Flannel会确保所选子网中的任何其他Pod都不会使用相同的IP地址。</p>
+<p>3.创建网络隧道：为了将不同节点上的Pod连接起来，Flannel会创建一组网络隧道。具体来说，它会在每个节点上创建一个虚拟网络接口vxlan0，并将其绑定到一个物理网络接口（如eth0）。然后，Flannel会使用VXLAN技术，在不同节点之间创建一个覆盖整个Kubernetes集群的虚拟网络。<br>4.数据传输：当两个Pod需要进行通信时，它们会像单个计算机内部的进程一样通信。数据包被发送到本地的虚拟网络接口vxlan0，并通过创建的隧道传输到目标节点上的vxlan0接口。然后，数据包被路由到目标Pod。</p>
+<p>总之，Flannel使用VXLAN技术在整个Kubernetes集群中创建了一个覆盖整个集群的虚拟网络，为Pod提供了互联和通信能力。它在每个节点上创建了一个虚拟网络接口vxlan0，并使用隧道将网络数据包从一个节点传输到另一个节点。通过这种方式，Flannel可以为Kubernetes集群中的Pod提供高效、可靠的网络互联服务。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/">#云原生</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>kubernetes相关技术</div>
+      <div>https://dreamaccount.github.io/2023/03/31/kubernetes相关技术/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>404NotFound</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月31日</div>
+        </div>
+      
+      
+      <div class="license-meta-item">
+        <div>许可协议</div>
+        <div>
+          
+            
+            
+              <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+              <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                <i class="iconfont icon-by"></i>
+              </span>
+              </a>
+            
+          
+        </div>
+      </div>
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/03/31/cifs%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F%E4%BB%8Ewindows%E6%8C%82%E8%BD%BD%E5%88%B0linux/" title="cifs文件系统从windows挂载到linux">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">cifs文件系统从windows挂载到linux</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/03/30/kubernetes%E9%9B%86%E7%BE%A4%E9%83%A8%E7%BD%B2/" title="kubernetes集群部署">
+                        <span class="hidden-mobile">kubernetes集群部署</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  <article id="comments" lazyload>
+    
+
+  </article>
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="busuanzi_container_site_pv" style="display: none">
+        总访问量 
+        <span id="busuanzi_value_site_pv"></span>
+         次
+      </span>
+    
+    
+      <span id="busuanzi_container_site_uv" style="display: none">
+        总访客数 
+        <span id="busuanzi_value_site_uv"></span>
+         人
+      </span>
+    
+    
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      headingSelector : CONFIG.toc.headingSelector || 'h1,h2,h3,h4,h5,h6',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      collapseDepth   : CONFIG.toc.collapseDepth || 0,
+      scrollSmooth    : true,
+      headingsOffset  : -boardTop
+    });
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.10/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
