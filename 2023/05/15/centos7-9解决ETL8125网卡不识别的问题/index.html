@@ -16,24 +16,24 @@
   <meta name="author" content="404NotFound">
   <meta name="keywords" content="">
   
-    <meta name="description" content="ads文件基本概念:NTFS交换数据流（Alternate Data Streams，简称ADS）是NTFS磁盘格式的一个特性。在NTFS文件系统下，每个文件都可以存在多个数据流，意思是除了主文件流之外还可以有许多非主文件流寄宿在主文件流中，这些利用NTFS数据流寄宿并隐藏在系统中的非主文件流我们称之为ADS流文件。虽然我们无法看到ADS流文件，但它们却是真实存在。下面通过一个实例来具体展现ADS">
+    <meta name="description" content="1.获取网卡驱动源码点击跳转到realtek官网下载页面 2.升级内核(可选)不确定这个网卡依赖还是不依赖内核，建议升级内核版本 2.1 检查是否安装ELRepo1234yum  --disablerepo&#x3D;&quot;*&quot;  --enablerepo&#x3D;&quot;elrepo-kernel&quot;  list  available已加载插件：fastestmirrorError g">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ads文件">
-<meta property="og:url" content="https://dreamaccount.github.io/2022/08/13/ads%E6%96%87%E4%BB%B6/index.html">
+<meta property="og:title" content="centos7.9解决RTL8125网卡不识别的问题">
+<meta property="og:url" content="https://dreamaccount.github.io/2023/05/15/centos7-9%E8%A7%A3%E5%86%B3ETL8125%E7%BD%91%E5%8D%A1%E4%B8%8D%E8%AF%86%E5%88%AB%E7%9A%84%E9%97%AE%E9%A2%98/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="ads文件基本概念:NTFS交换数据流（Alternate Data Streams，简称ADS）是NTFS磁盘格式的一个特性。在NTFS文件系统下，每个文件都可以存在多个数据流，意思是除了主文件流之外还可以有许多非主文件流寄宿在主文件流中，这些利用NTFS数据流寄宿并隐藏在系统中的非主文件流我们称之为ADS流文件。虽然我们无法看到ADS流文件，但它们却是真实存在。下面通过一个实例来具体展现ADS">
+<meta property="og:description" content="1.获取网卡驱动源码点击跳转到realtek官网下载页面 2.升级内核(可选)不确定这个网卡依赖还是不依赖内核，建议升级内核版本 2.1 检查是否安装ELRepo1234yum  --disablerepo&#x3D;&quot;*&quot;  --enablerepo&#x3D;&quot;elrepo-kernel&quot;  list  available已加载插件：fastestmirrorError g">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-08-13T04:00:02.000Z">
-<meta property="article:modified_time" content="2022-09-21T12:13:06.000Z">
+<meta property="article:published_time" content="2023-05-15T10:02:20.000Z">
+<meta property="article:modified_time" content="2023-05-16T02:46:22.121Z">
 <meta property="article:author" content="404NotFound">
-<meta property="article:tag" content="计算机基础">
+<meta property="article:tag" content="软件配置">
 <meta name="twitter:card" content="summary_large_image">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>ads文件 - Hexo</title>
+  <title>centos7.9解决RTL8125网卡不识别的问题 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -213,7 +213,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="ads文件"></span>
+            <span id="subtitle" data-typed-text="centos7.9解决RTL8125网卡不识别的问题"></span>
           
         </div>
 
@@ -224,8 +224,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-08-13 12:00" pubdate>
-          2022年8月13日 中午
+        <time datetime="2023-05-15 18:02" pubdate>
+          2023年5月15日 晚上
         </time>
       </span>
     
@@ -236,7 +236,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          594 字
+          3.3k 字
         
       </span>
     
@@ -247,7 +247,7 @@
         
         
         
-          5 分钟
+          28 分钟
         
       </span>
     
@@ -285,20 +285,27 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">ads文件</h1>
+            <h1 style="display: none">centos7.9解决RTL8125网卡不识别的问题</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="ads文件"><a href="#ads文件" class="headerlink" title="ads文件"></a>ads文件</h1><h3 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念:"></a>基本概念:</h3><p>NTFS交换数据流（Alternate Data Streams，简称ADS）是NTFS磁盘格式的一个特性。在<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/NTFS%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/2152677">NTFS文件系统</a>下，每个文件都可以存在多个数据流，意思是除了主文件流之外还可以有许多非主文件流寄宿在主文件流中，这些利用NTFS数据流寄宿并隐藏在系统中的非主文件流我们称之为ADS流文件。虽然我们无法看到ADS流文件，但它们却是真实存在。下面通过一个实例来具体展现ADS流文件的创建、关联及隐藏过程。</p>
-<h3 id="利用方法"><a href="#利用方法" class="headerlink" title="利用方法"></a>利用方法</h3><p>在ntfs文件系统分区创建ads文件流有两种方式,一个是指在指定宿主文件的情况下创建ads文件流,二是创建一个单独的ads文件流,ads文件不能直接查看到,可以使用dir &#x2F;r命令查看,后缀带有$DATA的文件就是ads文件,ads文件不能直接使用type进行查看,可以使用notepad进行打开编辑</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs powershell"><span class="hljs-built_in">echo</span> hello &gt; hello.txt:ads.txt <span class="hljs-comment">#以文件ads.txt为宿主文件,创建了ads文件ads.txt</span><br><span class="hljs-built_in">echo</span> hello &gt; :ads.txt <span class="hljs-comment">#创建一个没有宿主文件的单独ads文件(依赖于所在目录),(如果该文件在根分区目录下,只能借助第三方工具将其删除)</span><br></code></pre></td></tr></table></figure>
+                <h3 id="1-获取网卡驱动源码"><a href="#1-获取网卡驱动源码" class="headerlink" title="1.获取网卡驱动源码"></a>1.获取网卡驱动源码</h3><p><a target="_blank" rel="noopener" href="https://www.realtek.com/zh/component/zoo/category/network-interface-controllers-10-100-1000m-gigabit-ethernet-pci-express-software">点击跳转到realtek官网下载页面</a></p>
+<h3 id="2-升级内核-可选"><a href="#2-升级内核-可选" class="headerlink" title="2.升级内核(可选)"></a>2.升级内核(可选)</h3><p>不确定这个网卡依赖还是不依赖内核，建议升级内核版本</p>
+<h5 id="2-1-检查是否安装ELRepo"><a href="#2-1-检查是否安装ELRepo" class="headerlink" title="2.1 检查是否安装ELRepo"></a>2.1 检查是否安装ELRepo</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">yum  --disablerepo=<span class="hljs-string">&quot;*&quot;</span>  --enablerepo=<span class="hljs-string">&quot;elrepo-kernel&quot;</span>  list  available<br>已加载插件：fastestmirror<br>Error getting repository data <span class="hljs-keyword">for</span> elrepo-kernel, repository not found<br><span class="hljs-comment"># 看到error说明没有安装ELRepo</span><br></code></pre></td></tr></table></figure>
+<h5 id="2-2-升级安装ELRepo"><a href="#2-2-升级安装ELRepo" class="headerlink" title="2.2 升级安装ELRepo"></a>2.2 升级安装ELRepo</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">yum -y update<br><span class="hljs-comment">#载入ELRepo仓库的公共密钥</span><br>rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org<br><br>yum -y update<br><span class="hljs-comment">#载入ELRepo仓库的公共密钥</span><br>rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org<br><br></code></pre></td></tr></table></figure>
+<h5 id="2-3-查看可用安装包"><a href="#2-3-查看可用安装包" class="headerlink" title="2.3.查看可用安装包"></a>2.3.查看可用安装包</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#查看可用的系统内核包</span><br>yum  --disablerepo=<span class="hljs-string">&quot;*&quot;</span>  --enablerepo=<span class="hljs-string">&quot;elrepo-kernel&quot;</span>  list  available<br><br><span class="hljs-comment"># 长期维护版本为lt，最新主线稳定版为ml</span><br></code></pre></td></tr></table></figure>
+<h5 id="2-4-手动下载"><a href="#2-4-手动下载" class="headerlink" title="2.4 手动下载"></a>2.4 手动下载</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget http://linux-mirrors.fnal.gov/linux/elrepo/archive/kernel/el7/x86_64/RPMS/kernel-lt-headers-5.4.242-1.el7.elrepo.x86_64.rpm<br>wget http://linux-mirrors.fnal.gov/linux/elrepo/archive/kernel/el7/x86_64/RPMS/kernel-lt-tools-libs-5.4.242-1.el7.elrepo.x86_64.rpm<br>wget http://linux-mirrors.fnal.gov/linux/elrepo/archive/kernel/el7/x86_64/RPMS/kernel-lt-devel-5.4.242-1.el7.elrepo.x86_64.rpm<br>wget http://linux-mirrors.fnal.gov/linux/elrepo/archive/kernel/el7/x86_64/RPMS/kernel-lt-tools-5.4.242-1.el7.elrepo.x86_64.rpm<br>wget http://linux-mirrors.fnal.gov/linux/elrepo/archive/kernel/el7/x86_64/RPMS/kernel-lt-tools-5.4.242-1.el7.elrepo.x86_64.rpm<br><span class="hljs-comment">#安装完成之后重新生成grub配置文件</span><br><span class="hljs-comment">#同样也可以删除掉旧的内核</span><br>rpm -qa | grep kernel<br><span class="hljs-comment">#然后移除相关的旧的内核包</span><br>grub2-mkconfig -o /boot/grub2/grub.cfg<br></code></pre></td></tr></table></figure>
+<h5 id="2-5-查看内核启动顺序"><a href="#2-5-查看内核启动顺序" class="headerlink" title="2.5 查看内核启动顺序"></a>2.5 查看内核启动顺序</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">awk -F\<span class="hljs-string">&#x27; &#x27;</span><span class="hljs-variable">$1</span>==<span class="hljs-string">&quot;menuentry &quot;</span> &#123;<span class="hljs-built_in">print</span> i++ <span class="hljs-string">&quot; : &quot;</span> <span class="hljs-variable">$2</span>&#125;<span class="hljs-string">&#x27; /boot/grub2/grub.cfg</span><br><span class="hljs-string"></span><br><span class="hljs-string">0 : CentOS Linux (5.4.108-1.el7.elrepo.x86_64) 7 (Core)</span><br><span class="hljs-string">1 : CentOS Linux (3.10.0-1160.11.1.el7.x86_64) 7 (Core)</span><br><span class="hljs-string">2 : CentOS Linux (3.10.0-1160.el7.x86_64) 7 (Core)</span><br><span class="hljs-string">3 : CentOS Linux (0-rescue-20210128140208453518997635111697) 7 (Core)</span><br></code></pre></td></tr></table></figure>
+<h5 id="2-6-安装辅助工具"><a href="#2-6-安装辅助工具" class="headerlink" title="2.6 安装辅助工具"></a>2.6 安装辅助工具</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo yum install -y grub2-pc<br></code></pre></td></tr></table></figure>
+<h5 id="2-7-设置内核启动顺序"><a href="#2-7-设置内核启动顺序" class="headerlink" title="2.7 设置内核启动顺序"></a>2.7 设置内核启动顺序</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo grub2-set-default 0<br></code></pre></td></tr></table></figure>
+<h5 id="2-8-重新生成grub配置文件"><a href="#2-8-重新生成grub配置文件" class="headerlink" title="2.8 重新生成grub配置文件"></a>2.8 重新生成grub配置文件</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo grub2-mkconfig -o /boot/grub2/grub.cfg<br></code></pre></td></tr></table></figure>
+<h5 id="2-9-重启"><a href="#2-9-重启" class="headerlink" title="2.9 重启"></a>2.9 重启</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo reboot<br></code></pre></td></tr></table></figure>
+<h3 id="3-更换gcc"><a href="#3-更换gcc" class="headerlink" title="3.更换gcc"></a>3.更换gcc</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">wget https://mirrors.ustc.edu.cn/centos/7.9.2009/sclo/x86_64/rh/Packages/d/devtoolset-8-binutils-2.30-55.el7.1.x86_64.rpm<br>wget https://mirrors.ustc.edu.cn/centos/7.9.2009/sclo/x86_64/rh/Packages/d/devtoolset-8-gcc-8.3.1-3.2.el7.x86_64.rpm<br>wget https://mirrors.ustc.edu.cn/centos/7.9.2009/sclo/x86_64/rh/Packages/d/devtoolset-8-gcc-c%2B%2B-8.3.1-3.2.el7.x86_64.rpm<br>wget https://mirrors.ustc.edu.cn/centos/7.9.2009/sclo/x86_64/rh/Packages/d/devtoolset-8-gcc-gdb-plugin-8.3.1-3.2.el7.x86_64.rpm<br>wget https://mirrors.ustc.edu.cn/centos/7.9.2009/sclo/x86_64/rh/Packages/d/devtoolset-8-gcc-gfortran-8.3.1-3.2.el7.x86_64.rpm<br>wget https://mirrors.ustc.edu.cn/centos/7.9.2009/sclo/x86_64/rh/Packages/d/devtoolset-8-gcc-plugin-devel-8.3.1-3.2.el7.x86_64.rpm<br>wget https://mirrors.ustc.edu.cn/centos/7.9.2009/sclo/x86_64/rh/Packages/d/devtoolset-8-libquadmath-devel-8.3.1-3.2.el7.x86_64.rpm<br>wget https://mirrors.ustc.edu.cn/centos/7.9.2009/sclo/x86_64/rh/Packages/d/devtoolset-8-libstdc%2B%2B-devel-8.3.1-3.2.el7.x86_64.rpm<br>wget https://mirrors.ustc.edu.cn/centos/7.9.2009/sclo/x86_64/rh/Packages/d/devtoolset-8-runtime-8.1-1.el7.x86_64.rpm<br></code></pre></td></tr></table></figure>
+<p>将所有下载好的软件包安装完毕<br>激活toolchain</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> /opt/rh/devtoolset-8 <br>./enable<br><span class="hljs-comment">#直接替换旧的gcc</span><br><span class="hljs-comment">#旧的gcc是运行的 /usr/bin/gcc，所以将该目录下的gcc/g++替换为刚安装的新版本gcc软连接，免得每次enable</span><br><span class="hljs-built_in">mv</span> /usr/bin/gcc /usr/bin/gcc-4.8.5 <br><span class="hljs-built_in">ln</span> -s /opt/rh/devtoolset-8/root/bin/gcc /usr/bin/gcc <br><span class="hljs-built_in">mv</span> /usr/bin/g++ /usr/bin/g++-4.8.5 <br><span class="hljs-built_in">ln</span> -s /opt/rh/devtoolset-8/root/bin/g++ /usr/bin/g++ <br>查看gcc版本是否已经升级成功<br>gcc --version <br>g++ --version<br></code></pre></td></tr></table></figure>
+<h3 id="4-开始编译第一步下载驱动源码，并安装"><a href="#4-开始编译第一步下载驱动源码，并安装" class="headerlink" title="4.开始编译第一步下载驱动源码，并安装"></a>4.开始编译第一步下载驱动源码，并安装</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cd</span> r8125-9.011.01 <br>./autorun.sh<br></code></pre></td></tr></table></figure>
 
-<p>可以通过使用ads文件隐藏木马,起到免杀的作用</p>
-<h3 id="移除ads文件的方法"><a href="#移除ads文件的方法" class="headerlink" title="移除ads文件的方法"></a>移除ads文件的方法</h3><p>1.删除顶层目录</p>
-<p>2.删除宿主文件</p>
-<p>3.将文件移动到非ntfs分区</p>
-<p>4.借助第三方软件将ads文件删除</p>
 
                 
               </div>
@@ -311,7 +318,7 @@
     <div class="post-meta">
       <i class="iconfont icon-tags"></i>
       
-        <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">#计算机基础</a>
+        <a href="/tags/%E8%BD%AF%E4%BB%B6%E9%85%8D%E7%BD%AE/">#软件配置</a>
       
     </div>
   
@@ -323,8 +330,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>ads文件</div>
-      <div>https://dreamaccount.github.io/2022/08/13/ads文件/</div>
+      <div>centos7.9解决RTL8125网卡不识别的问题</div>
+      <div>https://dreamaccount.github.io/2023/05/15/centos7-9解决ETL8125网卡不识别的问题/</div>
     </div>
     <div class="license-meta">
       
@@ -336,7 +343,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年8月13日</div>
+          <div>2023年5月15日</div>
         </div>
       
       
@@ -366,18 +373,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/08/23/%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/" title="负载均衡解决方案">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">负载均衡解决方案</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/08/11/iproute2%E7%9A%84%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/" title="iproute2的基本使用">
-                        <span class="hidden-mobile">iproute2的基本使用</span>
+                      <a href="/2023/05/15/centos7%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9/" title="centos7磁盘扩容">
+                        <span class="hidden-mobile">centos7磁盘扩容</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
