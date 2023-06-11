@@ -242,6 +242,67 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2022/04/17/CVE-2022-0847%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%8F%8A%E5%A4%8D%E7%8E%B0/" target="_self">
+          CVE-2022-0847漏洞原理及复现
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/04/17/CVE-2022-0847%E6%BC%8F%E6%B4%9E%E5%8E%9F%E7%90%86%E5%8F%8A%E5%A4%8D%E7%8E%B0/" target="_self">
+        <div>
+          CVE-2022-0847漏洞原理及复现1.漏洞描述由于内核中copy_page_to_iter_pipe和push_pipe函数的正确初始化存在缺陷,可能存在旧值,攻击者可以利用此漏洞对任意只读文件缓存页进行覆盖,缓存会在系统内保留一段时间,在这段时间内系统的其他进程访问到的该文件内容都是攻击者修改过的文件缓存区的内容,从而将普通用户权限提升至root权限 2.受影响的linux内核版本15.8
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-04-17 21:48" pubdate>
+              2022-04-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/" class="category-chain-item">网络安全</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/%E6%BC%8F%E6%B4%9E%E5%A4%8D%E7%8E%B0/">#漏洞复现</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/04/17/docker%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" target="_self">
           docker学习笔记
         </a>
@@ -658,6 +719,39 @@
               <a href="/tags/linux%E5%8F%91%E8%A1%8C%E7%89%88%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8/">#linux发行版安装与使用</a>
             
           </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/1970/01/01/centos/" target="_self">
+          
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/1970/01/01/centos/" target="_self">
+        <div>
+          修复boot分区  1.centos默认的grub安装命令为grub2-install不是grub-install 2.hexdump命令所在的软件包为linux-utils1sudo yum install -y linux-utils 解压initrd.img1xz -dc initrd.img | cpio -id
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="1970-01-01 08:00" pubdate>
+              1970-01-01
+            </time>
+          </div>
+        
+        
         
       </div>
     </article>
